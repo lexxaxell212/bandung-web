@@ -1,0 +1,227 @@
+/* Include styling:
+root
+body
+typhography
+button
+span
+container
+*/
+
+/* Material Blue + Minimalis*/
+:root {
+  --radius: 12px;
+  --box-shadow: 0 2px 15px 0 rgb(0 0 0 / 0.2);
+  --box-shadow-l: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+
+  --bg-light: linear-gradient(
+    135deg,
+    #dbeafe 0%,
+    #eff6ff 100%
+  ); /* very light blue */
+  --c-dark: #04051b; /* very dark blue */
+  --bg-dark: #04051b; /* very dark blue */
+  --c-light: #fff;
+
+  --bg-primer: linear-gradient(135deg, #1e40af, #2563eb); /* blue grads */
+  --bg-second: #dbeafe; /* blue 100 */
+  --bg-white: #fff;
+  --bg-yellow: linear-gradient(135deg, #f2c001, #f5e5a8); /* yellow */
+
+  --c-primer: linear-gradient(
+    135deg,
+    #1e40af,
+    #2563eb,
+    #1e3a8a
+  ); /* blue grads text*/
+  --c-second: #1e3a8a; /* blue 900 */
+}
+
+/* Enter dark mode */
+[data-dark] {
+  --bg-light: #04051b; /* ganti ke --bg-dark */
+  --c-dark: #fff;
+}
+
+body {
+  font-family: "Oxygen", sans-serif;
+  background: var(--bg-light);
+  color: var(--c-dark);
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.3s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Typhgraphy */
+
+.oxygen-light {
+  font-family: "Oxygen", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.oxygen-regular {
+  font-family: "Oxygen", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.oxygen-bold {
+  font-family: "Oxygen", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.c-primer {
+  background: var(--c-primer);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 900;
+  line-height: 1.2;
+  background: var(--c-primer);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+h4 {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+h5 {
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+h6 {
+  font-size: clamp(1rem, 1.75vw, 1.125rem);
+  font-weight: 200;
+  line-height: 1.5;
+}
+
+p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--c-dark);
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--c-dark);
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.025em;
+}
+
+.cool-title-h1 {
+  color: var(--c-dark);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* Buttons Material */
+
+.btn-material {
+  border-radius: 50px;
+  font-weight: 500;
+  text-transform: none;
+  box-shadow: var(--box-shadow);
+  border: none;
+  padding: 0.75rem 2rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary-material {
+  background: var(--bg-primer);
+  border-color: var(--bg-second);
+}
+
+.btn-primary-material:hover {
+  background: var(--bg-primer);
+  border-color: var(--bg-primer);
+  box-shadow: var(--box-shadow);
+  transform: translateY(-2px);
+}
+
+.btn-outline-primary-material {
+  color: var(--bg-primer);
+  border-color: var(--bg-primer);
+  background: transparent;
+}
+
+.btn-outline-primary-material:hover {
+  background: var(--bg-primer);
+  color: white;
+  box-shadow: var(--box-shadow);
+}
+
+/* CTA Button */
+
+.btn-cta {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  color: var(--primary) !important;
+  font-weight: 700;
+  padding: 1.2rem 2.5rem;
+  border-radius: 50px;
+  border: none;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.btn-cta i {
+  margin-right: 0.5rem;
+}
+
+.no-outline-button {
+  background: transparent !important;
+  color: white;
+}
+
+/* Grid menu */
+
+.menu-container {
+  padding: 80px 30px;
+  margin: 0 auto;
+  max-width: 1080px;
+}
+
+.page-container {
+  padding: 100px 30px;
+  margin: 0 auto;
+  max-width: 1080px;
+}

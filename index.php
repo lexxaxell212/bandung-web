@@ -1,5 +1,5 @@
 <?php 
-$page_title = "Halaman Awal - Myapp";
+$page_title = "Halaman Awal - Done";
 require_once 'config/config.php';
 require_once 'includes/header.php'; 
 ?>

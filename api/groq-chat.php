@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // GANTI DENGAN API KEY ANDA!
-$API_KEY = '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'; // 47 characters
+$API_KEY = ' '; // 47 characters
 
 $input = json_decode(file_get_contents('php://input'), true);
 $message = trim($input['message'] ?? '');

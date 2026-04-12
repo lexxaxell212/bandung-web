@@ -13,17 +13,16 @@ container
   --box-shadow: 0 2px 15px 0 rgb(0 0 0 / 0.2);
   --box-shadow-l: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 
-  --bg-light: linear-gradient(
-    135deg,
-    #dbeafe 0%,
-    #eff6ff 100%
-  ); /* very light blue */
+  --bg-light: #fff;
   --c-dark: #04051b; /* very dark blue */
   --bg-dark: #04051b; /* very dark blue */
   --c-light: #fff;
 
   --bg-primer: linear-gradient(135deg, #1e40af, #2563eb); /* blue grads */
-  --bg-second: #dbeafe; /* blue 100 */
+  --bg-second: linear-gradient(
+    135deg,
+    #dbeafe 0%,
+    #eff6ff 100%);
   --bg-white: #fff;
   --bg-yellow: linear-gradient(135deg, #f2c001, #f5e5a8); /* yellow */
 
@@ -126,8 +125,9 @@ font-family: 'graphik700';
 
 h2 {
 font-family: 'graphik700';
-  font-size: clamp(1.75rem, 3.5vw, 2rem);
-  line-height: 1.25;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  line-height: 1.2;
+  color: var(--c-dark);
 }
 
 h3 {

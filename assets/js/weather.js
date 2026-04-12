@@ -1,4 +1,4 @@
-const API_KEY = "644ea286e838fdfb986ce25571b81c95";
+const API_KEY = " ";
 async function u() {
   try {
     const r = await fetch(
@@ -7,12 +7,12 @@ async function u() {
       d = await r.json();
     document.getElementById("w").innerHTML = `<div class="icon">${g(
       d.weather[0].main
-    )}</div><div class="temp">${Math.round(
+    )}</div><div class="city"><i class="fa-solid fa-location-dot city-icon"></i>${
+      d.name
+    }</div><div class="temp">${Math.round(
       d.main.temp
     )}°C</div><div class="cond">${
       d.weather[0].description
-    }</div><div class="city"><i class="fa-solid fa-location-dot" style="margin:2px"></i>${
-      d.name
     }</div><div class="stats"><div class="stat">${
       d.main.humidity
     }%<br><small>Humidity</small></div><div class="stat">${Math.round(

@@ -226,7 +226,3 @@ require_once ROOT_PATH . 'config/config.php';
 </body>
 
 </html>
-    
-    
-    
-    

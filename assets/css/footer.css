@@ -1,23 +1,22 @@
 /* FOOTER STYLES */
-.footer-custom {
+.footer {
   background: var(--bg-dark);
-  color: var(--c-light);
-  padding: 4rem 0 2rem;
+  padding: 2rem 0 2rem;
   position: relative;
   margin-top: auto;
 }
 
-.footer-custom::before {
+.footer::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 5px;
-  background: linear-gradient(90deg, #1976d2 0%, #03dac6 50%, #1976d2 100%);
+  background: linear-gradient(90deg, #1e40af 0%, #f2c001 50%, #1e40af 100%);
 }
 
-.footer-custom h5 {
+.footer h5 {
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -26,7 +25,7 @@
   color: white;
 }
 
-.footer-custom h5::after {
+.footer h5::after {
   content: "";
   position: absolute;
   bottom: -10px;
@@ -35,6 +34,11 @@
   height: 3px;
   background: linear-gradient(90deg, #1976d2, #bbdefb);
   border-radius: 2px;
+}
+
+.footer-section {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 /* Footer Links - BACKGROUND HOVER */
@@ -110,48 +114,9 @@
   color: #1976d2 !important;
 }
 
-/* Nama Web Center Bawah */
-.footer-brand-section {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 3rem;
-  margin-top: 3rem;
-}
-
-.footer-brand-section h3 {
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -1px;
-  margin-bottom: 0.75rem;
-  background: linear-gradient(135deg, #1976d2 0%, #bbdefb 50%, #1976d2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  position: relative;
-}
-
-.footer-brand-section h3::after {
-  content: "";
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70px;
-  height: 4px;
-  background: linear-gradient(90deg, #1976d2, #03dac6);
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.4);
-}
-
-.footer-brand-section .copyright {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-}
-
 /* Responsive */
 @media (max-width: 992px) {
-  .footer-custom {
+  .footer {
     padding: 3rem 0 1.5rem;
   }
 }
@@ -161,20 +126,11 @@
     padding: 1rem 1.5rem;
     margin-bottom: 1rem;
   }
-
-  .footer-brand-section {
-    margin-top: 2rem;
-    padding-top: 2rem;
-  }
 }
 
 @media (max-width: 576px) {
-  .footer-custom {
+  .footer {
     padding: 2.5rem 1rem 1.5rem;
-  }
-
-  .footer-brand-section h3 {
-    font-size: 1.875rem;
   }
 }
 
@@ -187,29 +143,11 @@
   margin: 0 auto;
 }
 
-/* Icon */
 .newsletter-icon {
   font-size: 4rem;
   color: #ffffff;
-  opacity: 0.8;
   margin-bottom: 30px;
   display: block;
-}
-
-/* Typography */
-.newsletter-title {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  line-height: 1.2;
-  color: #ffffff !important;
-}
-
-.newsletter-subtitle {
-  color: #cccccc !important;
-  font-size: 1.2rem;
-  margin-bottom: 45px;
-  opacity: 0.85;
 }
 
 /* Form */
@@ -219,12 +157,13 @@
 }
 
 .newsletter-input {
-  background: #1a1a1a !important;
-  border: none !important;
+  background-color: #1b1c33 !important;
   color: #ffffff !important;
+  border: 2px solid #1b1c33 !important;
   padding: 22px 30px !important;
   font-size: 1.1rem;
   height: 68px;
+  border-radius: 15px;
 }
 
 .newsletter-input::placeholder {
@@ -232,31 +171,87 @@
   opacity: 0.7;
 }
 
-/* Button */
-.btn-subscribe {
-  background: #ffffff !important;
-  color: #000000 !important;
-  border: none !important;
-  font-weight: 700;
-  font-size: 1.1rem;
-  padding: 22px 40px !important;
-  height: 68px;
+#emailInput,
+#emailInput:focus-visible,
+#emailInput:hover,
+#emailInput:valid,
+#emailInput:invalid,
+#emailInput.is-valid,
+#emailInput.is-invalid {
+  background-color: #1b1c33 !important;
+  color: #ffffff !important;
+  border: 2px solid #1b1c33 !important;
   border-radius: 15px !important;
-  transition: all 0.3s ease;
+}
+
+#emailInput:focus-visible {
+  border-color: #2563eb !important;
+}
+
+#emailInput.is-valid {
+  border-color: #10b981 !important;
+}
+#emailInput.is-invalid {
+  border-color: #ef4444 !important;
+}
+
+.btn-subscribe {
+  display: block;
+  padding: 12px 15px;
+  margin: 15px auto;
+  border-radius: 15px;
+  border: 2px solid #1b1c33;
+  color: #1e3c72;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 20px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-size: 16px;
+  font-family: graphik600;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background-color: transparent;
+}
+
+.btn-subscribe::after,
+.btn-subscribe.valid::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #7c9ee5;
+  border-radius: 15px;
+  z-index: -2;
+}
+
+.btn-subscribe::before,
+.btn-subscribe.valid::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #1e40af; /* darken */
+  transition: all 0.3s;
+  border-radius: 15px;
+  z-index: -1;
 }
 
 .btn-subscribe:hover {
-  background: #f5f5f5 !important;
-  transform: translateY(-2px);
-  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
-.btn-subscribe:active {
-  transform: translateY(0);
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+.btn-subscribe:hover::before {
+  width: 100%;
+}
+
+.btn-subscribe.valid {
+  background-color: #c8caff !important;
 }
 
 /* Success */
@@ -286,5 +281,41 @@ li.list a {
 
 li.list a:hover,
 li.list a:active {
-  color: rgba(200, 200, 255, 1);
+  color: #7c9ee5;
+}
+
+.logo-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2rem 1rem;
+}
+
+.logo-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin: 10px auto;
+}
+
+.logo-main {
+  width: 200px;
+}
+
+.logo-social {
+  text-decoration: none;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+  margin: 10px;
+}
+.logo-social:hover,
+.logo-social:active {
+  color: #7c9ee5;
 }

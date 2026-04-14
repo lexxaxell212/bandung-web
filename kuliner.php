@@ -72,19 +72,6 @@ require_once 'includes/header.php';
             color: #4fc3f7;
         }
 
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            margin: 3px 0;
-        }
-
         /* Hero Section */
         .hero {
             background: linear-gradient(rgba(30,60,114,0.9), rgba(42,82,152,0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234fc3f7" width="1200" height="600"/><circle fill="%232a5298" opacity="0.3" cx="200" cy="150" r="100"/><circle fill="%231e3c72" opacity="0.2" cx="900" cy="400" r="150"/><circle fill="%234fc3f7" opacity="0.4" cx="600" cy="250" r="80"/></svg>');
@@ -315,10 +302,6 @@ require_once 'includes/header.php';
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
             .nav-links {
                 display: none;
             }
@@ -358,17 +341,6 @@ require_once 'includes/header.php';
             padding: 2rem;
         }
 
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
     </style>
 </head>
 

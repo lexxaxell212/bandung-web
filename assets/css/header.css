@@ -1,12 +1,3 @@
-/* Include styling:
-root
-body
-typhography
-button
-span
-container
-*/
-
 /* Material Blue + Minimalis*/
 :root {
   --radius: 12px;
@@ -14,15 +5,12 @@ container
   --box-shadow-l: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 
   --bg-light: #fff;
-  --c-dark: #04051b; /* very dark blue */
+  --c-dark: #1e3c72; /* very dark blue */
   --bg-dark: #04051b; /* very dark blue */
   --c-light: #fff;
 
   --bg-primer: linear-gradient(135deg, #1e40af, #2563eb); /* blue grads */
-  --bg-second: linear-gradient(
-    135deg,
-    #dbeafe 0%,
-    #eff6ff 100%);
+  --bg-second: #f7fafd; /* blue light */
   --bg-white: #fff;
   --bg-yellow: linear-gradient(135deg, #f2c001, #f5e5a8); /* yellow */
 
@@ -32,7 +20,8 @@ container
     #2563eb,
     #1e3a8a
   ); /* blue grads text*/
-  --c-second: #1e3a8a; /* blue 900 */
+  --c-second: #1e3c72; /* very dark blue */
+  --c-gray: #666; /* gray */
 }
 
 /* Enter dark mode */
@@ -59,52 +48,54 @@ body {
 /* Typhgraphy */
 
 @font-face {
-    font-family: 'graphik700';
-    src: url('https://bdgkt.web.id/assets/font/graphik-700-webfont.woff2') format('woff2'),
-         url('https://bdgkt.web.id/assets/font/graphik-700-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
+  font-family: "graphik700";
+  src: url("https://bdgkt.web.id/assets/font/graphik-700-webfont.woff2")
+      format("woff2"),
+    url("https://bdgkt.web.id/assets/font/graphik-700-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'graphik400';
-    src: url('https://bdgkt.web.id/assets/font/graphik-400-webfont.woff2') format('woff2'),
-         url('https://bdgkt.web.id/assets/font/graphik-400-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
+  font-family: "graphik400";
+  src: url("https://bdgkt.web.id/assets/font/graphik-400-webfont.woff2")
+      format("woff2"),
+    url("https://bdgkt.web.id/assets/font/graphik-400-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'graphik600';
-    src: url('https://bdgkt.web.id/assets/font/graphik-600-webfont.woff2') format('woff2'),
-         url('https://bdgkt.web.id/assets/font/graphik-600-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
+  font-family: "graphik600";
+  src: url("https://bdgkt.web.id/assets/font/graphik-600-webfont.woff2")
+      format("woff2"),
+    url("https://bdgkt.web.id/assets/font/graphik-600-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'oxygen400';
-    src: url('https://bdgkt.web.id/assets/font/oxygen-400-webfont.woff2') format('woff2'),
-         url('https://bdgkt.web.id/assets/font/oxygen-400-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
+  font-family: "oxygen400";
+  src: url("https://bdgkt.web.id/assets/font/oxygen-400-webfont.woff2")
+      format("woff2"),
+    url("https://bdgkt.web.id/assets/font/oxygen-400-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'oxygen700';
-    src: url('https://bdgkt.web.id/assets/font/oxygen-700-webfont.woff2') format('woff2'),
-         url('https://bdgkt.web.id/assets/font/oxygen-700-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
+  font-family: "oxygen700";
+  src: url("https://bdgkt.web.id/assets/font/oxygen-700-webfont.woff2")
+      format("woff2"),
+    url("https://bdgkt.web.id/assets/font/oxygen-700-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
-
-
-
 
 .c-primer {
   background: var(--c-primer);
@@ -114,7 +105,7 @@ body {
 }
 
 h1 {
-font-family: 'graphik700';
+  font-family: "graphik700";
   font-size: clamp(2rem, 4vw, 2.5rem);
   line-height: 1.2;
   background: var(--c-primer);
@@ -124,31 +115,34 @@ font-family: 'graphik700';
 }
 
 h2 {
-font-family: 'graphik700';
+  font-family: "graphik700";
   font-size: clamp(2rem, 4vw, 2.5rem);
   line-height: 1.2;
   color: var(--c-dark);
 }
 
 h3 {
-font-family: 'graphik600';
+  font-family: "graphik600";
   font-size: clamp(1.5rem, 3vw, 1.75rem);
   line-height: 1.3;
 }
 
 h4 {
-font-family: 'graphik400';
+  font-family: "graphik400";
   font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   line-height: 1.35;
 }
 
-
 p {
-font-family: 'oxygen400';
+  font-family: "oxygen400";
   font-size: 1.125rem;
   line-height: 1.6;
   color: var(--c-dark);
   margin-bottom: 1.5rem;
+}
+
+.white-text {
+  color: #b8b8bd !important;
 }
 
 .title {
@@ -161,75 +155,119 @@ font-family: 'oxygen400';
 }
 
 .cool-title-h1 {
-font-family: 'graphik700';
+  font-family: "graphik700";
   color: var(--c-dark);
   text-align: center;
   margin-bottom: 60px;
 }
 
-/* Buttons Material */
-
-.btn-material {
-  border-radius: 50px;
-  font-weight: 500;
-  text-transform: none;
-  box-shadow: var(--box-shadow);
-  border: none;
-  padding: 0.75rem 2rem;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-primary-material {
-  background: var(--bg-primer);
-  border-color: var(--bg-second);
-}
-
-.btn-primary-material:hover {
-  background: var(--bg-primer);
-  border-color: var(--bg-primer);
-  box-shadow: var(--box-shadow);
-  transform: translateY(-2px);
-}
-
-.btn-outline-primary-material {
-  color: var(--bg-primer);
-  border-color: var(--bg-primer);
-  background: transparent;
-}
-
-.btn-outline-primary-material:hover {
-  background: var(--bg-primer);
-  color: white;
-  box-shadow: var(--box-shadow);
-}
-
-/* CTA Button */
-
-.btn-cta {
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
-  color: var(--primary) !important;
-  font-weight: 700;
-  padding: 1.2rem 2.5rem;
-  border-radius: 50px;
-  border: none;
-  margin-top: 2rem;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.btn-cta:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-}
-
-.btn-cta i {
-  margin-right: 0.5rem;
-}
+/* Buttons */
 
 .no-outline-button {
   background: transparent !important;
   color: white;
+}
+
+.my-btn-dark {
+  display: inline-block;
+  padding: 13px 24px;
+  border-radius: 15px;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-size: 16px;
+  font-family: graphik600;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background-color: transparent;
+}
+
+.my-btn-dark::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1e40af;
+  border-radius: 15px;
+  z-index: -2;
+}
+
+.my-btn-dark::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #04051b; /* darken */
+  transition: all 0.3s;
+  border-radius: 15px;
+  z-index: -1;
+}
+
+.my-btn-dark:hover {
+  color: #fff;
+}
+
+.my-btn-dark:hover::before {
+  width: 100%;
+}
+
+.my-btn-light {
+  display: inline-block;
+  padding: 13px 24px;
+  border-radius: 15px;
+  color: #1e3c72;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-size: 16px;
+  font-family: graphik600;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  background-color: transparent;
+}
+
+.my-btn-light::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #7c9ee5;
+  border-radius: 15px;
+  z-index: -2;
+}
+
+.my-btn-light::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #1e40af; /* darken */
+  transition: all 0.3s;
+  border-radius: 15px;
+  z-index: -1;
+}
+
+.my-btn-light:hover {
+  color: #fff;
+}
+
+.my-btn-light:hover::before {
+  width: 100%;
 }
 
 /* Grid menu */

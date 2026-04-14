@@ -16,22 +16,19 @@ require_once 'includes/header.php';
     
     <section class="hero-landing-container">
         <div class="hero-landing-slider" id="heroLandingSlider">
-            <!-- Slide 1 - Pure Background -->
+            
             <div class="hero-landing-slide active" 
-                 style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+                 style="background-image: url('<?php echo IMG_URL; ?>kuliner.jpg');">
             </div>
 
-            <!-- Slide 2 - Pure Background -->
             <div class="hero-landing-slide" 
-                 style="background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80');">
+                 style="background-image: url('<?php echo IMG_URL; ?>wisata.jpg');">
             </div>
 
-            <!-- Slide 3 - Pure Background -->
             <div class="hero-landing-slide" 
-                 style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+                 style="background-image: url('<?php echo IMG_URL; ?>hotel.jpg');">
             </div>
 
-            <!-- FIXED OVERLAY TEXT - KIRI ATAS -->
             <div class="hero-landing-fixed-overlay">
                 <!-- weather widget -->
                <div class="weather" id="w">
@@ -57,11 +54,12 @@ require_once 'includes/header.php';
 
         <!-- Description Section -->
         <div class="hero-landing-description" id="heroLandingDescription">
-            <h2 class="hero-landing-desc-title" id="heroLandingDescTitle">Welcome to the Future</h2>
-            <p class="hero-landing-desc-text" id="heroLandingDescText">
-                Experience the next generation of digital transformation with our cutting-edge solutions designed specifically for your business growth.
+            <h2 id="heroLandingDescTitle">KULINER BANDUNG</h2>
+            <p id="heroLandingDescText">
+                Temukan cita rasa khas Bandung yang bikin nagih, dari tradisional hingga kekinian.
             </p>
-            <a class="event-news-button" id="heroLandingDescButton" href="#"></a>
+            <a class="my-btn-dark" id="heroLandingDescButton" href="<?php echo BASE_URL; ?>kuliner">JELAJAHI KULINER</a>
+            
             
         </div>
     </section>
@@ -134,22 +132,22 @@ require_once 'includes/header.php';
             updateContent() {
                 const content = [
                     { 
-                        title: "Welcome to the Future", 
-                        text: "Next generation digital transformation.", 
-                        buttonText: "🚀 Mulai Sekarang", 
-                        buttonLink: "#" 
+                        title: "KULINER BANDUNG", 
+                        text: "Temukan cita rasa khas Bandung yang bikin nagih, dari tradisional hingga kekinian.", 
+                        buttonText: "JELAJAHI KULINER", 
+                        buttonLink: "<?php echo BASE_URL; ?>kuliner" 
                     },
                     { 
-                        title: "Power of Innovation", 
-                        text: "Innovative technology for modern enterprise.", 
-                        buttonText: "💡 Lihat Portofolio", 
-                        buttonLink: "#" 
+                        title: "DESTINASI WISATA", 
+                        text: "Jelajahi destinasi wisata Bandung, dari alam sejuk hingga spot hits yang Instagramable.", 
+                        buttonText: "KUNJUNGI SEKARANG", 
+                        buttonLink: "<?php echo BASE_URL; ?>wisata" 
                     },
                     { 
-                        title: "Join the Revolution", 
-                        text: "Redefining what's possible for businesses.", 
-                        buttonText: "🔥 Bergabung", 
-                        buttonLink: "#" 
+                        title: "PENGINAPAN FAVORIT", 
+                        text: "Nikmati kenyamanan dan layanan terbaik di penginapan favorit pilihan.", 
+                        buttonText: "LIHAT REKOMENDASI", 
+                        buttonLink: "<?php echo BASE_URL; ?>penginapan" 
                     }
                 ];
 
@@ -179,68 +177,116 @@ require_once 'includes/header.php';
     <!-- Kenapa bandung -->
     
     <section class="highlight-event-section">
-        <div class="highlight-event-container">
-            <!-- Content -->
-            <div class="highlight-event-content">
-                <!--
-                <div class="highlight-event-badge">BREAKING NEWS</div>
-                -->
-                
-                <h1 class="highlight-event-title">
-                    KENAPA HARUS
-                    <br>BANDUNG
-                </h1>
-                
-                <p class="highlight-event-subtitle">
-                    Pemerintah umumkan investasi Rp500 Triliun untuk infrastruktur digital nasional. 
-                    5G dan AI akan jadi tulang punggung ekonomi masa depan.
-                </p>
-                
-                <button class="highlight-event-cta">
-                    Baca Lengkap →
-                </button>
-            </div>
-            
-            <!-- Image -->
-            <div class="highlight-event-image" 
-                 style="background-image: url('https://images.unsplash.com/photo-1689363302902-2c58330d6494?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-            </div>
+  <div class="highlight-event-container">
+    <!-- Content -->
+    <div class="highlight-event-content">
+      <h1 class="highlight-event-title">
+        KENAPA HARUS
+        <br>BANDUNG?
+      </h1>
+      
+      <p class="highlight-event-subtitle">
+        Bandung selalu jadi pilihan favorit untuk liburan karena menawakan perpaduan lengkap antara keindahan alam, udara sejuk, dan ragam aktivitas seru. Mulai dari wisata alam yang menenangkan, kuliner yang menggoda, hingga tempat-tempat hits yang Instagramable, semuanya bisa kamu temukan dalam satu kota.
+      </p>
+    </div>
+    
+    <!-- sLIDER 3 IMAGE -->
+        <div class="highlight-event-slider">
+          <!-- Image 1 -->
+          <div class="highlight-event-slide active" 
+               style="background-image: url('https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large');"></div>
+          
+          <!-- Image 2 -->
+          <div class="highlight-event-slide" 
+               style="background-image: url('https://images.unsplash.com/photo-1519046904884-53103b34b206?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+          
+          <!-- Image 3 -->
+          <div class="highlight-event-slide" 
+               style="background-image: url('https://images.unsplash.com/photo-1571896349840-0d6d4e9f4d7c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+          
+          <!-- Dots Navigation -->
+          <div class="slider-dots">
+            <div class="dot active" data-slide="0"></div>
+            <div class="dot" data-slide="1"></div>
+            <div class="dot" data-slide="2"></div>
+          </div>
         </div>
+      </div>
     </section>
     
-    <!-- Scroll artikel -->
+    <script>
+      class ImageSlider {
+        constructor() {
+          this.slides = document.querySelectorAll('.highlight-event-slide');
+          this.dots = document.querySelectorAll('.dot');
+          this.currentSlide = 0;
+          this.slideInterval = null;
+          this.autoSlideDelay = 3000; 
+          
+          this.init();
+        }
+        
+        init() {
+          this.startAutoSlide();
+          this.bindEvents();
+        }
+        
+        nextSlide() {
+          this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+          this.showSlide(this.currentSlide);
+        }
+        
+        showSlide(index) {
+          // Update slides
+          this.slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+          });
+          
+          // Update dots
+          this.dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+          });
+        }
+        
+        startAutoSlide() {
+          this.slideInterval = setInterval(() => {
+            this.nextSlide();
+          }, this.autoSlideDelay);
+        }
+        
+        stopAutoSlide() {
+          clearInterval(this.slideInterval);
+        }
+        
+        bindEvents() {
+          // Dots click
+          this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+              this.stopAutoSlide();
+              this.showSlide(index);
+              this.startAutoSlide(); 
+            });
+          });
+          
+          // Pause on hover
+          const slider = document.querySelector('.highlight-event-slider');
+          slider.addEventListener('mouseenter', () => this.stopAutoSlide());
+          slider.addEventListener('mouseleave', () => this.startAutoSlide());
+        }
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        new ImageSlider();
+      });
+    </script>
+    
+    <!-- artikel terbaru -->
     
     <div class="menu-container">
         <h2 class="cool-title-h1">ARTIKEL TERBARU</h2>
         <div class="cards-wrapper">
             <div class="cards-container" id="cardsContainer">
-                <!-- Card 1: AI Tech -->
-                <div class="card">
-                    <div class="card-image" 
-                         style="background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-category">Teknologi</span>
-                        <h3 class="card-title">AI Mengubah Cara Kerja Kita Selamanya</h3>
-                        <p class="card-excerpt">Artificial Intelligence bukan lagi masa depan, tapi realitas saat ini yang mengubah produktivitas dan kreativitas secara fundamental.</p>
-                        <button class="read-btn">Baca</button>
-                    </div>
-                </div>
-
-                <!-- Card 2: Business -->
-                <div class="card">
-                    <div class="card-image" 
-                         style="background-image: url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-category">Bisnis</span>
-                        <h3 class="card-title">Digital Marketing 2024: Strategi Terbukti</h3>
-                        <p class="card-excerpt">Tingkatkan konversi 300% dengan strategi marketing modern yang sudah teruji di lapangan oleh ribuan bisnis.</p>
-                        <button class="read-btn">Baca</button>
-                    </div>
-                </div>
-
-                <!-- Card 3: Design -->
+                <!-- Card 1:  -->
                 <div class="card">
                     <div class="card-image" 
                          style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
@@ -249,35 +295,62 @@ require_once 'includes/header.php';
                         <span class="card-category">Design</span>
                         <h3 class="card-title">Minimalism dalam UI/UX Design</h3>
                         <p class="card-excerpt">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital.</p>
-                        <button class="read-btn">Baca</button>
+                        <a href="#" class="my-btn-dark">Baca</a>
+                    </div>
+                </div>
+                
+                <!-- Card 2:  -->
+                <div class="card">
+                    <div class="card-image" 
+                         style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Design</span>
+                        <h3 class="card-title">Minimalism dalam UI/UX Design</h3>
+                        <p class="card-excerpt">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital.</p>
+                        <a href="#" class="my-btn-dark">Baca</a>
                     </div>
                 </div>
 
-                <!-- Card 4: Productivity -->
+                <!-- Card 3:  -->
                 <div class="card">
                     <div class="card-image" 
-                         style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                         style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
                     </div>
                     <div class="card-content">
-                        <span class="card-category">Produktivitas</span>
-                        <h3 class="card-title">5 Tools WFH Terbaik 2024</h3>
-                        <p class="card-excerpt">Tools yang sudah terbukti meningkatkan produktivitas tim remote secara signifikan dengan fitur canggih.</p>
-                        <button class="read-btn">Baca</button>
+                        <span class="card-category">Design</span>
+                        <h3 class="card-title">Minimalism dalam UI/UX Design</h3>
+                        <p class="card-excerpt">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital.</p>
+                        <a href="#" class="my-btn-dark">Baca</a>
                     </div>
                 </div>
 
-                <!-- Card 5: Startup -->
+                <!-- Card 4:  -->
                 <div class="card">
                     <div class="card-image" 
-                         style="background-image: url('https://images.unsplash.com/photo-1558618047-3c8c76ffe7dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                         style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
                     </div>
                     <div class="card-content">
-                        <span class="card-category">Startup</span>
-                        <h3 class="card-title">Cara Pitch ke Investor</h3>
-                        <p class="card-excerpt">Panduan lengkap membuat pitch deck dan strategi fundraising yang berhasil digunakan unicorn startups.</p>
-                        <button class="read-btn">Baca</button>
+                        <span class="card-category">Design</span>
+                        <h3 class="card-title">Minimalism dalam UI/UX Design</h3>
+                        <p class="card-excerpt">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital.</p>
+                        <a href="#" class="my-btn-dark">Baca</a>
                     </div>
                 </div>
+
+                <!-- Card 5:  -->
+                <div class="card">
+                    <div class="card-image" 
+                         style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">Design</span>
+                        <h3 class="card-title">Minimalism dalam UI/UX Design</h3>
+                        <p class="card-excerpt">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital.</p>
+                        <a href="#" class="my-btn-dark">Baca</a>
+                    </div>
+                </div>
+                
             </div>
         </div>
 
@@ -372,9 +445,9 @@ require_once 'includes/header.php';
             document.addEventListener('DOMContentLoaded', () => {
                 new MinimalScrollCards();
                 
-                document.querySelectorAll('.read-btn, .card').forEach(el => {
+                document.querySelectorAll('.my-btn-dark, .card').forEach(el => {
                     el.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('read-btn') || e.currentTarget.classList.contains('card')) {
+                        if (e.target.classList.contains('my-btn-dark') || e.currentTarget.classList.contains('card')) {
                             // Simulate navigation
                             console.log('Navigasi ke artikel...');
                         }
@@ -383,7 +456,7 @@ require_once 'includes/header.php';
             });
         </script>
         
-    <!-- News events -->
+    <!-- informasi terkini -->
         
     <div class="event-news-section">
         <div class="event-news-cards-container">
@@ -395,46 +468,46 @@ require_once 'includes/header.php';
             </div>
             <div class="event-news-content">
                 <h2 class="event-news-title">
-                    Pemerintah Umumkan Investasi Rp500 Triliun Transformasi Digital Nasional
+                    Lorem Ipsum
                 </h2>
                 <p class="event-news-excerpt">
-                    Menteri Kominfo mengungkapkan roadmap 2024-2028 dengan fokus infrastruktur 5G, AI, dan cloud computing untuk dorong ekonomi digital Indonesia.
+                    Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum.
                 </p>
-                <button class="event-news-button">Baca Lengkap</button>
+                <a href="#" class="my-btn-dark">Baca Lengkap</a>
             </div>
         </article>
 
         <!-- CARD 2 -->
         <article class="event-news-card">
             <div class="event-news-image" 
-                 style="background-image: url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-                <div class="event-news-badge">STARTUP</div>
+                 style="background-image: url('https://images.unsplash.com/photo-1689363302902-2c58330d6494?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+                <div class="event-news-badge">BERITA UTAMA</div>
             </div>
             <div class="event-news-content">
                 <h2 class="event-news-title">
-                    Startup Lokal Raih Funding $100 Juta dari Silicon Valley
+                    Lorem Ipsum
                 </h2>
                 <p class="event-news-excerpt">
-                    Pendanaan Seri D terbesar tahun ini diraih Gojek dengan valuasi mencapai $5 miliar dari investor top Amerika Serikat.
+                    Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum.
                 </p>
-                <button class="event-news-button">Baca Lengkap</button>
+                <a href="#" class="my-btn-dark">Baca Lengkap</a>
             </div>
         </article>
 
         <!-- CARD 3 -->
         <article class="event-news-card">
             <div class="event-news-image" 
-                 style="background-image: url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-                <div class="event-news-badge">EVENT</div>
+                 style="background-image: url('https://images.unsplash.com/photo-1689363302902-2c58330d6494?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+                <div class="event-news-badge">BERITA UTAMA</div>
             </div>
             <div class="event-news-content">
                 <h2 class="event-news-title">
-                    Tech Summit Indonesia 2024: Masa Depan Teknologi Digital
+                    Lorem Ipsum
                 </h2>
                 <p class="event-news-excerpt">
-                    Gelaran terbesar teknologi tahunan di Jakarta Convention Center. Hadir 500+ startup dan 50+ investor global.
+                    Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum.
                 </p>
-                <button class="event-news-button">Baca Lengkap</button>
+                <a href="#" class="my-btn-dark">Baca Lengkap</a>
             </div>
         </article>
     </div>

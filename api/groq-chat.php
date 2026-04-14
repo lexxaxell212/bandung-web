@@ -1,5 +1,5 @@
 <?php
-// api/groq-chat.php - Groq LPU Turbo Fast!
+
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-// GANTI DENGAN API KEY ANDA!
-$API_KEY = ' '; // 47 characters
+// APIKEY
+$API_KEY = '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'; 
 
 $input = json_decode(file_get_contents('php://input'), true);
 $message = trim($input['message'] ?? '');
@@ -46,7 +46,7 @@ $data = [
         ['role' => 'system', 'content' => $system_prompt],
         ['role' => 'user', 'content' => $message]
     ],
-    'model' => 'llama-3.1-8b-instant', // Super fast!
+    'model' => 'llama-3.1-8b-instant', 
     'max_tokens' => 500,
     'temperature' => 0.7,
     'stream' => false

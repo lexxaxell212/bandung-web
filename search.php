@@ -52,7 +52,7 @@ require_once 'includes/header.php';
     }
 
     .result {
-      background: white;
+      background: #333;
       margin-bottom: 20px;
       border-radius: 20px;
       overflow: hidden;

@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // APIKEY
-$API_KEY = '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'; 
+$API_KEY = ''; 
 
 $input = json_decode(file_get_contents('php://input'), true);
 $message = trim($input['message'] ?? '');

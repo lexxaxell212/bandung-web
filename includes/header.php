@@ -5,6 +5,7 @@ require_once ROOT_PATH . 'config/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,38 +23,89 @@ require_once ROOT_PATH . 'config/config.php';
 </head>
 
 <body>
+
+  <!-- chatbot fab -->
+
+  <div class="fab-chatbot-container">
+    <div class="fab-chatbot-label">
+      <i></i>Hai, Aku Asisten Web. Siap bantu kamu!
+    </div>
+    <button class="fab-chatbot" id="chatbotFabBtn">
+      <i class="fas fa-comment-dots"></i>
+    </button>
+  </div>
+
+  <div class="chatbot offcanvas offcanvas-end" id="chatbot">
+    <div class="offcanvas-header bg-primary">
+      <div class="chatbot-header container">
+        <h6 style="color:white" class="offcanvas-title mb-0">
+          <!-- Topic -->
+          <option class="fas fa-solid fa-circle-user me-2" value="Bandung" id="topic-select"></option>Asisten Website
+        </h6>
+        <button class="close-btn" onclick="closeChatbot()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div class="offcanvas-body p-0">
+      <!-- Messages -->
+      <div class="chat-messages p-3" id="chat-messages">
+      </div>
+      <!-- Input Area -->
+      <div class="p-3 border-top bottom-area">
+        <div class="input-group">
+          <input type="text" id="message-input" class="form-control" placeholder="Ketik pertanyaanmu disini..">
+          <button class="btn btn-primary" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+          <button class="btn btn-outline-secondary" onclick="clearChat()" title="Clear">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+        <div class="status-bar mt-2 resizer-o">
+          <span id="token-count">Tokens: 0</span> |
+          <span id="response-time">-</span> |
+          <span id="model-used">-</span>
+        </div>
+        <div class="status-bar mt-2 resizer">
+          <span>Powered by GROCK.AI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Navbar  -->
-  <nav class="navbar">
+  <div class="navbar">
     <div class="container">
       <!-- Logo -->
       <a class="navbar-brand" href="<?php echo BASE_URL; ?>">
         <img class="logo-navbar" src="<?php echo IMG_URL; ?>logo.png" alt="logo" loading="lazy">
       </a>
-      <!-- Overlay -->
-      <div class="menu-overlay" id="menuOverlay"></div>
+
       <!-- Actions -->
       <div class="navbar-actions">
         <button class="search-btn" id="searchBtn" title="Search">
           <i class="fas fa-magnifying-glass"></i>
         </button>
-        <button class="navbar-toggler no-outline-button" type="button" id="navbarToggler">
+        <button class="navbar-toggler" type="button" id="navbarToggler">
           <div class="hamburger"></div>
         </button>
       </div>
+      <!-- Overlay -->
+      <div class="menu-overlay" id="menuOverlay"></div>
+
       <!-- Menu Content -->
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa-solid fa-grip"></i> Menu
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>sejarah"><i class="fa-solid fa-landmark"></i>Sejarah</a></li>
-              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>budaya"><i class="fa-solid fa-broom-ball"></i>Budaya</a></li>
-              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>kuliner"><i class="fa-solid fa-bowl-rice"></i>Kuliner</a></li>
-              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>layanan"><i class="fa-solid fa-bus"></i>Layanan</a></li>
-              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>wisata"><i class="fa-solid fa-map-location-dot"></i>Wisata</a></li>
-              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>penginapan"><i class="fa-solid fa-hotel"></i>Penginapan</a></li>
+              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>sejarah"><i class="fa-solid fa-landmark m-2"></i>Sejarah</a></li>
+              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>budaya"><i class="fa-solid fa-broom-ball m-2"></i>Budaya</a></li>
+              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>kuliner"><i class="fa-solid fa-bowl-rice m-2"></i>Kuliner</a></li>
+              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>layanan"><i class="fa-solid fa-bus m-2"></i>Layanan</a></li>
+              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>wisata"><i class="fa-solid fa-map-location-dot m-2"></i>Wisata</a></li>
+              <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>penginapan"><i class="fa-solid fa-hotel m-2"></i>Penginapan</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -87,12 +139,14 @@ require_once ROOT_PATH . 'config/config.php';
         </ul>
       </div>
     </div>
-  </nav>
+  </div>
+
   <!-- search modal -->
-  <div class="search-modal-backdrop" id="searchModalBackdrop"></div>
-  <div class="search-modal-container" id="searchModalContainer">
-    <div class="search-modal-content">
-      <div class="search-modal-header">
+
+  <div class="search-body" id="searchBody">
+    <div class="search-container" id="searchModalBackdrop">
+      <!-- DIV 2: SEARCH-HEADER - 20% height, fixed top -->
+      <div class="search-header">
         <h5 class="search-modal-title">
           <i class="fas fa-magnifying-glass me-2"></i>Search
         </h5>
@@ -100,60 +154,32 @@ require_once ROOT_PATH . 'config/config.php';
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <div class="search-input-wrapper">
-        <i class="fas fa-magnifying-glass search-input-icon"></i>
-        <input type="text" class="search-input" id="searchInput" placeholder="Type to search... (ESC to close)">
-      </div>
-      <div class="search-results" id="searchResults">
-        <div class="no-results">
-          <i class="fas fa-search fs-1 opacity-50 mb-3 d-block"></i>
-          <p class="mb-0">Start typing to search</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Floating Button for chatbot  -->
-  <button class="btn btn-primary floating-btn shadow-lg" onclick="toggleChatbot()" title="Chat">
-    <i class="fa-solid fa-comments"></i>
-  </button>
-  <div class="chatbot offcanvas offcanvas-end shadow-lg" id="chatbot">
 
-    <div class="offcanvas-header bg-primary text-white p-3">
-      <h6 style="color:white" class="offcanvas-title mb-0">
-        <!-- Topic -->
-        <option class="fas fa-solid fa-circle-user me-2" value="Bandung" id="topic-select"></option>Asisten Website
-      </h6>
-      <button class="btn-close btn-close-white" onclick="closeChatbot()"></button>
-    </div>
-    <div class="offcanvas-body p-0">
-      <!-- Messages -->
-      <div class="chat-messages p-3" id="chat-messages">
-      </div>
-      <!-- Input Area -->
-      <div class="p-3 border-top bottom-area">
-        <div class="input-group">
-          <input type="text" id="message-input" class="form-control" placeholder="Ketik pertanyaanmu disini..">
-          <button class="btn btn-primary" onclick="sendMessage()">
-            <i class="fas fa-paper-plane"></i>
-          </button>
-          <button class="btn btn-outline-secondary" onclick="clearChat()" title="Clear">
-            <i class="fas fa-trash"></i>
-          </button>
+      <div class="search-content" id="searchModalContainer">
+        <div class="search-input-wrapper">
+          <i class="fas fa-magnifying-glass search-input-icon"></i>
+          <input type="text" class="search-input" id="searchInput" placeholder="Apa yang pengin kamu cari... ">
+          
         </div>
-        <div class="status-bar mt-2 resizer-o">
-          <span id="token-count">Tokens: 0</span> |
-          <span id="response-time">-</span> |
-          <span id="model-used">-</span>
+        <div id="typing" class="typing" style="display:none;">
+          </div>
+        <div id="stats" class="stats-search" style="display:none;">
+          <strong id="count">0</strong> hasil untuk <span id="query"></span>
         </div>
-        <div class="status-bar mt-2 resizer">
-          <span>Powered by GROCK.AI</span>
-        </div>
+        <div class="result" id="results"></div>
+          <div id="noResults" class="no-results" style="display:none;">
+            <p class="mb-0">Start typing to search</p>
+          </div>
+
       </div>
     </div>
   </div>
+
   <script src="<?php echo JS_URL; ?>navbar.js"></script>
   <script src="<?php echo JS_URL; ?>chat.js"></script>
+  <script src="<?php echo JS_URL; ?>search.js"></script>
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

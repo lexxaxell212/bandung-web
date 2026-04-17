@@ -1,4 +1,4 @@
-const API_URL = "../api/groq-chat.php"; // Dari assets/js/ → ../api/
+const API_URL = "../api/groq-chat.php"; 
 let isLoading = false;
 
 async function sendMessage() {

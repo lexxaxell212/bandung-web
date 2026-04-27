@@ -99,7 +99,7 @@ if (input) {
     const query = q.toLowerCase();
     clearTimeout(timeout);
     if (typing) typing.style.display = "block";
-    timeout = setTimeout(() => search(query), 400);
+    timeout = setTimeout(() => search(query), 100);
   });
 }
 
@@ -120,7 +120,7 @@ function validateInput(input) {
 // Tampilkan pesan error validasi - NO RESET
 function showValidationError(message) {
   if (noResults) {
-    noResults.innerHTML = `<p style="padding: 3px; color: #1e3c72; margin-bottom: 20px;">${message}</p>`;
+    noResults.innerHTML = `<p style="padding: 3px; color: #3F83F8; margin-bottom: 20px;opacity:0.8;">${message}</p>`;
     noResults.style.display = "block";
   }
 }
@@ -192,7 +192,7 @@ function showResults(items, query) {
 // Tampilkan pesan no results - NO RESET
 function showNoResults(message) {
   if (noResults) {
-    noResults.innerHTML = `<p style="padding: 3px; color: #1e3c72; margin-bottom: 20px;">${message}</p>`;
+    noResults.innerHTML = `<p style="padding: 3px; color: #3F83F8; margin-bottom: 20px;opacity:0.8;">${message}</p>`;
     noResults.style.display = "block";
   }
 }

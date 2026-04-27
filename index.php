@@ -1,470 +1,628 @@
 <?php 
-$page_title = "Halaman Awal - MyApp";
-require_once 'config/config.php';
-require_once 'includes/header.php'; 
+$page_title = 'Home';
+require_once 'includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-</head>
-
-<body>
-    
-    <!-- Hero landing -->
-    
-    <section class="hero-landing-container">
-        <div class="hero-landing-slider" id="heroLandingSlider">
-            
-            <div class="hero-landing-slide active" 
-                 style="background-image: url('<?php echo IMG_URL; ?>kuliner.jpg');">
-            </div>
-
-            <div class="hero-landing-slide" 
-                 style="background-image: url('<?php echo IMG_URL; ?>wisata.jpg');">
-            </div>
-
-            <div class="hero-landing-slide" 
-                 style="background-image: url('<?php echo IMG_URL; ?>hotel.jpg');">
-            </div>
-
-            <div class="hero-landing-fixed-overlay">
-                <!-- weather widget -->
-               <div class="weather" id="w">
-                <div>Loading...</div>
-              </div>
-            </div>
-
-            <!-- MANUAL ONLY Navigation -->
-            <div class="hero-landing-nav">
-                <div class="hero-landing-nav-arrow" id="heroLandingPrev" aria-label="Previous slide">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
-                <div class="hero-landing-dots">
-                    <div class="hero-landing-dot active" data-slide="0"></div>
-                    <div class="hero-landing-dot" data-slide="1"></div>
-                    <div class="hero-landing-dot" data-slide="2"></div>
-                </div>
-                <div class="hero-landing-nav-arrow" id="heroLandingNext" aria-label="Next slide">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Description Section -->
-        <div class="hero-landing-description" id="heroLandingDescription">
-            <h2 id="heroLandingDescTitle">KULINER BANDUNG</h2>
-            <p id="heroLandingDescText">
-                Temukan cita rasa khas Bandung yang bikin nagih, dari tradisional hingga kekinian.
-            </p>
-            <a class="my-btn-dark" id="heroLandingDescButton" href="<?php echo BASE_URL; ?>kuliner">JELAJAHI KULINER</a>
-            
-            
-        </div>
-    </section>
-    
-    <script>
-        class HeroLandingSlider {
-            constructor() {
-                this.currentSlide = 0;
-                this.totalSlides = 3;
-                this.init();
-            }
-
-            init() {
-                this.bindNavigation();
-                this.updateContent();
-            }
-
-            bindNavigation() {
-                document.querySelectorAll('.hero-landing-dot').forEach((dot, index) => {
-                    dot.addEventListener('click', () => this.goToSlide(index));
-                });
-
-                document.getElementById('heroLandingPrev').addEventListener('click', () => this.prevSlide());
-                document.getElementById('heroLandingNext').addEventListener('click', () => this.nextSlide());
-
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowLeft') this.prevSlide();
-                    if (e.key === 'ArrowRight') this.nextSlide();
-                });
-
-                let startX = 0, currentX = 0;
-                document.getElementById('heroLandingSlider').addEventListener('touchstart', (e) => {
-                    startX = e.touches[0].clientX;
-                });
-                document.getElementById('heroLandingSlider').addEventListener('touchmove', (e) => {
-                    currentX = e.touches[0].clientX;
-                });
-                document.getElementById('heroLandingSlider').addEventListener('touchend', () => {
-                    const diffX = startX - currentX;
-                    if (Math.abs(diffX) > 50) {
-                        diffX > 0 ? this.nextSlide() : this.prevSlide();
-                    }
-                });
-            }
-
-            goToSlide(index) {
-                document.querySelectorAll('.hero-landing-slide').forEach((slide, i) => {
-                    slide.classList.toggle('active', i === index);
-                });
-
-                document.querySelectorAll('.hero-landing-dot').forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
-
-                this.currentSlide = index;
-                this.updateContent();
-            }
-
-            nextSlide() {
-                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-                this.goToSlide(this.currentSlide);
-            }
-
-            prevSlide() {
-                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-                this.goToSlide(this.currentSlide);
-            }
-
-            
-            updateContent() {
-                const content = [
-                    { 
-                        title: "KULINER BANDUNG", 
-                        text: "Temukan cita rasa khas Bandung yang bikin nagih, dari tradisional hingga kekinian.", 
-                        buttonText: "JELAJAHI KULINER", 
-                        buttonLink: "<?php echo BASE_URL; ?>kuliner" 
-                    },
-                    { 
-                        title: "DESTINASI WISATA", 
-                        text: "Jelajahi destinasi wisata Bandung, dari alam sejuk hingga spot hits yang Instagramable.", 
-                        buttonText: "KUNJUNGI SEKARANG", 
-                        buttonLink: "<?php echo BASE_URL; ?>wisata" 
-                    },
-                    { 
-                        title: "PENGINAPAN FAVORIT", 
-                        text: "Nikmati kenyamanan dan layanan terbaik di penginapan favorit pilihan.", 
-                        buttonText: "LIHAT REKOMENDASI", 
-                        buttonLink: "<?php echo BASE_URL; ?>penginapan" 
-                    }
-                ];
-
-                const data = content[this.currentSlide];
-                
-                // Update title & text
-                document.getElementById('heroLandingDescTitle').textContent = data.title;
-                document.getElementById('heroLandingDescText').textContent = data.text;
-                
-                // GANTI TEXT + LINK
-                const button = document.getElementById('heroLandingDescButton');
-                button.textContent = data.buttonText;
-                button.href = data.buttonLink;
-                
-                document.getElementById('heroLandingDescription').classList.add('active');
+<style>
+  .main-content {
+  padding-top: var(--navbar-height) !important;
+  }
+</style>
+<!-- Hero Section -->
+<style>
+  /* Container responsive dulu */
+        .hero-land-container {
+            width: 100vw;
+            height: calc(100vh - var(--navbar-height));
+        }
+        @media (min-width: 1100px) {
+            .hero-land-container {
+                height: 70vh;
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => new HeroLandingSlider());
-    </script>
-    
+        .hero-land-slide {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.6s ease;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .hero-land-slide.active {
+            opacity: 1;
+        }
+        .hero-land-desc {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+            text-shadow: 0 2px 6px rgba(50,50,80,0.5);
+        }
+        .hero-land-title {
+          text-shadow: 0 2px 6px rgba(50,50,80,0.2);
+        }
+        .hero-land-slide.active .hero-land-desc {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Content positioned 70% from top */
+        .hero-land-content {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+        }
+        .hero-land-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            z-index: 20;
+            backdrop-filter: blur(10px);
+        }
+        .hero-land-prev { left: 30px; }
+        .hero-land-next { right: 30px; }
+        .hero-land-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .hero-land-indicator.active {
+            background: white;
+            transform: scale(1.05);
+        }
+       
+        
+        /* Hero button link styling */
+        .hero-land-btn-link {
+            display: inline-block;
+            text-decoration: none;
+        }
+</style>
+<section class="hero-land-container position-relative">
+        <!-- Slide 1 -->
+        <div class="hero-land-slide active" 
+             style="background-image: url('https://ayokebandung.id/assets/images/wisata.jpg');">
+            <div class="hero-land-content">
+                <div class="text-center text-white">
+                    <h1 class="display-3 font-bold mb-4 hero-land-title">Destinasi Wisata</h1>
+                    <p class="hero-land-desc fs-4 mb-5 text-white">Jelajahi destinasi wisata Bandung, dari alam sejuk hingga spot hits yang Instagramable.</p>
+                    <a href="https://wisata.id" class="hero-land-btn-link">
+                        <button class="btn btn-primary px-5 py-3">KUNJUNGI</button>
+                    </a>
+                </div>
+            </div>
+        </div>
 
-    <!-- weather widget JS -->
-    
-    <script src="<?php echo JS_URL; ?>weather.js"></script>
-    
-    <!-- Kenapa bandung -->
-    
-    <section class="highlight-event-section">
-  <div class="highlight-event-container">
-    <!-- Content -->
-    <div class="highlight-event-content">
-      <h1 class="highlight-event-title">
-        KENAPA HARUS
-        <br>BANDUNG?
-      </h1>
-      
-      <p class="highlight-event-subtitle">
-        Bandung selalu jadi pilihan favorit untuk liburan karena menawakan perpaduan lengkap antara keindahan alam, udara sejuk, dan ragam aktivitas seru. Mulai dari wisata alam yang menenangkan, kuliner yang menggoda, hingga tempat-tempat hits yang Instagramable, semuanya bisa kamu temukan dalam satu kota.
-      </p>
-    </div>
-    
-    <!-- sLIDER 3 IMAGE -->
-        <div class="highlight-event-slider">
-          <!-- Image 1 -->
-          <div class="highlight-event-slide active" 
-               style="background-image: url('https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large');"></div>
-          
-          <!-- Image 2 -->
-          <div class="highlight-event-slide" 
-               style="background-image: url('https://images.unsplash.com/photo-1519046904884-53103b34b206?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
-          
-          <!-- Image 3 -->
-          <div class="highlight-event-slide" 
-               style="background-image: url('https://images.unsplash.com/photo-1571896349840-0d6d4e9f4d7c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
-          
-          <!-- Dots Navigation -->
-          <div class="slider-dots">
-            <div class="dot active" data-slide="0"></div>
-            <div class="dot" data-slide="1"></div>
-            <div class="dot" data-slide="2"></div>
-          </div>
+        <!-- Slide 2 -->
+        <div class="hero-land-slide" 
+             style="background-image: url('https://ayokebandung.id/assets/images/kuliner.jpg');">
+            <div class="hero-land-content">
+                <div class="text-center text-white">
+                    <h1 class="display-3 font-bold mb-4 hero-land-title">Kuliner Bandung</h1>
+                    <p class="hero-land-desc fs-4 mb-5 text-white">Temukan cita rasa khas Bandung yang bikin nagih, dari tradisional hingga kekinian.</p>
+                    <a href="https://wisata.id" class="hero-land-btn-link">
+                        <button class="btn btn-primary px-5 py-3">JELAJAHI</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="hero-land-slide" 
+             style="background-image: url('https://ayokebandung.id/assets/images/hotel.jpg');">
+            <div class="hero-land-content">
+                <div class="text-center text-white">
+                    <h1 class="display-3 font-bold mb-4 hero-land-title">Penginapan Favorit</h1>
+                    <p class="hero-land-desc fs-4 mb-5 text-white">Nikmati kenyamanan dan layanan terbaik di penginapan favorit pilihan.</p>
+                    <a href="https://wisata.id" class="hero-land-btn-link">
+                        <button class="btn btn-primary px-5 py-3">LIHAT</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <button class="hero-land-nav hero-land-prev" onclick="heroLandSlide(-1)">
+            <i class="fas fa-chevron-left fs-5"></i>
+        </button>
+        <button class="hero-land-nav hero-land-next" onclick="heroLandSlide(1)">
+            <i class="fas fa-chevron-right fs-5"></i>
+        </button>
+
+        <!-- Indicators -->
+        <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4 d-flex gap-2 pb-3">
+            <div class="hero-land-indicator active" onclick="heroLandGoTo(0)"></div>
+            <div class="hero-land-indicator" onclick="heroLandGoTo(1)"></div>
+            <div class="hero-land-indicator" onclick="heroLandGoTo(2)"></div>
+        </div>
+    </section>
+<script>
+        let currentSlide = 0;
+        let autoSlide = setInterval(nextSlide, 7000);
+        let lastWheel = 0;
+
+        function heroLandSlide(n) {
+            clearInterval(autoSlide);
+            showSlide((currentSlide + n + 3) % 3);
+            autoSlide = setInterval(nextSlide, 7000);
+        }
+
+        function heroLandGoTo(n) {
+            clearInterval(autoSlide);
+            showSlide(n);
+            autoSlide = setInterval(nextSlide, 7000);
+        }
+
+        function nextSlide() {
+            heroLandSlide(1);
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.hero-land-slide');
+            const indicators = document.querySelectorAll('.hero-land-indicator');
+            
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        // Swipe & Scroll HERO ONLY
+        let startX = 0;
+        const container = document.querySelector('.hero-land-container');
+        
+        container.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+        container.addEventListener('touchend', e => {
+            let endX = e.changedTouches[0].clientX;
+            if (startX - endX > 50) nextSlide();
+            if (endX - startX > 50) heroLandSlide(-1);
+        });
+        
+        container.addEventListener('wheel', e => {
+            const now = Date.now();
+            if (now - lastWheel < 500) return;
+            lastWheel = now;
+            
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                e.preventDefault();
+                if (e.deltaX > 0) nextSlide();
+                else heroLandSlide(-1);
+            }
+        }, { passive: false });
+    </script>
+   
+<!-- Kenapa bandung -->
+<div class="container-fluid" style="background: var(--blue-200);color: var(--blue-900);padding: 7rem 1.5rem 1.5rem 1.5rem">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-6 element-1">
+      <!-- -->
+      <div class="h-100">
+        <div class="my-6" style="padding-bottom:2rem">
+          <h1 class="">
+          KENAPA HARUS
+          <br>BANDUNG?
+          </h1>
+          <p class="mb-4">
+              Bandung selalu jadi pilihan favorit untuk liburan karena menawakan perpaduan lengkap antara keindahan alam, udara sejuk, dan ragam aktivitas seru. Mulai dari wisata alam yang menenangkan, kuliner yang menggoda, hingga tempat-tempat hits yang Instagramable, semuanya bisa kamu temukan dalam satu kota.
+                </p>
+              <a href="<?php echo PAGES_URL; ?>kenapa-harus-bandung" class="btn btn-primary my-6">Baca lengkap</a>
         </div>
       </div>
-    </section>
-    
-    <script>
-      class ImageSlider {
-        constructor() {
-          this.slides = document.querySelectorAll('.highlight-event-slide');
-          this.dots = document.querySelectorAll('.dot');
-          this.currentSlide = 0;
-          this.slideInterval = null;
-          this.autoSlideDelay = 3000; 
+    </div>
+    <div class="col-12 col-md-6 col-lg-6 element-2">
+      <!--  -->
+      <div class="kenapa-image-container auto-slide">
+        <div class="kenapa-image-slide">
           
-          this.init();
-        }
+          <Img Class="kenapa-image" src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
+        <Img Class="kenapa-image" Src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
+        <Img Class="kenapa-image" Src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
         
-        init() {
-          this.startAutoSlide();
-          this.bindEvents();
-        }
-        
-        nextSlide() {
-          this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-          this.showSlide(this.currentSlide);
-        }
-        
-        showSlide(index) {
-          // Update slides
-          this.slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-          });
-          
-          // Update dots
-          this.dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-          });
-        }
-        
-        startAutoSlide() {
-          this.slideInterval = setInterval(() => {
-            this.nextSlide();
-          }, this.autoSlideDelay);
-        }
-        
-        stopAutoSlide() {
-          clearInterval(this.slideInterval);
-        }
-        
-        bindEvents() {
-          // Dots click
-          this.dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-              this.stopAutoSlide();
-              this.showSlide(index);
-              this.startAutoSlide(); 
-            });
-          });
-          
-          // Pause on hover
-          const slider = document.querySelector('.highlight-event-slider');
-          slider.addEventListener('mouseenter', () => this.stopAutoSlide());
-          slider.addEventListener('mouseleave', () => this.startAutoSlide());
-        }
-      }
-      
-      document.addEventListener('DOMContentLoaded', () => {
-        new ImageSlider();
-      });
-    </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // Auto Slide 
+document.addEventListener('DOMContentLoaded', function() {
+  const containers = document.querySelectorAll('.kenapa-image-container');
+  
+  containers.forEach(container => {
+    const slideContainer = container.querySelector('.kenapa-image-slide');
+    const images = slideContainer.querySelectorAll('.kenapa-image');
     
-    <!-- artikel terbaru -->
+    if (images.length < 2) return; // Minimal 2
     
-    <div class="menu-container">
-        <h2 class="cool-title-h1">ARTIKEL TERBARU</h2>
-        <div class="cards-wrapper">
-            <div class="cards-container" id="cardsContainer">
-                <!-- Card 1:  -->
-                <div class="card">
-                    <div class="card-image" 
-                         style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-category">Design</span>
-                        <h3 class="card-title">Minimalism dalam UI/UX Design</h3>
-                        <p class="card-excerpt">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital.</p>
-                        <a href="#" class="my-btn-dark">Baca</a>
-                    </div>
-                </div>
-                
-                <!-- Card 2:  -->
-                <div class="card">
-                    <div class="card-image" 
-                         style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-category">Design</span>
-                        <h3 class="card-title">Minimalism dalam UI/UX Design</h3>
-                        <p class="card-excerpt">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital.</p>
-                        <a href="#" class="my-btn-dark">Baca</a>
-                    </div>
-                </div>
+    let currentIndex = 0;
+    const slideDuration = 5000; // 5 detik per slide
+    let slideInterval;
+    
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % images.length;
+      slideContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+    
+    function startAutoSlide() {
+      slideInterval = setInterval(nextSlide, slideDuration);
+    }
+    
+    function stopAutoSlide() {
+      clearInterval(slideInterval);
+    }
+    
+    // Hover pause
+    container.addEventListener('mouseenter', stopAutoSlide);
+    container.addEventListener('mouseleave', startAutoSlide);
+    
+    startAutoSlide();
+  });
+});
+</script>
+<!-- Artikel Terbaru Section -->
+<section id="artikel" class="my-10 py-lg-7">
+    <div class="container">
+        <!-- Title -->
+        <div class="text-center mb-6">
+            <h2 class="display-4 font-bold mb-6">
+                ARTIKEL TERBARU
+            </h2>
+        </div>
 
-                <!-- Card 3:  -->
-                <div class="card">
-                    <div class="card-image" 
-                         style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
+        <!-- Wrapper Artikel Terbaru -->
+        <div class="wrapper-artikel-terbaru position-relative">
+            <!-- Track (Scrollable Area) -->
+            <div class="wrapper-artikel-terbaru-track overflow-hidden" id="cardsTrack">
+                <!-- Viewport (Cards Container) -->
+                <div class="wrapper-artikel-terbaru-viewport d-flex gap-4 p-6" id="cardsContainer">
+                  
+                    <!-- Card  -->
+                    <div class="glass glass-hover flex-shrink-0 overflow-hidden" style="width: 340px; min-width: 340px; max-width: 340px;">
+                        <div class="card-img-top overflow-hidden" style="height: 220px; background: var(--blue-200); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
+                            <img src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
+                        </div>
+                        <div class="card-body p-5">
+                            <span class="badge bg-dark opacity-50 text-white rounded-pill px-3 py-2 mb-3 d-inline-block">Design</span>
+                            <h5 class="card-title font-bold mb-5 fs-5 text-title">Minimalism dalam UI/UX Design</h5>
+                            <p class="card-text text-muted mb-6">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital saat ini.</p>
+                            <a href="#" class="btn btn-glass text-primary font-semibold w-100 transition-all">
+                                <i class="fas fa-arrow-right me-2"></i>Baca Selengkapnya
+                            </a>
+                        </div>
                     </div>
-                    <div class="card-content">
-                        <span class="card-category">Design</span>
-                        <h3 class="card-title">Minimalism dalam UI/UX Design</h3>
-                        <p class="card-excerpt">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital.</p>
-                        <a href="#" class="my-btn-dark">Baca</a>
+                    <div class="glass glass-hover flex-shrink-0 overflow-hidden" style="width: 340px; min-width: 340px; max-width: 340px;">
+                        <div class="card-img-top overflow-hidden" style="height: 220px; background: var(--blue-200); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
+                            <img src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
+                        </div>
+                        <div class="card-body p-5">
+                            <span class="badge bg-dark opacity-50 text-white rounded-pill px-3 py-2 mb-3 d-inline-block">Design</span>
+                            <h5 class="card-title font-bold mb-3 fs-5 text-title">Minimalism dalam UI/UX Design</h5>
+                            <p class="card-text text-muted mb-6">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital saat ini.</p>
+                            <a href="#" class="btn btn-glass text-primary font-semibold w-100 transition-all">
+                                <i class="fas fa-arrow-right me-2"></i>Baca Selengkapnya
+                            </a>
+                        </div>
                     </div>
-                </div>
+                    <div class="glass glass-hover flex-shrink-0 overflow-hidden" style="width: 340px; min-width: 340px; max-width: 340px;">
+                        <div class="card-img-top overflow-hidden" style="height: 220px; background: var(--blue-200); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
+                            <img src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
+                        </div>
+                        <div class="card-body p-5">
+                            <span class="badge bg-dark opacity-50 text-white rounded-pill px-3 py-2 mb-3 d-inline-block">Design</span>
+                            <h5 class="card-title font-bold mb-3 fs-5 text-title">Minimalism dalam UI/UX Design</h5>
+                            <p class="card-text text-muted mb-6">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital saat ini.</p>
+                            <a href="#" class="btn btn-glass text-primary font-semibold w-100 transition-all">
+                                <i class="fas fa-arrow-right me-2"></i>Baca Selengkapnya
+                            </a>
+                        </div>
+                    </div>
+                    <div class="glass glass-hover flex-shrink-0 overflow-hidden" style="width: 340px; min-width: 340px; max-width: 340px;">
+                        <div class="card-img-top overflow-hidden" style="height: 220px; background: var(--blue-200); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
+                            <img src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
+                        </div>
+                        <div class="card-body p-5">
+                            <span class="badge bg-dark opacity-50 text-white rounded-pill px-3 py-2 mb-3 d-inline-block">Design</span>
+                            <h5 class="card-title font-bold mb-3 fs-5 text-title">Minimalism dalam UI/UX Design</h5>
+                            <p class="card-text text-muted mb-6">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital saat ini.</p>
+                            <a href="#" class="btn btn-glass text-primary font-semibold w-100 transition-all">
+                                <i class="fas fa-arrow-right me-2"></i>Baca Selengkapnya
+                            </a>
+                        </div>
+                    </div>
 
-                <!-- Card 4:  -->
-                <div class="card">
-                    <div class="card-image" 
-                         style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-category">Design</span>
-                        <h3 class="card-title">Minimalism dalam UI/UX Design</h3>
-                        <p class="card-excerpt">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital.</p>
-                        <a href="#" class="my-btn-dark">Baca</a>
-                    </div>
                 </div>
+            </div>
 
-                <!-- Card 5:  -->
-                <div class="card">
-                    <div class="card-image" 
-                         style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-category">Design</span>
-                        <h3 class="card-title">Minimalism dalam UI/UX Design</h3>
-                        <p class="card-excerpt">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital.</p>
-                        <a href="#" class="my-btn-dark">Baca</a>
-                    </div>
-                </div>
-                
+            <!-- Navigation Controls -->
+            <div class="nav-controls d-flex justify-content-center align-items-center gap-3 px-3 py-6">
+                <button class="btn btn-outline-primary rounded-circle p-3 carousel-control-prev" type="button" id="prevBtn" style="width: 60px; height: 60px;" aria-label="Previous">
+                    <i class="fas fa-chevron-left fs-5"></i>
+                </button>
+                <div class="indicators d-flex gap-2 opacity-50 px-4 py-2 rounded-pill" id="indicators" style="min-width: 120px;"></div>
+                <button class="btn btn-outline-primary rounded-circle carousel-control-next" type="button" id="nextBtn" style="width: 60px; height: 60px; z-index: 4;" aria-label="Next">
+                    <i class="fas fa-chevron-right fs-5"></i>
+                </button>
             </div>
         </div>
-
-        <div class="nav-controls">
-            <button class="arrow-btn" id="prevBtn">←</button>
-            <div class="indicators" id="indicators"></div>
-            <button class="arrow-btn" id="nextBtn">→</button>
         </div>
-    </div>
-        <script>
-            class MinimalScrollCards {
-                constructor() {
-                    this.container = document.getElementById('cardsContainer');
-                    this.cards = document.querySelectorAll('.card');
-                    this.prevBtn = document.getElementById('prevBtn');
-                    this.nextBtn = document.getElementById('nextBtn');
-                    this.indicatorsContainer = document.getElementById('indicators');
-                    
-                    this.currentIndex = 0;
-                    this.cardWidth = 320 + 24;
-                    this.init();
-                }
+        </section>
+<style>
+/* Ultra Smooth Horizontal Scroll */
+.wrapper-artikel-terbaru {
+    --card-width: 340px;
+    --card-gap: 24px;
+    --transition: cubic-bezier(0.25, 0.1, 0.25, 1) 0.4s;
+}
+
+.wrapper-artikel-terbaru-track {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.wrapper-artikel-terbaru-track::-webkit-scrollbar {
+    display: none;
+}
+
+.wrapper-artikel-terbaru-viewport {
+    transition: transform var(--transition);
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.wrapper-artikel-terbaru .glass {
+    transition: all 0.3s var(--transition);
+}
+
+
+
+/* Indicators */
+.indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #adb5bd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.indicator.active,
+.indicator:hover {
+    background: #0d6efd;
+    transform: scale(1.1);
+    border-color: white;
+}
+
+/* Responsive Card Sizes */
+@media (max-width: 1199.98px) {
+    .wrapper-artikel-terbaru .glass {
+        width: 320px !important;
+        min-width: 320px !important;
+        max-width: 320px !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .wrapper-artikel-terbaru .glass {
+        width: 300px !important;
+        min-width: 300px !important;
+        max-width: 300px !important;
+    }
     
-                init() {
-                    this.updateMaxIndex();
-                    this.createIndicators();
-                    this.updateScroll();
-                    this.bindEvents();
-                }
+    .wrapper-artikel-terbaru-viewport {
+        gap: 20px !important;
+        padding: 2rem 1rem !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .wrapper-artikel-terbaru .glass {
+        width: 280px !important;
+        min-width: 280px !important;
+        max-width: 280px !important;
+    }
     
-                updateMaxIndex() {
-                    const containerWidth = window.innerWidth < 768 ? 340 : 440;
-                    this.maxVisible = Math.floor(containerWidth / this.cardWidth);
-                    this.maxIndex = Math.max(0, this.cards.length - this.maxVisible);
-                }
+    .nav-controls {
+        gap: 1rem !important;
+    }
     
-                createIndicators() {
-                    this.indicatorsContainer.innerHTML = '';
-                    for (let i = 0; i <= this.maxIndex; i++) {
-                        const dot = document.createElement('div');
-                        dot.className = 'indicator';
-                        if (i === 0) dot.classList.add('active');
-                        dot.addEventListener('click', () => this.goTo(i));
-                        this.indicatorsContainer.appendChild(dot);
-                    }
-                    this.indicators = document.querySelectorAll('.indicator');
-                }
-    
-                bindEvents() {
-                    this.prevBtn.addEventListener('click', () => this.prev());
-                    this.nextBtn.addEventListener('click', () => this.next());
-                    window.addEventListener('resize', () => {
-                        this.updateMaxIndex();
-                        this.createIndicators();
-                        this.currentIndex = 0;
-                        this.updateScroll();
-                    });
-                }
-    
-                goTo(index) {
-                    this.currentIndex = Math.max(0, Math.min(index, this.maxIndex));
-                    this.updateScroll();
-                }
-    
-                next() {
-                    if (this.currentIndex < this.maxIndex) {
-                        this.currentIndex++;
-                        this.updateScroll();
-                    }
-                }
-    
-                prev() {
-                    if (this.currentIndex > 0) {
-                        this.currentIndex--;
-                        this.updateScroll();
-                    }
-                }
-    
-                updateScroll() {
-                    const translateX = -this.currentIndex * this.cardWidth;
-                    this.container.style.transform = `translateX(${translateX}px)`;
-                    this.updateIndicators();
-                }
-    
-                updateIndicators() {
-                    this.indicators.forEach((indicator, i) => {
-                        indicator.classList.toggle('active', i === this.currentIndex);
-                    });
-                }
-            }
-    
-            document.addEventListener('DOMContentLoaded', () => {
-                new MinimalScrollCards();
-                
-                document.querySelectorAll('.my-btn-dark, .card').forEach(el => {
-                    el.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('my-btn-dark') || e.currentTarget.classList.contains('card')) {
-                            // Simulate navigation
-                            console.log('Navigasi ke artikel...');
-                        }
-                    });
-                });
+    .nav-controls .btn {
+        width: 50px !important;
+        height: 50px !important;
+        padding: 0.75rem !important;
+    }
+}
+</style>
+<script>
+class SmoothScrollCards {
+    constructor() {
+        this.track = document.getElementById('cardsTrack');
+        this.viewport = document.getElementById('cardsContainer');
+        this.cards = document.querySelectorAll('.wrapper-artikel-terbaru-viewport .glass');
+        this.prevBtn = document.getElementById('prevBtn');
+        this.nextBtn = document.getElementById('nextBtn');
+        this.indicatorsContainer = document.getElementById('indicators');
+        
+        this.currentIndex = 0;
+        this.isAnimating = false;
+        this.init();
+    }
+
+    init() {
+        this.updateLayout();
+        this.createIndicators();
+        this.updateScroll();
+        this.bindEvents();
+        requestAnimationFrame(() => this.updateScroll());
+        }
+
+    updateLayout() {
+        const containerWidth = this.track.offsetWidth;
+        let visibleCards;
+        
+        if (window.innerWidth >= 1200) visibleCards = 2;
+        else if (window.innerWidth >= 992) visibleCards = 2;
+        else if (window.innerWidth >= 768) visibleCards = 1.5;
+        else visibleCards = 1;
+        
+        this.cardWidth = 340 + 24; // Fixed card width + gap
+        this.maxIndex = Math.max(0, this.cards.length - visibleCards);
+    }
+
+    createIndicators() {
+        this.indicatorsContainer.innerHTML = '';
+        for (let i = 0; i <= this.maxIndex; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'indicator';
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.goTo(i);
             });
-        </script>
+            this.indicatorsContainer.appendChild(dot);
+        }
+        this.indicators = document.querySelectorAll('.indicator');
+    }
+
+    bindEvents() {
+        // Mouse events
+        this.prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.prev();
+        });
         
-    <!-- informasi terkini -->
+        this.nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.next();
+        });
+
+        // Touch/Swipe - Ultra smooth
+        let startX = 0, currentX = 0, isDragging = false;
         
-    <div class="event-news-section">
-        <div class="event-news-cards-container">
+        this.track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            this.pauseAnimations();
+        }, { passive: true });
+        
+        this.track.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+        }, { passive: true });
+        
+        this.track.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            const diff = startX - currentX;
+            if (Math.abs(diff) > 60) {
+                if (diff > 0) this.next();
+                else this.prev();
+            }
+            isDragging = false;
+            this.resumeAnimations();
+        }, { passive: true });
+
+        // Keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.target.closest('.wrapper-artikel-terbaru')) {
+                if (e.key === 'ArrowLeft') this.prev();
+                if (e.key === 'ArrowRight') this.next();
+            }
+        });
+
+        // Resize observer for ultra smooth resize
+        const resizeObserver = new ResizeObserver(() => {
+            this.updateLayout();
+            this.createIndicators();
+            this.currentIndex = 0;
+            this.updateScroll();
+        });
+        resizeObserver.observe(this.track);
+    }
+
+    async goTo(index) {
+        if (this.isAnimating || index === this.currentIndex) return;
+        
+        this.isAnimating = true;
+        this.currentIndex = Math.max(0, Math.min(index, this.maxIndex));
+        
+        await this.updateScroll();
+        this.updateIndicators();
+        this.isAnimating = false;
+    }
+
+    async next() {
+        if (this.currentIndex < this.maxIndex) {
+            await this.goTo(this.currentIndex + 1);
+        }
+    }
+
+    async prev() {
+        if (this.currentIndex > 0) {
+            await this.goTo(this.currentIndex - 1);
+        }
+    }
+
+    async updateScroll() {
+        return new Promise(resolve => {
+            requestAnimationFrame(() => {
+                const translateX = -(this.currentIndex * this.cardWidth);
+                this.viewport.style.transform = `translate3d(${translateX}px, 0, 0)`;
+                resolve();
+            });
+        });
+    }
+
+    updateIndicators() {
+        this.indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === this.currentIndex);
+        });
+    }
+
+    pauseAnimations() {
+        this.viewport.style.transition = 'none';
+    }
+
+    resumeAnimations() {
+        requestAnimationFrame(() => {
+            this.viewport.style.transition = '';
+        });
+    }
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new SmoothScrollCards());
+} else {
+    new SmoothScrollCards();
+}
+</script>
+<!-- informasi terkini -->
+<section>
+    <div class="container">
+        <div class="row g-0 justify-content-center">
         <!-- CARD 1 -->
-        <article class="event-news-card">
+        <article class="event-news-card col-12 col-sm-6 col-lg-4 col-xl-3">
             <div class="event-news-image" 
                  style="background-image: url('https://images.unsplash.com/photo-1689363302902-2c58330d6494?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-                <div class="event-news-badge">BERITA UTAMA</div>
+                
             </div>
             <div class="event-news-content">
                 <h2 class="event-news-title">
@@ -473,15 +631,15 @@ require_once 'includes/header.php';
                 <p class="event-news-excerpt">
                     Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum.
                 </p>
-                <a href="#" class="my-btn-dark">Baca Lengkap</a>
+                <a href="#" class="btn btn-primary">Baca Lengkap</a>
             </div>
         </article>
 
         <!-- CARD 2 -->
-        <article class="event-news-card">
+        <article class="event-news-card col-12 col-sm-6 col-lg-4 col-xl-3">
             <div class="event-news-image" 
                  style="background-image: url('https://images.unsplash.com/photo-1689363302902-2c58330d6494?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-                <div class="event-news-badge">BERITA UTAMA</div>
+                
             </div>
             <div class="event-news-content">
                 <h2 class="event-news-title">
@@ -490,15 +648,15 @@ require_once 'includes/header.php';
                 <p class="event-news-excerpt">
                     Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum.
                 </p>
-                <a href="#" class="my-btn-dark">Baca Lengkap</a>
+                <a href="#" class="btn btn-primary">Baca Lengkap</a>
             </div>
         </article>
 
         <!-- CARD 3 -->
-        <article class="event-news-card">
+        <article class="event-news-card col-12 col-sm-6 col-lg-4 col-xl-3">
             <div class="event-news-image" 
                  style="background-image: url('https://images.unsplash.com/photo-1689363302902-2c58330d6494?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-                <div class="event-news-badge">BERITA UTAMA</div>
+                
             </div>
             <div class="event-news-content">
                 <h2 class="event-news-title">
@@ -507,21 +665,13 @@ require_once 'includes/header.php';
                 <p class="event-news-excerpt">
                     Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum.
                 </p>
-                <a href="#" class="my-btn-dark">Baca Lengkap</a>
+                <a href="#" class="btn btn-primary">Baca Lengkap</a>
             </div>
         </article>
     </div>
     </div>
-    
-    
-</body>
+</section>
 
-</html>
-
-
-<?php 
-
-/* Footer */
-
-require_once 'includes/footer.php'; ?>
-
+<?php  
+require 'includes/footer.php'; 
+?>

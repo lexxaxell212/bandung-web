@@ -1,18 +1,18 @@
 /* ========================================
-   LIGHT BLUE GLASSMORPHISM - ORANGE ACCENT
+   DARK BLUE GLASSMORPHISM - ORANGE ACCENT
 ======================================== */
 :root {
-  --blue-50: #EBF5FF;
-  --blue-100: #E1EFFE;
-  --blue-200: #C3DDFD;
-  --blue-300: #A4CAFE;
-  --blue-400: #76A9FA;
-  --blue-500: #3F83F8;
-  --blue-600: #1C64F2;
-  --blue-700: #1A56DB;
-  --blue-800: #1E429F;
-  --blue-900: #233876;
-  --blue-950: #172554;
+  --blue-50: #516572;
+  --blue-100: #485A66;
+  --blue-200: #3F4E59;
+  --blue-300: #36434C;
+  --blue-400: #2D383F;
+  --blue-500: #242D33;
+  --blue-600: #1B2126;
+  --blue-700: #121619;
+  --blue-800: #090B0C;
+  --blue-900: #090B0C;
+  --blue-950: #000000;
   --orange-500: #f97316;
   --orange-600: #ea580c;
   --orange-700: #c2410c;
@@ -25,12 +25,12 @@
   --glass-blur: blur(16px);
   --glass-glow: 0 0 20px rgba(14, 165, 233, 0.2);
   --logo-path: url('https://ayokebandung.id/assets/images/logo-d.png');
-  --bg-html: #E1EFFE;
+  --bg-html: #000000;
   --bg-primary: linear-gradient(
   135deg,
   var(--blue-50) 0%,
   var(--blue-100) 50%,
-  #e0f2fe 100%
+  #242D33 100%
   );
   --radial-a: radial-gradient(
   circle at 20% 80%,
@@ -71,32 +71,6 @@
   --radius-3xl: 2rem;
   --radius-full: 9999px;
 }
-[data-dark] {
-  /* Inverted */
-  --blue-50: #172554;
-  --blue-100: #233876;
-  --blue-200: #1E429F;
-  --blue-300: #1A56DB;
-  --blue-400: #1C64F2;
-  --blue-500: #3F83F8;
-  --blue-600: #76A9FA;
-  --blue-700: #A4CAFE;
-  --blue-800: #C3DDFD;
-  --blue-900: #E1EFFE;
-  --blue-950: #EBF5FF;
-  --orange-500: #c2410c;
-  --orange-600: #ea580c;
-  --orange-700: #f97316;
-  --glass-bg: rgba(0,0,0, 0.25);
-  --glass-bg-hover: rgba(0,0,0, 0.4);
-  --glass-bg-active: rgba(0,0,0, 0.5);
-  --glass-border: rgba(0,0,0, 0.2);
-  --glass-shadow: 0 8px 32px rgba(255,255,255, 0.12);
-  --glass-backdrop: rgba(0,0,0, 0.15);
-  --logo-path: url('https://ayokebandung.id/assets/images/logo.png');
-  --bg-html: #000023;
-  --bg-primary: linear-gradient(90deg, #000014 0%, #000023 100%);
-}
 *,
 *::before,
 *::after {
@@ -106,18 +80,14 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--bg-html);
+  background: #11131a;
   height: 100%;
 }
 body {
   font-family: var(--font-primary);
   line-height: 1.6;
-  color: var(--blue-950);
-  background:
-  var(--bg-primary),
-  var(--radial-a),
-  var(--radial-b),
-  var(--radial-c);
+  color: #ccced6;
+  background:#11131a;
   background-attachment: fixed;
   overflow-x: hidden;
   min-height: 100vh;
@@ -127,7 +97,7 @@ body {
 }
 p {
   font-family: var(--font-primary);
-  color: var(--blue-900);
+  color: #E7ECEF;
 }
 .h1,
 .h2,
@@ -145,7 +115,7 @@ h6 {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: var(--space-4);
-  color: var(--blue-500);
+  color: indigo;
 }
 
 @font-face {
@@ -197,10 +167,10 @@ h6 {
   font-size: clamp(1.125rem, 2vw, 1.25rem);
 }
 .text-primary {
-  color: var(--blue-600) !important;
+  color: indigo !important;
 }
 .text-secondary {
-  color: var(--blue-700) !important;
+  color: darkblue !important;
 }
 .text-accent {
   color: var(--orange-500) !important;
@@ -213,11 +183,11 @@ h6 {
   font-weight: 800;
 }
 .text-title {
-  color: var(--blue-600) !important;
+  color: var(--orange-500) !important;
   font-weight: 700;
 }
 .text-subtitle {
-  color: var(--blue-700) !important;
+  color: var(--blue-50) !important;
   font-weight: 500;
   opacity: 0.9;
 }
@@ -236,7 +206,7 @@ h6 {
 }
 .bg-primary {
   background: var(--blue-700) !important;
-  color: var(--blue-50) !important;
+  color: #fff !important;
 }
 .bg-accent {
   background: var(--orange-700) !important;
@@ -307,7 +277,7 @@ h6 {
   inset 0 1px 0 rgba(255, 255, 255, 0.6);
   border-radius: var(--radius-2xl);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #1e293b;
+  color: #fff;
 }
 .card-glass:hover {
   background: var(--glass-bg-hover);
@@ -357,8 +327,8 @@ h6 {
 .btn-primary {
   background: linear-gradient(
   135deg,
-  var(--blue-500),
-  var(--blue-600)
+  var(--orange-500),
+  indigo, blue
   );
   border-color: rgba(14, 165, 233, 0.3);
   box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.3);
@@ -367,8 +337,8 @@ h6 {
 .btn-primary:hover {
   background: linear-gradient(
   135deg,
-  var(--blue-600),
-  var(--blue-700)
+  var(--blue-100),
+  var(--blue-200)
   );
   box-shadow:
   0 8px 25px 0 rgba(14, 165, 233, 0.4),
@@ -799,13 +769,13 @@ h6 {
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: var(--radius-2xl);
-  color: #1e293b;
+  color: #fff;
 }
 .card-header,
 .card-footer {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border);
-  color: #1e293b;
+  color: #fff;
 }
 .modal-content {
   background: var(--glass-bg);
@@ -814,7 +784,7 @@ h6 {
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: var(--radius-2xl);
-  color: #1e293b;
+  color: #fff;
 }
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.1);
@@ -836,7 +806,7 @@ h6 {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
-  color: #1e293b;
+  color: #fff;
 }
 .alert-primary {
   border-left: 4px solid var(--blue-500);
@@ -858,11 +828,11 @@ h6 {
   font-weight: 600;
   font-size: 0.75rem;
   padding: var(--space-2) var(--space-3);
-  color: #1e293b;
+  color: #fff;
 }
 .badge-primary {
   background: rgba(14, 165, 233, 0.2);
-  color: var(--blue-600);
+  color: var(--blue-100);
 }
 .badge-accent {
   background: rgba(245, 158, 11, 0.2);

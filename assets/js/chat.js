@@ -1,4 +1,4 @@
-const API_URL = "../api/groq-chat.php"; 
+const API_URL = "../api/groq-chat.php";
 let isLoading = false;
 
 async function sendMessage() {
@@ -6,7 +6,7 @@ async function sendMessage() {
 
   const input = document.getElementById("message-input");
   const messages = document.getElementById("chat-messages");
-  const topic = document.getElementById("topic-select").value;
+  const topic = "bandung";
 
   const message = input.value.trim();
   if (!message) return;
@@ -17,10 +17,8 @@ async function sendMessage() {
   input.focus();
 
   // Loading
-  const loadingId = addMessage("\n 🚀 Web Assistant \n", "ai loading");
+  const loadingId = addMessage("Tunggu sebentar yah..");
   isLoading = true;
-
-  const startTime = performance.now();
 
   try {
     const controller = new AbortController();
@@ -41,7 +39,6 @@ async function sendMessage() {
 
     if (data.success) {
       addMessage(data.reply, "ai");
-      updateStats(data.tokens, performance.now() - startTime, data.model);
     } else {
       addMessage(`❌ ${data.error}`, "error");
     }
@@ -55,25 +52,43 @@ async function sendMessage() {
 
 function addMessage(text, type) {
   const messages = document.getElementById("chat-messages");
-  const div = document.createElement("div");
-  div.className = `message ${type}`;
-  div.innerHTML = text.replace(/\n/g, "<br>");
-  messages.appendChild(div);
+  const messageDiv = document.createElement("div");
+  messageDiv.className = `message ${type}`;
+  
+  let content = `<div class="bubble">`;
+  
+  if (type === 'user') {
+    content += `
+      <div style="font-size: 14px; opacity: 0.9; margin-bottom: 4px;font-weight:700;">You</div>
+      <div style="line-height: 1.5;">${text.replace(/\n/g, "<br>")}</div>
+      <div style="font-size: 11px; opacity: 0.7; margin-top: 8px;">
+        ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+      </div>
+    `;
+  } else if (type === 'ai') {
+    content += `
+      <div style="font-size: 14px; opacity: 0.9; margin-bottom: 4px;font-weight:700;">Bot</div>
+      <div style="line-height: 1.5;">${text.replace(/\n/g, "<br>")}</div>
+      <div style="font-size: 11px; opacity: 0.7; margin-top: 8px;">
+        ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+      </div>
+    `;
+  } else {
+    content += text;
+  }
+  
+  content += `</div>`;
+  messageDiv.innerHTML = content;
+  
+  messages.appendChild(messageDiv);
   messages.scrollTop = messages.scrollHeight;
-  return (div.id = "msg_" + Date.now());
-}
-
-function updateStats(tokens, time, model) {
-  document.getElementById("token-count").textContent = `Tokens: ${tokens}`;
-  document.getElementById("response-time").textContent = `${(
-    time / 1000
-  ).toFixed(2)}s`;
-  document.getElementById("model-used").textContent = model;
+  
+  messageDiv.id = "msg_" + Date.now();
+  return messageDiv.id;
 }
 
 function clearChat() {
   document.getElementById("chat-messages").innerHTML = "";
-  updateStats(0, 0, "-");
 }
 
 // Events
@@ -86,6 +101,6 @@ document.getElementById("message-input").addEventListener("keypress", (e) => {
 
 // Welcome
 window.onload = () => {
-  addMessage("🚀 Selamat datang!🚀 ", "ai");
-  document.getElementById("message-input").focus();
+addMessage("Hai.. mau tanya apa nih?","ai");
+document.getElementById("message-input").focus();
 };

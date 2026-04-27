@@ -35,7 +35,7 @@ function openSearchModal() {
   setTimeout(() => {
     searchInput?.focus();
     searchInput?.select();
-  }, 1500);
+  }, 50);
 }
 
 function closeSearchModal() {
@@ -95,7 +95,6 @@ document.addEventListener("keydown", (e) => {
 // chat bot modal
 
 const blueIconFab = document.getElementById("chatbotFabBtn");
-const fabContainer = document.querySelector(".fab-chatbot-container");
 const fabLabel = document.querySelector(".fab-chatbot-label");
 let chatbotModal = null;
 
@@ -110,14 +109,14 @@ function toggleChatbot() {
   if (chatbotModal?.toggle) {
     chatbotModal.toggle();
     setTimeout(() => {
-      const chatInput = document.getElementById("chat-input");
+      const chatInput = document.getElementById("message-input");
       if (
         chatInput &&
         document.getElementById("chatbot")?.classList.contains("show")
       ) {
         chatInput.focus();
       }
-    }, 150);
+    }, 500);
   }
 }
 
@@ -138,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleChatbot();
   });
 
-  fabContainer?.addEventListener("mouseenter", function (e) {
+  blueIconFab?.addEventListener("mouseenter", function (e) {
     e.stopPropagation();
     fabLabel.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
     fabLabel.style.animation = "none";
@@ -146,12 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
     fabLabel.style.transform = "translateY(-6px) scale(1.05)";
   });
 
-  fabContainer?.addEventListener("mouseleave", function (e) {
+  blueIconFab?.addEventListener("mouseleave", function (e) {
     e.stopPropagation();
     setTimeout(() => {
       fabLabel.style.transition = "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)";
       fabLabel.style.animation = "fab-chatbot-blueLabelOut 0.35s forwards";
-    }, 5000);
+    }, 3000);
   });
 });
 

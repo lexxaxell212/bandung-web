@@ -8,8 +8,8 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 93%;
-    max-width: 400px;
+  width: 100%;
+    max-width: 600px;
   height: 100%;
   transform: scale(0.8) translateY(20px);
   opacity: 0;
@@ -67,7 +67,7 @@ chatbot.offcanvas .offcanvas-backdrop {
   outline: none !important;
 }
 .input-chat {
-  background: var(--blue-200);
+  background: var(--blue-100);
   border-radius: 12px;
   color: var(--blue-950);
   padding: 10px 14px;
@@ -172,99 +172,45 @@ chatbot.offcanvas .offcanvas-backdrop {
 .close-btn:hover {
     color: var(--blue-700);
 }
-
-.fab-chatbot-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1060 !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: end;
-}
-
 .fab-chatbot {
-    z-index: 1062 !important;
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  background: var(--blue-700);
-  border: none;
-  color: var(--blue-100);
-  font-size: 1.15rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: fab-chatbot-blueBounce 1.5s ease-out forwards;
-  opacity: 0;
-}
+            position: fixed;
+            bottom: clamp(14px, 3.8vw, 26px);
+            right: clamp(14px, 3.8vw, 26px);
+            z-index: 1062;
+            width: 56px;
+            height: 56px;
+            background: var(--blue-700);
+            border: none;
+            border-radius: 16px;
+            color: var(--blue-100);
+            font-size: 1.15rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            transform: scale(0.8) translateY(20px); /* ← TAMBAH */
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
 
-.fab-chatbot-label {
-  background: var(--blue-700);
-  color: var(--blue-100) !important;
-  margin-bottom: 5px;
-  padding: 10px;
-  border-radius: 10px;
-  opacity: 0;
-  width: 120px;
-  font-size: 14px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: fab-chatbot-blueLabelIn 1s 4s cubic-bezier(0.4, 0, 0.2, 1) forwards,
-    fab-chatbot-blueLabelOut 1s 7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+@keyframes fabSlideIn {     /* ← TAMBAH FULL */
+    0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+    50% { transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
 }
-
-.fab-chatbot:hover ~ .fab-chatbot-label,
-.fab-chatbot-container:hover .fab-chatbot-label {
-  opacity: 1 !important;
-}
-
-@keyframes fab-chatbot-fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fab-chatbot-blueBounce {
-  0% {
-    opacity: 0;
-    transform: scale(0.9) translateY(12px);
-  }
-  55% {
-    transform: scale(1.06) translateY(-3px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes fab-chatbot-blueLabelIn {
-  0% {
-    opacity: 0;
-    transform: translateY(70px) translateX(70px) scale(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) translateX(0) scale(1);
-  }
-}
-
-@keyframes fab-chatbot-blueLabelOut {
-  0% {
-    opacity: 1;
-    transform: translateY(0) translateX(0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(70px) translateX(70px) scale(0);
-  }
-}
+        @media (min-width: 768px) { /* MD - iPad */
+            .fab-chatbot { right: clamp(24px, 4.5vw, 45px); }
+        }
+        @media (min-width: 992px) { /* LG - Laptop */
+            .fab-chatbot { 
+                right: clamp(65px, 6vw, 90px);
+            }
+        }
+        @media (min-width: 1200px) { /* XL - Desktop */
+            .fab-chatbot { 
+                right: clamp(120px, 8vw, 160px);
+            }
+        }

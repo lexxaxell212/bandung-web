@@ -14,7 +14,6 @@
   height: var(--navbar-height);
   display: flex;
   align-items: center;
-  transition: background 0.3s ease;
 }
 
 .navbar-brand {
@@ -193,11 +192,11 @@
 }
 
 .nav-link {
-  color: var(--blue-950) !important;
+  color: var(--blue-900) !important;
   font-weight: 400;
   font-size: 1.1rem;
   padding: 1rem !important;
-  border-radius: 15px;
+  border-radius: 16px;
   border: none;
   transition: all 0.3s ease;
   display: flex;
@@ -213,7 +212,7 @@
   top: 0;
   height: 100%;
   width: 0;
-  background: var(--blue-200);
+  background: rgba(127,127,127,0.1);
   transition: width 0.3s ease;
   z-index: -1;
 }
@@ -225,7 +224,7 @@
 .nav-link:hover,
 .nav-link:focus,
 .nav-link.active  {
-  color: var(--blue-950) !important;
+  color: var(--blue-700) !important;
   border-color: rgba(255, 255, 255, 0.4);
   transform: translateX(10px);
 }
@@ -246,7 +245,7 @@
 }
 
 .dropdown-item {
-  color: var(--blue-950) !important;
+  color: var(--blue-900) !important;
   padding: 0.5rem !important;
   margin-bottom: 5px;
   border-radius: 10px;
@@ -265,7 +264,7 @@
   top: 0;
   height: 100%;
   width: 0;
-  background: var(--blue-200);
+  background: var(--blue-100);
   transition: width 0.3s ease;
   z-index: -1;
 }
@@ -353,7 +352,7 @@
   min-height: 200px;
   max-height: 85vh;
   background: var(--blue-100);
-    color:var(--blue-950);
+    color:var(--blue-900);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   display: flex;
@@ -376,7 +375,7 @@
   flex-shrink: 0;
   height: var(--navbar-height);
   background: var(--blue-200);
-  color: var(--blue-950);
+  color: var(--blue-900);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -389,7 +388,7 @@
 .search-modal-title {
   font-size: 1.5rem;
   font-family: var(font-secondary);
-  color: var(--blue-950);
+  color: var(--blue-900);
   margin: 0;
 }
 
@@ -397,7 +396,7 @@
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: var(--blue-950);
+  color: var(--blue-900);
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 12px;
@@ -438,7 +437,7 @@
   padding: 2rem;
   top: 0;
   background: var(--blue-100);
-    color: var(--blue-950);
+    color: var(--blue-900);
   z-index: 1084 !important;
 }
 
@@ -452,14 +451,14 @@
   border-radius: 12px;
     border: none;
   font-size: 1rem;
-  background: var(--blue-200);
-    color: var(--blue-950);
+  background: var(--blue-100);
+    color: var(--blue-900);
   transition: all 0.3s ease;
   outline: none;
     opacity: 0.8
 }
 .search-input::placeholder {
-    color: var(--blue-950);
+    color: var(--blue-900);
 }
 /*input.search-input::placeholder{
   color: var(--blue-950);
@@ -475,13 +474,13 @@
   left: 3.3rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--blue-950);
+  color: var(--blue-900);
   font-size: 1.7rem;
   pointer-events: none;
 }
 
 .typing {
-  color: var(--blue-950);
+  color: var(--blue-900);
   font-style: italic;
   padding: 10px;
   text-align: center;
@@ -492,12 +491,12 @@
   padding: 0;
   margin: 4px;
   font-size: 15px;
-    color: var(--blue-950);
+    color: var(--blue-900);
 }
 
 .result {
-  background: var(--blue-100);
-  color: var(--blue-950);
+  background: var(--blue-50);
+  color: var(--blue-900);
   margin-bottom: 12px;
   border-radius: 12px;
   overflow: auto;
@@ -522,7 +521,7 @@
 .result-header {
   background: var(--blue-100);
   font-family: var(--font-secondary);
-  color: var(--blue-950);
+  color: var(--blue-900);
   padding: 10px 20px;
     border-radius: 12px 12px 0 0;
 }
@@ -543,6 +542,7 @@
 .result-snippet {
   color: var(--blue-900);
   font-family: var(--font-primary);
+  opacity: 0.9;
   padding: 0 10px;
     border-radius: 12px 12px 0 0;
 }
@@ -551,13 +551,14 @@
   text-align: center;
   padding: 10px;
   color: var(--blue-900);
+  opacity: 0.85;
   margin-bottom: 20px;
 }
 
 .info-input {
   text-align: center;
   padding: 10px;
-  color: var(--blue-950);
+  color: var(--blue-900);
   margin-bottom: 20px;
 }
 
@@ -602,7 +603,7 @@
 }
 
 .cond {
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .city {
@@ -626,10 +627,6 @@
   border-radius: 10px;
   display: none;
 }
-
-
-        
-    
 
 /* Kenapa harus bandung section index */
 

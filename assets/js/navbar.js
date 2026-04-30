@@ -93,66 +93,185 @@ document.addEventListener("keydown", (e) => {
 });
 
 // chat bot modal
+class SmartFab {
+    constructor(fabId = 'chatbotFabBtn', scrollThreshold = 200) {
+        this.fab = document.getElementById(fabId);
+        this.threshold = scrollThreshold;
+        this.isVisible = false;
+        this.init();
+    }
 
-const blueIconFab = document.getElementById("chatbotFabBtn");
-const fabLabel = document.querySelector(".fab-chatbot-label");
-let chatbotModal = null;
+    init() {
+        if (!this.fab) return;
+        this.updateVisibility();
+        this.handleScroll = this.throttle(this.handleScroll.bind(this), 16);
+        window.addEventListener('scroll', this.handleScroll, { passive: true });
+        window.addEventListener('beforeunload', () => this.destroy());
+        this.fab.addEventListener('click', this.onFabClick);
+    }
 
-function initChatbot() {
-  const chatbotElement = document.getElementById("chatbot");
-  if (chatbotElement && window.bootstrap?.Offcanvas) {
-    chatbotModal = new window.bootstrap.Offcanvas(chatbotElement);
-  }
+    onFabClick = () => {
+        this.toggleChatbot();
+    }
+
+    toggleChatbot() {
+        const chatbotElement = document.getElementById("chatbot");
+        if (window.bootstrap?.Offcanvas && chatbotElement) {
+            const modal = window.bootstrap.Offcanvas.getInstance(chatbotElement) || 
+                         new window.bootstrap.Offcanvas(chatbotElement);
+            modal.toggle();
+        }
+    }
+
+    handleScroll() {
+        this.updateVisibility();
+    }
+
+    updateVisibility() {
+        const shouldShow = window.scrollY >= this.threshold;
+        if (shouldShow && !this.isVisible) {
+            this.show();
+        } else if (!shouldShow && this.isVisible) {
+            this.hide();
+        }
+    }
+
+    show() {
+        this.fab.style.opacity = '1';
+        this.fab.style.transform = 'scale(1) translateY(0)';
+        this.fab.style.visibility = 'visible';
+        this.fab.style.animation = 'fabSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        this.isVisible = true;
+    }
+
+    hide() {
+        this.fab.style.opacity = '0';
+        this.fab.style.transform = 'scale(0.8) translateY(20px)';
+        this.isVisible = false;
+        setTimeout(() => {
+            if (!this.isVisible) {
+                this.fab.style.visibility = 'hidden';
+            }
+        }, 300);
+    }
+
+    throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
+    }
+
+    destroy() {
+        window.removeEventListener('scroll', this.handleScroll);
+        this.fab.removeEventListener('click', this.onFabClick);
+    }
 }
 
-function toggleChatbot() {
-  if (chatbotModal?.toggle) {
-    chatbotModal.toggle();
-    setTimeout(() => {
-      const chatInput = document.getElementById("message-input");
-      if (
-        chatInput &&
-        document.getElementById("chatbot")?.classList.contains("show")
-      ) {
-        chatInput.focus();
-      }
-    }, 500);
-  }
-}
-
-function closeChatbot() {
-  if (chatbotModal?.hide) {
-    chatbotModal.hide();
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  initChatbot();
-
-  blueIconFab?.addEventListener("click", function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    this.style.transform = "scale(0.94)";
-    setTimeout(() => (this.style.transform = ""), 150);
-    toggleChatbot();
-  });
-
-  blueIconFab?.addEventListener("mouseenter", function (e) {
-    e.stopPropagation();
-    fabLabel.style.transition = "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
-    fabLabel.style.animation = "none";
-    fabLabel.style.opacity = "1";
-    fabLabel.style.transform = "translateY(-6px) scale(1.05)";
-  });
-
-  blueIconFab?.addEventListener("mouseleave", function (e) {
-    e.stopPropagation();
-    setTimeout(() => {
-      fabLabel.style.transition = "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)";
-      fabLabel.style.animation = "fab-chatbot-blueLabelOut 0.35s forwards";
-    }, 3000);
-  });
+document.addEventListener('DOMContentLoaded', () => {
+    new SmartFab('chatbotFabBtn', 200);
 });
+
+// scroll top
+class SmartScrollTop {
+    constructor(btnId = 'scrollTopBtn') {
+        this.btn = document.getElementById(btnId);
+        this.isVisible = false;
+        this.scrollToTopHandler = null;
+        this.init();
+    }
+
+    init() {
+        if (!this.btn) return;
+        
+        this.scrollToTopHandler = (e) => {
+            e.preventDefault();
+            this.scrollToTop();
+        };
+
+        this.updateVisibility();
+        window.addEventListener('scroll', this.throttle(this.handleScroll.bind(this), 16), { passive: true });
+        window.addEventListener('resize', this.throttle(this.handleResize.bind(this), 250));
+        this.btn.addEventListener('click', this.scrollToTopHandler);
+    }
+
+    destroy() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+        if (this.btn && this.scrollToTopHandler) {
+            this.btn.removeEventListener('click', this.scrollToTopHandler);
+        }
+    }
+
+    handleScroll() {
+        const nearBottom = this.isNearBottom();
+        if (nearBottom && !this.isVisible) {
+            this.show();
+        } else if (!nearBottom && this.isVisible) {
+            this.hide();
+        }
+    }
+
+    isNearBottom() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight;
+        const halfDocHeight = docHeight * 0.25;
+        const scrolledFromBottom = docHeight - scrollTop - window.innerHeight;
+        return scrolledFromBottom <= halfDocHeight;
+    }
+
+    handleResize() {
+        this.updateVisibility();
+    }
+
+    scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    show() {
+        this.btn.style.opacity = '1';
+        this.btn.style.transform = 'scale(1) translateY(0)';
+        this.btn.style.visibility = 'visible';
+        this.isVisible = true;
+    }
+
+    hide() {
+        this.btn.style.opacity = '0';
+        this.btn.style.transform = 'scale(0.7) translateY(20px)';
+        this.isVisible = false;
+        setTimeout(() => {
+            if (!this.isVisible) this.btn.style.visibility = 'hidden';
+        }, 300);
+    }
+
+    updateVisibility() {
+        const nearBottom = this.isNearBottom();
+        if (nearBottom) this.show();
+        else this.hide();
+    }
+
+    throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            if (!inThrottle) {
+                func.apply(this, arguments);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }.bind(this);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    new SmartScrollTop('scrollTopBtn');
+});
+
 
 // DARKMODE
 function toggleDark(el) {

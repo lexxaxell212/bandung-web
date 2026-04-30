@@ -258,10 +258,9 @@
 /* Success */
 .success-message {
   border-radius: 15px;
-  padding: 35px;
+  padding: 15px;
   text-align: center;
   color: var(--blue-950) !important;
-  margin-top: 25px;
   display: none;
 }
 

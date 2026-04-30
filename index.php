@@ -1,5 +1,5 @@
 <?php 
-$page_title = 'Home';
+$page_title = 'Home - Ayokebandung.id';
 require_once 'includes/header.php';
 ?>
 
@@ -10,7 +10,6 @@ require_once 'includes/header.php';
 </style>
 <!-- Hero Section -->
 <style>
-  /* Container responsive dulu */
         .hero-land-container {
             width: 100vw;
             height: calc(100vh - var(--navbar-height));
@@ -25,7 +24,7 @@ require_once 'includes/header.php';
             height: 100%;
             background-size: cover;
             background-position: center;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.7s ease;
             opacity: 0;
             position: absolute;
             top: 0;
@@ -92,16 +91,23 @@ require_once 'includes/header.php';
             text-decoration: none;
         }
 </style>
-<section class="hero-land-container position-relative">
+<section id="hero-website" class="hero-land-container position-relative">
         <!-- Slide 1 -->
         <div class="hero-land-slide active" 
-             style="background-image: url('https://ayokebandung.id/assets/images/wisata.jpg');">
+             style="background: 
+            linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.9) 50%, rgba(51,65,85,0.95) 100%),
+            url('https://ayokebandung.id/assets/images/wisata.webp')
+            center/cover;
+    ">
             <div class="hero-land-content">
-                <div class="text-center text-white">
-                    <h1 class="display-3 font-bold mb-4 hero-land-title">Destinasi Wisata</h1>
-                    <p class="hero-land-desc fs-4 mb-5 text-white">Jelajahi destinasi wisata Bandung, dari alam sejuk hingga spot hits yang Instagramable.</p>
-                    <a href="https://wisata.id" class="hero-land-btn-link">
-                        <button class="btn btn-primary px-5 py-3">KUNJUNGI</button>
+                <div class="text-center">
+                    <span class="text-hero font-bold mb-6
+                    hero-land-title">WISATA</span>
+                    <p class="hero-land-desc fs-4 mt-6 text-white mb-6">Eksplorasi destinasi ikonik Bandung dengan layanan premium dan kenyamanan tak tertandingi.</p>
+                    <a href="#kenapaharusbandung" class="mt-6">
+                        <button class="btn btn-accent btn-md">MULAI JELAJAHI
+                        <i class="fas fa-angle-right"></i>
+                        </button>
                     </a>
                 </div>
             </div>
@@ -109,13 +115,19 @@ require_once 'includes/header.php';
 
         <!-- Slide 2 -->
         <div class="hero-land-slide" 
-             style="background-image: url('https://ayokebandung.id/assets/images/kuliner.jpg');">
+             style="background: 
+            linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.9) 50%, rgba(51,65,85,0.95) 100%),
+            url('https://ayokebandung.id/assets/images/kuliner.webp')
+            center/cover;
+    ">
             <div class="hero-land-content">
                 <div class="text-center text-white">
-                    <h1 class="display-3 font-bold mb-4 hero-land-title">Kuliner Bandung</h1>
-                    <p class="hero-land-desc fs-4 mb-5 text-white">Temukan cita rasa khas Bandung yang bikin nagih, dari tradisional hingga kekinian.</p>
-                    <a href="https://wisata.id" class="hero-land-btn-link">
-                        <button class="btn btn-primary px-5 py-3">JELAJAHI</button>
+                    <span class="text-hero font-bold mb-6 hero-land-title">KULINER</span>
+                    <p class="hero-land-desc fs-4 mt-6 text-white mb-6">Manjakan lidah dengan cita rasa autentik dan pengalaman bersantap kelas dunia di Bandung.</p>
+                    <a href="#kenapaharusbandung" class="mt-6">
+                        <button class="btn btn-accent btn-md">MULAI JELAJAHI
+                        <i class="fas fa-angle-right"></i>
+                        </button>
                     </a>
                 </div>
             </div>
@@ -123,26 +135,24 @@ require_once 'includes/header.php';
 
         <!-- Slide 3 -->
         <div class="hero-land-slide" 
-             style="background-image: url('https://ayokebandung.id/assets/images/hotel.jpg');">
+             style="background: 
+            linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.9) 50%, rgba(51,65,85,0.95) 100%),
+            url('https://ayokebandung.id/assets/images/hotel.webp')
+            center/cover;">
             <div class="hero-land-content">
                 <div class="text-center text-white">
-                    <h1 class="display-3 font-bold mb-4 hero-land-title">Penginapan Favorit</h1>
-                    <p class="hero-land-desc fs-4 mb-5 text-white">Nikmati kenyamanan dan layanan terbaik di penginapan favorit pilihan.</p>
-                    <a href="https://wisata.id" class="hero-land-btn-link">
-                        <button class="btn btn-primary px-5 py-3">LIHAT</button>
+                    <span class="text-hero font-bold mb-6
+                    hero-land-title">HOTEL</span>
+                    <p class="hero-land-desc fs-4 mt-6 text-white mb-6">Temukan kemewahan menginap terbaik di lokasi strategis untuk istirahat Anda yang sempurna.</p>
+                    <a href="#kenapaharusbandung" class="mt-6">
+                        <button class="btn btn-accent btn-md">MULAI
+                        JELAJAHI
+                        <i class="fas fa-angle-right"></i>
+                        </button>
                     </a>
                 </div>
             </div>
         </div>
-
-        <!-- Navigation -->
-        <button class="hero-land-nav hero-land-prev" onclick="heroLandSlide(-1)">
-            <i class="fas fa-chevron-left fs-5"></i>
-        </button>
-        <button class="hero-land-nav hero-land-next" onclick="heroLandSlide(1)">
-            <i class="fas fa-chevron-right fs-5"></i>
-        </button>
-
         <!-- Indicators -->
         <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4 d-flex gap-2 pb-3">
             <div class="hero-land-indicator active" onclick="heroLandGoTo(0)"></div>
@@ -152,19 +162,19 @@ require_once 'includes/header.php';
     </section>
 <script>
         let currentSlide = 0;
-        let autoSlide = setInterval(nextSlide, 7000);
+        let autoSlide = setInterval(nextSlide, 8000);
         let lastWheel = 0;
 
         function heroLandSlide(n) {
             clearInterval(autoSlide);
             showSlide((currentSlide + n + 3) % 3);
-            autoSlide = setInterval(nextSlide, 7000);
+            autoSlide = setInterval(nextSlide, 8000);
         }
 
         function heroLandGoTo(n) {
             clearInterval(autoSlide);
             showSlide(n);
-            autoSlide = setInterval(nextSlide, 7000);
+            autoSlide = setInterval(nextSlide, 8000);
         }
 
         function nextSlide() {
@@ -206,39 +216,41 @@ require_once 'includes/header.php';
             }
         }, { passive: false });
     </script>
-   
 <!-- Kenapa bandung -->
-<div class="container-fluid" style="background: var(--blue-200);color: var(--blue-900);padding: 7rem 1.5rem 1.5rem 1.5rem">
+<section id="kenapaharusbandung" class="container-fluid" style="background: var(--bg-light);padding: 7rem 1.5rem 1.5rem 1.5rem">
+ <div class="container">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-6 element-1">
       <!-- -->
       <div class="h-100">
-        <div class="my-6" style="padding-bottom:2rem">
-          <h1 class="">
-          KENAPA HARUS
-          <br>BANDUNG?
+        <div class="my-6">
+          <h1 class="mb-3 fs-1">
+          KENAPA HARUS BANDUNG?
           </h1>
-          <p class="mb-4">
-              Bandung selalu jadi pilihan favorit untuk liburan karena menawakan perpaduan lengkap antara keindahan alam, udara sejuk, dan ragam aktivitas seru. Mulai dari wisata alam yang menenangkan, kuliner yang menggoda, hingga tempat-tempat hits yang Instagramable, semuanya bisa kamu temukan dalam satu kota.
+          <p class="mb-6">
+              Dikenal sebagai Paris van Java, Bandung terus bertransformasi menjadi destinasi komersial kelas atas tanpa kehilangan jati diri budayanya. Keunggulan kuliner, kemewahan akomodasi, dan keindahan alamnya menciptakan ekosistem yang ideal bagi siapa pun yang mencari keseimbangan antara produktivitas bisnis dan kenyamanan rekreasi.
                 </p>
-              <a href="<?php echo PAGES_URL; ?>kenapa-harus-bandung" class="btn btn-primary my-6">Baca lengkap</a>
+              <a href="<?php echo PAGES_URL; ?>kenapa-harus-bandung" class="btn
+              btn-primary mb-6">Baca lengkap
+              <i class="fas fa-angle-right"></i>
+              </a>
         </div>
       </div>
     </div>
     <div class="col-12 col-md-6 col-lg-6 element-2">
-      <!--  -->
+      <!-- Auto slide -->
       <div class="kenapa-image-container auto-slide">
         <div class="kenapa-image-slide">
-          
-          <Img Class="kenapa-image" src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
-        <Img Class="kenapa-image" Src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
-        <Img Class="kenapa-image" Src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
-        
+        <Img Class="kenapa-image w-100"
+          src="https://ayokebandung.id/assets/images/cards/default.jpg">
+        <Img Class="kenapa-image w-100" Src="https://ayokebandung.id/assets/images/cards/default.jpg">
+        <Img Class="kenapa-image w-100" Src="https://ayokebandung.id/assets/images/cards/default.jpg">
         </div>
       </div>
     </div>
   </div>
-</div>
+  </div>
+</section>
 <script>
   // Auto Slide 
 document.addEventListener('DOMContentLoaded', function() {
@@ -275,87 +287,53 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+<div class="container">
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
 <!-- Artikel Terbaru Section -->
-<section id="artikel" class="my-10 py-lg-7">
+<section id="artikelterbaru">
     <div class="container">
         <!-- Title -->
         <div class="text-center mb-6">
-            <h2 class="display-4 font-bold mb-6">
+            <h1 class="fs-1 mb-3">
                 ARTIKEL TERBARU
-            </h2>
+            </h1>
         </div>
-
-        <!-- Wrapper Artikel Terbaru -->
+        <!-- Artikel Terbaru -->
         <div class="wrapper-artikel-terbaru position-relative">
-            <!-- Track (Scrollable Area) -->
+            <!-- scroll wrapper -->
             <div class="wrapper-artikel-terbaru-track overflow-hidden" id="cardsTrack">
                 <!-- Viewport (Cards Container) -->
                 <div class="wrapper-artikel-terbaru-viewport d-flex gap-4 p-6" id="cardsContainer">
-                  
                     <!-- Card  -->
-                    <div class="glass glass-hover flex-shrink-0 overflow-hidden" style="width: 340px; min-width: 340px; max-width: 340px;">
-                        <div class="card-img-top overflow-hidden" style="height: 220px; background: var(--blue-200); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
-                            <img src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
+                    <div class="glass glass-hover flex-shrink-0" style="width: 340px; min-width: 340px; max-width: 340px;">
+                     <div class="overflow-hidden">
+                      <img src="https://ayokebandung.id/assets/images/cards/default.jpg"
+                            class="card-img-top">
                         </div>
-                        <div class="card-body p-5">
-                            <span class="badge bg-dark opacity-50 text-white rounded-pill px-3 py-2 mb-3 d-inline-block">Design</span>
-                            <h5 class="card-title font-bold mb-5 fs-5 text-title">Minimalism dalam UI/UX Design</h5>
-                            <p class="card-text text-muted mb-6">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital saat ini.</p>
-                            <a href="#" class="btn btn-glass text-primary font-semibold w-100 transition-all">
-                                <i class="fas fa-arrow-right me-2"></i>Baca Selengkapnya
+                        <div class="card-body p-6">
+                            <h5 class="card-title mb-2">Title</h5>
+                            <p class="card-text text-muted mb-6 small">Konten.</p>
+                            <a href="#" class="btn btn-primary">
+                            Baca Selengkapnya
+                            <i class="fas fa-angle-right"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="glass glass-hover flex-shrink-0 overflow-hidden" style="width: 340px; min-width: 340px; max-width: 340px;">
-                        <div class="card-img-top overflow-hidden" style="height: 220px; background: var(--blue-200); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
-                            <img src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
-                        </div>
-                        <div class="card-body p-5">
-                            <span class="badge bg-dark opacity-50 text-white rounded-pill px-3 py-2 mb-3 d-inline-block">Design</span>
-                            <h5 class="card-title font-bold mb-3 fs-5 text-title">Minimalism dalam UI/UX Design</h5>
-                            <p class="card-text text-muted mb-6">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital saat ini.</p>
-                            <a href="#" class="btn btn-glass text-primary font-semibold w-100 transition-all">
-                                <i class="fas fa-arrow-right me-2"></i>Baca Selengkapnya
-                            </a>
-                        </div>
-                    </div>
-                    <div class="glass glass-hover flex-shrink-0 overflow-hidden" style="width: 340px; min-width: 340px; max-width: 340px;">
-                        <div class="card-img-top overflow-hidden" style="height: 220px; background: var(--blue-200); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
-                            <img src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
-                        </div>
-                        <div class="card-body p-5">
-                            <span class="badge bg-dark opacity-50 text-white rounded-pill px-3 py-2 mb-3 d-inline-block">Design</span>
-                            <h5 class="card-title font-bold mb-3 fs-5 text-title">Minimalism dalam UI/UX Design</h5>
-                            <p class="card-text text-muted mb-6">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital saat ini.</p>
-                            <a href="#" class="btn btn-glass text-primary font-semibold w-100 transition-all">
-                                <i class="fas fa-arrow-right me-2"></i>Baca Selengkapnya
-                            </a>
-                        </div>
-                    </div>
-                    <div class="glass glass-hover flex-shrink-0 overflow-hidden" style="width: 340px; min-width: 340px; max-width: 340px;">
-                        <div class="card-img-top overflow-hidden" style="height: 220px; background: var(--blue-200); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
-                            <img src="https://nibble-images.b-cdn.net/nibble/original_images/alam_teh_72f293b22c.jpg?class=large">
-                        </div>
-                        <div class="card-body p-5">
-                            <span class="badge bg-dark opacity-50 text-white rounded-pill px-3 py-2 mb-3 d-inline-block">Design</span>
-                            <h5 class="card-title font-bold mb-3 fs-5 text-title">Minimalism dalam UI/UX Design</h5>
-                            <p class="card-text text-muted mb-6">Desain minimalis bukan tren sementara, tapi filosofi yang menciptakan pengalaman user terbaik di era digital saat ini.</p>
-                            <a href="#" class="btn btn-glass text-primary font-semibold w-100 transition-all">
-                                <i class="fas fa-arrow-right me-2"></i>Baca Selengkapnya
-                            </a>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-
             <!-- Navigation Controls -->
             <div class="nav-controls d-flex justify-content-center align-items-center gap-3 px-3 py-6">
-                <button class="btn btn-outline-primary rounded-circle p-3 carousel-control-prev" type="button" id="prevBtn" style="width: 60px; height: 60px;" aria-label="Previous">
+                <button class="btn btn-outline-primary rounded-circle p-3
+                carousel-control-prev" type="button" id="prevBtn" style="width:
+                50px; height: 50px;" aria-label="Previous">
                     <i class="fas fa-chevron-left fs-5"></i>
                 </button>
                 <div class="indicators d-flex gap-2 opacity-50 px-4 py-2 rounded-pill" id="indicators" style="min-width: 120px;"></div>
-                <button class="btn btn-outline-primary rounded-circle carousel-control-next" type="button" id="nextBtn" style="width: 60px; height: 60px; z-index: 4;" aria-label="Next">
+                <button class="btn btn-outline-primary rounded-circle
+                carousel-control-next" type="button" id="nextBtn" style="width:
+                50px; height: 50px; z-index: 4;" aria-label="Next">
                     <i class="fas fa-chevron-right fs-5"></i>
                 </button>
             </div>
@@ -614,63 +592,31 @@ if (document.readyState === 'loading') {
     new SmoothScrollCards();
 }
 </script>
+<div class="spacer"></div>
 <!-- informasi terkini -->
-<section>
-    <div class="container">
-        <div class="row g-0 justify-content-center">
-        <!-- CARD 1 -->
-        <article class="event-news-card col-12 col-sm-6 col-lg-4 col-xl-3">
-            <div class="event-news-image" 
-                 style="background-image: url('https://images.unsplash.com/photo-1689363302902-2c58330d6494?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-                
-            </div>
-            <div class="event-news-content">
-                <h2 class="event-news-title">
+<section id="informasiterkini">
+    <div class="row gap-4 p-5 justify-content-center overflow-hidden">
+        <!-- CARD -->
+        <div class="card card-glass col-12 col-sm-8 col-lg-4 overflow-hidden p-0
+        m-4">
+            <img class="card-img-top w-100" 
+                 src="https://ayokebandung.id/assets/images/cards/default.jpg">
+            <div class="card-body p-6">
+                <h5 class="mb-3">
                     Lorem Ipsum
-                </h2>
-                <p class="event-news-excerpt">
+                </h5>
+                <p class="mb-6">
                     Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum.
                 </p>
-                <a href="#" class="btn btn-primary">Baca Lengkap</a>
+                <a href="#" class="btn btn-primary">
+                 Baca Lengkap
+                 <i class="fas fa-angle-right"></i>
+                 </a>
             </div>
-        </article>
-
-        <!-- CARD 2 -->
-        <article class="event-news-card col-12 col-sm-6 col-lg-4 col-xl-3">
-            <div class="event-news-image" 
-                 style="background-image: url('https://images.unsplash.com/photo-1689363302902-2c58330d6494?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-                
-            </div>
-            <div class="event-news-content">
-                <h2 class="event-news-title">
-                    Lorem Ipsum
-                </h2>
-                <p class="event-news-excerpt">
-                    Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum.
-                </p>
-                <a href="#" class="btn btn-primary">Baca Lengkap</a>
-            </div>
-        </article>
-
-        <!-- CARD 3 -->
-        <article class="event-news-card col-12 col-sm-6 col-lg-4 col-xl-3">
-            <div class="event-news-image" 
-                 style="background-image: url('https://images.unsplash.com/photo-1689363302902-2c58330d6494?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-                
-            </div>
-            <div class="event-news-content">
-                <h2 class="event-news-title">
-                    Lorem Ipsum
-                </h2>
-                <p class="event-news-excerpt">
-                    Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum.
-                </p>
-                <a href="#" class="btn btn-primary">Baca Lengkap</a>
-            </div>
-        </article>
-    </div>
+        </div>
     </div>
 </section>
+</div>
 
 <?php  
 require 'includes/footer.php'; 

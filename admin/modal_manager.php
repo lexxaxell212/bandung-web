@@ -13,30 +13,51 @@ if (!isset($_SESSION['admin_id']) || empty($_SESSION['admin_id'])) {
 $pdo = $GLOBALS['pdo'] ?? null;
 if (!$pdo) die('Database gagal!');
 
-// 🔥 PREDEFINED CATEGORIES
 $categories = [
-    'general' => 'Umum',
-    'produk' => 'Produk',
-    'layanan' => 'Layanan',
-    'promo' => 'Promo',
-    'portfolio' => 'Portfolio',
-    'team' => 'Tim',
-    'testimonial' => 'Testimoni',
+    // Kategori Card
+    'alam' => 'Alam',
+    'wisata_kuliner' => 'Wisata Kuliner',
+    'fashion' => 'Fashion',
+    'wisata_budaya' => 'Wisata Budaya',
+    'family' => 'Family',
+    'kuliner' => 'Kuliner',
+    'page' => 'Artikel',
+    'trending' => 'Informasi',
     'blog' => 'Blog',
-    'event' => 'Event'
+    'event' => 'Event',
+    'layanan' => 'Layanan',
+    'maps' => 'Maps',
+    'hotel' => 'Penginapan/hotel',
+    
+    // Kategori Modal
+    'pusat_kota' => 'Pusat Kota',
+    'bandung_utara' => 'Bandung Utara',
+    'riau' => 'Riau',
+    'dago' => 'Dago',
+    'pasteur' => 'Pasteur',
+    'cihampelas' => 'Cihampelas',
+    
+    // Kategori Toast
+    'consent' => 'Consent',
+    
+    // Kategori Popup
+    'notifikasi' => 'Notifikasi'
 ];
 
-// UPLOAD DIR
 $upload_dir = '../assets/images/cards/';
 if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
 
-// IMAGE UPLOAD
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
+$success_msg = '';
+$error_msg = '';
+
+// 🔥 HANDLE IMAGE UPLOAD TERLEBIH DAHULU (AJAX ONLY)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image']) && empty($_POST['action'])) {
     $target_file = $upload_dir . time() . '_' . basename($_FILES['image']['name']);
     $ext = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     
-    if (!in_array($ext, ['jpg','jpeg','png','gif','webp']) || $_FILES['image']['size'] > 5000000) {
-        echo json_encode(['success' => false, 'error' => 'Format/size salah!']);
+    $allowed_ext = ['jpg','jpeg','png','gif','webp'];
+    if (!in_array($ext, $allowed_ext) || $_FILES['image']['size'] > 5000000) {
+        echo json_encode(['success' => false, 'error' => 'Format/size salah! Max 5MB, JPG/PNG/GIF/WebP']);
         exit;
     }
     
@@ -48,57 +69,86 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     exit;
 }
 
-// DATA - FIXED IMAGE PATH
-$stmt = $pdo->query("SELECT * FROM admin_items WHERE status = 'active' ORDER BY id DESC");
-$items = $stmt->fetchAll();
-foreach ($items as &$item) {
-    $item['title'] ??= 'Tanpa Judul';
-    $item['image'] ??= 'default.jpg';
-    $item['excerpt'] ??= '';
-    $item['button_link'] ??= '#';
-    $item['type'] ??= 'card';
-    $item['category'] ??= 'general';
-}
-unset($item);
-
-// FORM PROCESS
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['image'])) {
-    $action = $_POST['action'] ?? '';
+// 🔥 HANDLE FORM DATA (CREATE/UPDATE/DELETE)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    $action = $_POST['action'];
     try {
         if ($action === 'create') {
             $title = trim($_POST['title'] ?? '');
-            if (empty($title)) throw new Exception('Judul wajib!');
-            $pdo->prepare("INSERT INTO admin_items (title, image, excerpt, button_link, type, category, status) VALUES (?, ?, ?, ?, ?, ?, 'active')")
-                ->execute([ 
-                    $title, 
-                    $_POST['image'] ?? 'default.jpg', 
-                    $_POST['excerpt'] ?? '', 
-                    $_POST['button_link'] ?? '#', 
-                    $_POST['type'] ?? 'card',
-                    $_POST['category'] ?? 'general'
-                ]);
+            if (empty($title)) throw new Exception('Judul wajib diisi!');
+            
+            $stmt = $pdo->prepare("INSERT INTO admin_items (title, image, excerpt, button_link, type, category, status) VALUES (?, ?, ?, ?, ?, ?, 'active')");
+            $result = $stmt->execute([ 
+                $title, 
+                $_POST['image'] ?? 'default.jpg', 
+                trim($_POST['excerpt'] ?? ''), 
+                trim($_POST['button_link'] ?? '#'), 
+                $_POST['type'] ?? 'card',
+                $_POST['category'] ?? 'general'
+            ]);
+            
+            if ($result) {
+                $success_msg = 'Card baru berhasil dibuat!';
+            } else {
+                throw new Exception('Gagal menyimpan data');
+            }
+            
         } elseif ($action === 'update') {
             $id = (int)$_POST['id'];
-            $pdo->prepare("UPDATE admin_items SET title=?, image=?, excerpt=?, button_link=?, type=?, category=?, status=? WHERE id=?")
-                ->execute([ 
-                    $_POST['title'], 
-                    $_POST['image'] ?? 'default.jpg', 
-                    $_POST['excerpt'] ?? '', 
-                    $_POST['button_link'] ?? '#', 
-                    $_POST['type'] ?? 'card',
-                    $_POST['category'] ?? 'general',
-                    $_POST['status'] ?? 'active', 
-                    $id 
-                ]);
+            if ($id <= 0) throw new Exception('ID tidak valid!');
+            
+            $stmt = $pdo->prepare("UPDATE admin_items SET title=?, image=?, excerpt=?, button_link=?, type=?, category=?, status=? WHERE id=?");
+            $result = $stmt->execute([ 
+                trim($_POST['title'] ?? ''), 
+                $_POST['image'] ?? 'default.jpg', 
+                trim($_POST['excerpt'] ?? ''), 
+                trim($_POST['button_link'] ?? '#'), 
+                $_POST['type'] ?? 'card',
+                $_POST['category'] ?? 'general',
+                $_POST['status'] ?? 'active', 
+                $id 
+            ]);
+            
+            if ($result) {
+                $success_msg = 'Card berhasil diupdate!';
+            } else {
+                throw new Exception('Gagal update data');
+            }
+            
         } elseif ($action === 'delete') {
-            $pdo->prepare("UPDATE admin_items SET status='inactive' WHERE id=?")->execute([(int)$_POST['id']]);
+            $id = (int)$_POST['id'];
+            if ($id <= 0) throw new Exception('ID tidak valid!');
+            
+            $stmt = $pdo->prepare("UPDATE admin_items SET status='inactive' WHERE id=?");
+            if ($stmt->execute([$id])) {
+                $success_msg = 'Card berhasil diarsipkan!';
+            } else {
+                throw new Exception('Gagal arsipkan data');
+            }
         }
-        header("Location: ?success=1");
+        
+        // Redirect untuk clear POST data
+        header("Location: " . $_SERVER['PHP_SELF'] . "?success=1");
         exit;
+        
     } catch (Exception $e) {
         $error_msg = $e->getMessage();
     }
 }
+
+// 🔥 LOAD DATA
+$stmt = $pdo->query("SELECT * FROM admin_items WHERE status = 'active' ORDER BY id DESC");
+$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($items as &$item) {
+    $item['title'] = $item['title'] ?? 'Tanpa Judul';
+    $item['image'] = $item['image'] ?? 'default.jpg';
+    $item['excerpt'] = $item['excerpt'] ?? '';
+    $item['button_link'] = $item['button_link'] ?? '#';
+    $item['type'] = $item['type'] ?? 'card';
+    $item['category'] = $item['category'] ?? 'general';
+}
+unset($item);
 ?>
 
 <!DOCTYPE html>
@@ -106,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['image'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cards Manager</title>
+    <title>CMPT Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -114,21 +164,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['image'])) {
         .upload-zone:hover,.upload-zone.dragover {border-color:#0a58ca;background:#e3f2fd;transform:scale(1.02);}
         .upload-zone i {font-size:2.5rem;color:#0d6efd;margin-bottom:10px;}
         .image-preview {max-width:80px;max-height:80px;border-radius:8px;object-fit:cover;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
-        .card {border:none;border-radius:15px;box-shadow:0 5px 20px rgba(13,110,253,0.1);transition:all 0.3s;}
+        .card {border:none;border-radius:15px;box-shadow:0 5px 20px rgba(13,110,253,0.1);transition:all 0.3s;position:relative;overflow:hidden;}
         .card:hover {transform:translateY(-5px);box-shadow:0 15px 40px rgba(13,110,253,0.2);}
         .modal-header {background:linear-gradient(45deg,#0d6efd,#0a58ca);color:white;border-radius:15px 15px 0 0 !important;}
         .category-badge {font-size:0.75rem;padding:0.25rem 0.5rem;border-radius:20px;}
-        
-        /* Category Colors */
+        .card-id {position: absolute;bottom: 15px;right: 15px;background: rgba(0,0,0,0.85);color: white;padding: 6px 12px;border-radius: 20px;font-size: 0.75rem;font-weight: 600;backdrop-filter: blur(15px);border: 1px solid rgba(255,255,255,0.2);z-index: 3;transition: all 0.3s ease;}
+        .card:hover .card-id {background: rgba(0,0,0,0.95);transform: translateY(-2px);box-shadow: 0 4px 15px rgba(0,0,0,0.3);}
+
+        /* 🔥 WARNA KATEGORI BARU */
         .cat-general {background-color: #6c757d !important;}
-        .cat-produk {background-color: #28a745 !important;}
-        .cat-layanan {background-color: #17a2b8 !important;}
-        .cat-promo {background-color: #ffc107 !important; color: #000 !important;}
-        .cat-portfolio {background-color: #fd7e14 !important;}
-        .cat-team {background-color: #6f42c1 !important;}
-        .cat-testimonial {background-color: #e83e8c !important;}
-        .cat-blog {background-color: #20c997 !important;}
-        .cat-event {background-color: #dc3545 !important;}
+        .cat-alam {background-color: #28a745 !important;}
+        .cat-kuliner {background-color: #fd7e14 !important;}
+        .cat-fashion {background-color: #e83e8c !important;}
+        .cat-budaya {background-color: #6f42c1 !important;}
+        .cat-family {background-color: #20c997 !important;}
+        .cat-page {background-color: #17a2b8 !important;}
+        .cat-trending {background-color: #ffc107 !important; color: #000 !important;}
+        .cat-blog {background-color: #dc3545 !important;}
+        .cat-event {background-color: #0dcaf0 !important;}
+        .cat-layanan {background-color: #6f42c1 !important;}
+        .cat-maps {background-color: #17a2b8 !important;}
+        .cat-hotel {background-color: #fd7e14 !important;}
+        
+        /* Kategori Modal */
+        .cat-pusat_kota {background-color: #dc3545 !important;}
+        .cat-bandung_utara {background-color: #28a745 !important;}
+        .cat-riau {background-color: #17a2b8 !important;}
+        .cat-dago {background-color: #fd7e14 !important;}
+        .cat-pasteur {background-color: #6f42c1 !important;}
+        .cat-cihampelas {background-color: #e83e8c !important;}
+        
+        /* Kategori Toast & Popup */
+        .cat-consent {background-color: #ffc107 !important; color: #000 !important;}
+        .cat-notifikasi {background-color: #0dcaf0 !important;}
     </style>
 </head>
 <body class="bg-light">
@@ -136,18 +204,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['image'])) {
 
 <div class="container my-5">
     <div class="text-center mb-5">
-        <h1 class="display-5 fw-bold text-primary mb-3"><i class="fas fa-layer-group me-2"></i>Cards Manager</h1>
+        <h1 class="display-5 fw-bold text-primary mb-3"><i class="fas
+        fa-layer-group me-2"></i>CMPT Manager</h1>
         <button class="btn btn-primary btn-lg px-4" data-bs-toggle="modal" data-bs-target="#itemModal" onclick="resetForm()">
             <i class="fas fa-plus me-2"></i>Buat Baru
         </button>
     </div>
 
-    <!-- FILTER BY CATEGORY -->
+    <!-- 🔥 FILTER DITAMBAH SEARCH + KATEGORI LENGKAP -->
     <div class="row mb-4">
-        <div class="col-md-6">
+        <div class="col-md-5">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input type="text" id="searchInput" class="form-control" placeholder="Cari judul atau kategori..." onkeyup="filterItems()">
+            </div>
+        </div>
+        <div class="col-md-5">
             <div class="input-group">
                 <span class="input-group-text"><i class="fas fa-filter"></i></span>
-                <select id="categoryFilter" class="form-select" onchange="filterByCategory()">
+                <select id="categoryFilter" class="form-select" onchange="filterItems()">
                     <option value="">📋 Semua Kategori</option>
                     <?php foreach($categories as $key => $label): ?>
                         <option value="<?= $key ?>"><?= htmlspecialchars($label) ?></option>
@@ -155,37 +230,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['image'])) {
                 </select>
             </div>
         </div>
+        <div class="col-md-2">
+            <button class="btn btn-outline-secondary w-100" onclick="clearFilters()">
+                <i class="fas fa-times"></i> Clear
+            </button>
+        </div>
     </div>
 
-    <?php if (isset($_GET['success'])): ?>
+    <!-- Messages -->
+    <?php if (isset($_GET['success']) || $success_msg): ?>
         <div class="alert alert-success alert-dismissible fade show mb-4 shadow-sm">
-            <i class="fas fa-check me-2"></i>Sukses disimpan!
+            <i class="fas fa-check me-2"></i><?= $success_msg ?: 'Sukses disimpan!' ?>
             <button class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     <?php endif; ?>
-    <?php if (isset($error_msg)): ?>
+    <?php if ($error_msg): ?>
         <div class="alert alert-danger alert-dismissible fade show mb-4 shadow-sm">
-            <i class="fas fa-exclamation me-2"></i><?= $error_msg ?>
+            <i class="fas fa-exclamation me-2"></i><?= htmlspecialchars($error_msg) ?>
             <button class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     <?php endif; ?>
 
+    <!-- Cards List -->
     <?php if (empty($items)): ?>
         <div class="text-center py-5">
             <i class="fas fa-box fa-4x text-muted mb-3"></i>
             <h4>Belum ada cards aktif</h4>
+            <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#itemModal" onclick="resetForm()">Buat yang pertama</button>
         </div>
     <?php else: ?>
         <div class="row g-4" id="cardsContainer">
             <?php foreach ($items as $item): ?>
-                <div class="col-lg-3 col-md-4 col-sm-6 card-item" data-category="<?= htmlspecialchars(strtolower($item['category'])) ?>">
-                    <div class="card h-100 position-relative">
-                        <!-- CATEGORY BADGE WITH COLORS -->
-                        <span class="position-absolute top-0 start-0 m-2 badge category-badge text-white cat-<?= htmlspecialchars($item['category']) ?>">
-                            <?= htmlspecialchars($categories[$item['category']] ?? ucwords($item['category'])) ?>
+                <div class="col-lg-3 col-md-4 col-sm-6 card-item" 
+                     data-category="<?= htmlspecialchars(strtolower($item['category'])) ?>"
+                     data-title="<?= htmlspecialchars(strtolower($item['title'])) ?>"
+                     data-type="<?= htmlspecialchars(strtolower($item['type'])) ?>">
+                    <div class="card h-100">
+                        <span class="position-absolute top-0 start-0 m-2 badge category-badge text-white cat-<?= htmlspecialchars(strtolower($item['category'])) ?>">
+                            <?= htmlspecialchars($categories[$item['category']] ?? ucwords(str_replace('_', ' ', $item['category']))) ?>
                         </span>
                         
-                        <!-- IMAGE -->
                         <?php if ($item['image'] !== 'default.jpg' && !empty($item['image'])): ?>
                             <img src="../assets/images/cards/<?= htmlspecialchars($item['image']) ?>" 
                                  class="card-img-top" 
@@ -198,22 +282,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['image'])) {
                             </div>
                         <?php endif; ?>
                         
-                        <div class="card-body">
+                        <div class="card-body pt-4 pb-5">
                             <h6 class="card-title fw-bold"><?= htmlspecialchars($item['title']) ?></h6>
                             <p class="card-text text-muted small"><?= htmlspecialchars($item['excerpt']) ?></p>
-                            <div class="btn-group w-100">
+                            <div class="btn-group w-100 mt-2">
                                 <button class="btn btn-warning btn-sm flex-fill me-1" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#itemModal" 
-                                        onclick="editItem(<?= $item['id'] ?>,'<?= addslashes($item['title']) ?>','<?= addslashes($item['image']) ?>','<?= addslashes($item['excerpt']) ?>','<?= addslashes($item['button_link']) ?>','<?= $item['type'] ?>','<?= $item['status'] ?>','<?= addslashes($item['category']) ?>')">
+                                        onclick="editItem(<?= $item['id'] ?>,'<?= addslashes($item['title']) ?>','<?= addslashes($item['image']) ?>','<?= addslashes($item['excerpt']) ?>','<?= addslashes($item['button_link']) ?>','<?= addslashes($item['type']) ?>','<?= addslashes($item['status']) ?>','<?= addslashes($item['category']) ?>')">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <form method="POST" class="flex-fill ms-1 d-inline" style="margin:0;" onsubmit="return confirm('Arsipkan?')">
+                                <form method="POST" class="flex-fill ms-1 d-inline" style="margin:0;" onsubmit="return confirm('Arsipkan card ini?')">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                                    <button class="btn btn-danger btn-sm"><i class="fas fa-archive"></i></button>
+                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-archive"></i></button>
                                 </form>
                             </div>
+                            <div class="card-id">#<?= $item['id'] ?></div>
                         </div>
                     </div>
                 </div>
@@ -237,10 +322,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['image'])) {
                     
                     <div class="mb-4">
                         <label class="form-label fw-bold">Judul <span class="text-danger">*</span></label>
-                        <input type="text" name="title" id="modalTitleField" class="form-control" required>
+                        <input type="text" name="title" id="modalTitleField" class="form-control" required maxlength="255">
                     </div>
                     
-                    <!-- UPLOAD IMAGE -->
                     <div class="mb-4">
                         <label class="form-label fw-bold">Gambar</label>
                         <div class="upload-zone mb-2" id="uploadZone">
@@ -257,37 +341,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['image'])) {
                         <div id="uploadStatus" class="alert d-none"></div>
                     </div>
                     
-                    <!-- FORM FIELDS -->
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Deskripsi</label>
-                            <textarea name="excerpt" id="modalExcerpt" class="form-control" rows="2"></textarea>
+                            <textarea name="excerpt" id="modalExcerpt" class="form-control" rows="2" maxlength="500"></textarea>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Link</label>
-                            <input type="url" name="button_link" id="modalButtonLink" class="form-control">
+                            <input type="url" name="button_link" id="modalButtonLink" class="form-control" placeholder="https://example.com">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label fw-bold">Tipe</label>
-                            <select name="type" id="modalType" class="form-select">
+                            <select name="type" id="modalType" class="form-select" onchange="filterCategoryByType()">
                                 <option value="card">Card</option>
                                 <option value="modal">Modal</option>
-                                <option value="popup">Popup</option>
                                 <option value="toast">Toast</option>
+                                <option value="popup">Popup</option>
                             </select>
                         </div>
-                        
-                        <!-- 🔥 CATEGORY SELECT DROPDOWN -->
                         <div class="col-md-4 mb-3">
                             <label class="form-label fw-bold">Kategori</label>
                             <select name="category" id="modalCategory" class="form-select">
+                                <option value="general">General</option>
                                 <?php foreach($categories as $key => $label): ?>
                                     <option value="<?= $key ?>"><?= htmlspecialchars($label) ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <small class="text-muted">Pilih kategori untuk filter</small>
                         </div>
-                        
                         <div class="col-md-4 mb-3">
                             <label class="form-label fw-bold">Status</label>
                             <select name="status" id="modalStatus" class="form-select">
@@ -299,7 +379,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['image'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-1"></i>Simpan
+                    </button>
                 </div>
             </form>
         </div>
@@ -311,7 +393,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['image'])) {
 let uploading = false;
 const categories = <?= json_encode($categories) ?>;
 
-// Upload functionality (sama seperti sebelumnya)
+// Category mapping by type
+const typeCategories = {
+    'card':
+    ['alam','wisata_kuliner','fashion','wisata_budaya','family','kuliner','page','trending','blog','event','layanan','maps','hotel'],
+    'modal':
+    ['pusat_kota','bandung_utara','riau','dago','pasteur','cihampelas'],
+    'toast': ['consent'],
+    'popup': ['notifikasi']
+};
+
+// Upload handlers (sama seperti sebelumnya)
 document.getElementById('uploadZone').addEventListener('click', () => document.getElementById('imageInput').click());
 document.getElementById('imageInput').addEventListener('change', handleImageUpload);
 
@@ -371,7 +463,7 @@ function uploadFile(file) {
     uploading = true;
     showStatus('Mengunggah...', 'info');
 
-    fetch('', {
+    fetch(window.location.href, {
         method: 'POST',
         body: formData
     })
@@ -381,14 +473,14 @@ function uploadFile(file) {
             document.getElementById('modalImage').value = data.path;
             document.getElementById('imagePreview').src = '../assets/images/' + data.path + '?t=' + Date.now();
             document.getElementById('previewContainer').classList.remove('d-none');
-            showStatus('Upload berhasil!', 'success');
+            showStatus('✅ Upload berhasil!', 'success');
         } else {
-            showStatus(data.error || 'Upload gagal', 'danger');
+            showStatus('❌ ' + (data.error || 'Upload gagal'), 'danger');
         }
         uploading = false;
     })
     .catch(() => {
-        showStatus('Error koneksi', 'danger');
+        showStatus('❌ Error koneksi', 'danger');
         uploading = false;
     });
 }
@@ -396,8 +488,8 @@ function uploadFile(file) {
 function showStatus(message, type) {
     const status = document.getElementById('uploadStatus');
     status.className = `alert alert-${type} d-block`;
-    status.textContent = message;
-    setTimeout(() => status.classList.add('d-none'), 3000);
+    status.innerHTML = message;
+    setTimeout(() => status.classList.add('d-none'), 4000);
 }
 
 function clearImage() {
@@ -408,7 +500,7 @@ function clearImage() {
 }
 
 function editItem(id, title, image, excerpt, link, type, status, category) {
-    document.getElementById('modalTitle').textContent = 'Edit Card';
+    document.getElementById('modalTitle').textContent = 'Edit Card #' + id;
     document.getElementById('modalAction').value = 'update';
     document.getElementById('modalId').value = id;
     document.getElementById('modalTitleField').value = title;
@@ -419,53 +511,83 @@ function editItem(id, title, image, excerpt, link, type, status, category) {
     document.getElementById('modalStatus').value = status;
     document.getElementById('modalCategory').value = category;
     
-    if (image !== 'default.jpg') {
-        document.getElementById('imagePreview').src = '../assets/images/cards/' + image + '?t=' + Date.now();
+    if (image && image !== 'default.jpg') {
+        document.getElementById('imagePreview').src = '../assets/images/' + image + '?t=' + Date.now();
         document.getElementById('previewContainer').classList.remove('d-none');
     }
+    
+    filterCategoryByType();
 }
 
-function filterByCategory() {
-    const filter = document.getElementById('categoryFilter').value.toLowerCase();
+// 🔥 FILTER DISEMUA KATEGORI BARU + SEARCH
+function filterItems() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const categoryFilter = document.getElementById('categoryFilter').value.toLowerCase();
     const cards = document.querySelectorAll('.card-item');
     
     cards.forEach(card => {
-        const category = card.dataset.category;
-        if (!filter || category === filter) {
-            card.style.display = 'block';
+        const title = card.dataset.title || '';
+        const category = card.dataset.category || '';
+        const type = card.dataset.type || '';
+        
+        const matchesSearch = title.includes(searchTerm) || category.includes(searchTerm);
+        const matchesCategory = !categoryFilter || category === categoryFilter;
+        
+        if (matchesSearch && matchesCategory) {
+            card.style.display = '';
+            card.classList.remove('d-none');
         } else {
-            card.style.display = 'none';
+            card.classList.add('d-none');
         }
     });
 }
 
-function resetForm() {
-    document.getElementById('modalTitle').textContent = 'Buat Card';
-    document.getElementById('modalAction').value = 'create';
-    document.querySelectorAll('#cardForm input, #cardForm textarea, #cardForm select').forEach(el => {
-        if (el.type === 'checkbox' || el.type === 'radio') {
-            el.checked = false;
-        } else {
-            el.value = '';
-        }
+function clearFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('categoryFilter').value = '';
+    filterItems();
+}
+
+// Filter kategori berdasarkan tipe
+function filterCategoryByType() {
+    const type = document.getElementById('modalType').value;
+    const categorySelect = document.getElementById('modalCategory');
+    const allOptions = Array.from(categorySelect.options);
+    
+    // Show all options first
+    allOptions.forEach(option => {
+        option.style.display = '';
+        option.disabled = false;
     });
+    
+    // Filter by type
+    if (typeCategories[type]) {
+        allOptions.forEach(option => {
+            if (option.value !== 'general' && !typeCategories[type].includes(option.value)) {
+                option.style.display = 'none';
+                option.disabled = true;
+            }
+        });
+    }
+    
+    // Reset to general if current category not available
+    if (categorySelect.value !== 'general' && !typeCategories[type]?.includes(categorySelect.value)) {
+        categorySelect.value = 'general';
+    }
+}
+
+function resetForm() {
+    document.getElementById('modalTitle').textContent = 'Buat Card Baru';
+    document.getElementById('modalAction').value = 'create';
+    document.getElementById('cardForm').reset();
     document.getElementById('modalImage').value = 'default.jpg';
     document.getElementById('modalCategory').value = 'general';
     document.getElementById('modalType').value = 'card';
     document.getElementById('modalStatus').value = 'active';
     clearImage();
     document.getElementById('modalTitleField').focus();
+    filterCategoryByType();
 }
-
-// Auto filter on page load if category selected
-document.addEventListener('DOMContentLoaded', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
-    if (category) {
-        document.getElementById('categoryFilter').value = category;
-        filterByCategory();
-    }
-});
 </script>
 
 <?php include 'includes/footer.php'; ?>

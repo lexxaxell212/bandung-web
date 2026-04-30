@@ -23,14 +23,13 @@ $categories = getCategories($pdo);
 <title><?= $post ? htmlspecialchars($post['title']) . ' - ' : '' ?>Blog</title>
 
 
-<div class="container mt-4">
+<div class="container py-5">
  <?php if ($post): // SINGLE POST VIEW ?>
   <!-- Single post HTML  -->
   <div class="row">
    <div class="col-lg-8">
-    <h1><?= htmlspecialchars($post['title']) ?></h1>
     <div><?= $post['content'] ?></div>
-    <a href="/blogs/" class="mt-5 btn btn-primary">Kembali</a>
+    <a href="/blogs/" class="mt-5 btn-sm btn btn-primary">Kembali</a>
    </div>
   </div>
   
@@ -38,12 +37,13 @@ $categories = getCategories($pdo);
   <div class="row">
    <div class="col-md-8">
     <div class="mb-4">
-      <h1 class="text-title">Blogs</h1>
+      <h1>Blogs</h1>
     </div>
     <?php foreach ($posts as $p): ?>
      <div class="card card-glass mb-3">
       <div class="card-body">
-       <h5><a href="/blogs/?id=<?= $p['id'] ?>"><?= htmlspecialchars($p['title']) ?></a></h5>
+       <h5><a class="text-decoration-none" href="/blogs/?id=<?= $p['id'] ?>"><?= htmlspecialchars($p['title']) ?></a></h5>
+       <p class="text-muted"><?= htmlspecialchars($p['excerpt']) ?></p>
        <small><?= $p['cat_name'] ?> • <?= date('d M Y', strtotime($p['created_at'])) ?></small>
       </div>
      </div>
@@ -52,7 +52,7 @@ $categories = getCategories($pdo);
    <div class="col-md-4 mt-6">
     <h6 class="mt-6">Kategori</h6>
     <?php foreach ($categories as $cat): ?>
-     <a href="#" class="mb-3 text-white badge bg-primary"><?= $cat['name'] ?> (<?= $cat['post_count'] ?>)</a><br>
+     <a href="#" class="mb-1 text-white badge bg-primary"><?= $cat['name'] ?> (<?= $cat['post_count'] ?>)</a><br>
     <?php endforeach; ?>
    </div>
   </div>

@@ -1,5 +1,7 @@
 RewriteEngine On
 
+Header always edit Set-Cookie (.*) "$1; Secure; HttpOnly; SameSite=Strict"
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.php -f  
 RewriteRule ^(.*)$ $1.php [L]

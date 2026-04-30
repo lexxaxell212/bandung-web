@@ -3,69 +3,11 @@ $page_title = 'Privacy policy';
 require '../includes/header.php'; 
 ?>
 
-<div class="container">
 <style>
-  .privacy-header {
-    padding: 4rem 1rem;
-    color: var(--blue-900);
-  }
-
-  .privacy-container {
-    padding: 2rem 1rem;
-    margin: 0 auto;
-  }
-
-  .privacy-section {
-    margin-bottom: 4rem;
-  }
-
-  .privacy-highlight {
-    background: var(--blue-200);
-    border-left: 5px solid var(--blue-300);
-    padding: 1.75rem 2rem;
-    margin-bottom: 4rem;
-    color: var(--blue-900);
-    border-radius: 0 12px 12px 0;
-  }
-
-  .privacy-contact {
-    text-align: center;
-    padding: 2.5rem;
-    background: rgba(0,0,0, 0.03);
-    border-radius: 16px;
-    margin: 3rem auto;
-    color: var(--blue-900);
-    border: 2px solid rgba(59, 130, 246, 0.1);
-    transition: all 0.3s ease;
-  }
-
-  .privacy-contact:hover {
-    background: rgba(0,0,0, 0.05);
-    border-color: var(--blue-300);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
-  }
-
-  .privacy-email {
-    font-weight: 700;
-    font-size: 1.25rem;
-    text-decoration: none;
-    color: var(--blue-900);
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .privacy-email:hover {
-    color: #1d4ed8;
-    transform: translateX(5px);
-  }
-
-  .privacy-icon {
+ .privacy-icon {
     width: 48px;
     height: 48px;
-    background: var(--blue-200);
+    background: rgba(127,127,127,0.4);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -74,227 +16,228 @@ require '../includes/header.php';
     font-size: 1.25rem;
     margin-bottom: 1rem;
   }
-
-  @media (max-width: 768px) {
-    .privacy-header {
-      padding: 2.5rem 1rem;
-    }
-    .privacy-container {
-      padding: 1.5rem 1rem;
-    }
+  .privacy-highlight {
+    background: var(--blue-100);
+    border-left: 5px solid var(--blue-400);
+    padding: 1.75rem 2rem;
+    margin-bottom: 4rem;
+    color: var(--blue-900);
+    border-radius: 0 12px 12px 0;
   }
 </style>
-<section class="privacy-header text-center">
-  <div class="container">
-    <i class="fas fa-shield-halved fa-4x mb-4 opacity-90"></i>
-    <h1 class="privacy-title mb-3">Kebijakan Privasi</h1>
-    <p class="mb-0">
+<div class="container py-5">
+<section id="Kebijakan Privasi" class="text-center mb-6">
+    <h1 class="fs-1 mb-3">Kebijakan Privasi</h1>
+    <p>
       Kami berkomitmen melindungi data pribadi Anda
     </p>
-  </div>
 </section>
-<div class="privacy-container">
-  <div class="privacy-section">
-    <div class="privacy-icon">
-      <i class="fas fa-database"></i>
+<div class="spacer"></div>
+  <div class="col-lg-12 p-3">
+    <div class="text-start mb-6">
+      <i class="privacy-icon fas fa-database"></i>
     </div>
-    <h2 class="h4 font-bold mb-4">
+      <h5 class="mb-3">
       1. Informasi yang Kami Kumpulkan
-    </h2>
-    <p class="mb-4">
+    </h5>
+      <p class="mb-6">
       Kami mengumpulkan informasi berikut untuk memberikan layanan terbaik:
     </p>
     <div class="row g-3">
       <div class="col-md-4">
-        <div class="text-center p-4 border rounded-3 glass">
-          <i class="fas fa-user fa-2x text-muted mb-2"></i>
+        <div class="text-center text-muted glass glass-hover p-5">
+          <i class="fas fa-user fa-2x mb-2"></i>
           <div>
-            <strong class="h6">Nama & Email</strong>
+            <strong>Nama & Email</strong>
           </div>
-          <small class="text-muted">Saat mendaftar</small>
+          <small>Saat mendaftar</small>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="text-center p-4 border rounded-3 glass">
-          <i class="fas fa-globe fa-2x text-muted mb-2"></i>
+        <div class="text-center p-5 glass glass-hover text-muted">
+          <i class="fas fa-globe fa-2x mb-2"></i>
           <div>
-            <strong class="h6">Data Kunjungan</strong>
+            <strong>Data Kunjungan</strong>
           </div>
-          <small class="text-muted">IP, browser</small>
+          <small>IP, browser</small>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="text-center p-4 border rounded-3 glass">
-          <i class="fas fa-cookie-bite fa-2x text-muted mb-2"></i>
+        <div class="text-center p-5 glass glass-hover text-muted">
+          <i class="fas fa-cookie-bite fa-2x mb-2"></i>
           <div>
-            <strong class="h6">Cookie</strong>
+            <strong>Cookie</strong>
           </div>
-          <small class="text-muted">Analitik</small>
+          <small>Analitik</small>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="privacy-section">
-    <div class="privacy-icon">
-      <i class="fas fa-gears"></i>
+ </div>
+  <div class="row mt-6 p-3">
+    <div class="text-start mb-4">
+      <i class="privacy-icon fas fa-gears"></i>
     </div>
-    <h2 class="h4 font-bold mb-4">
+    <h5 class="mb-3">
       2. Penggunaan Data
-    </h2>
-    <p class="mb-4">
-      Data digunakan HANYA untuk:
+    </h5>
+    <p class="mb-3">
+      Data digunakan <strong>hanya</strong> untuk:
     </p>
-    <ul class="glass p-6">
-      <li class="list-group-item px-0 border-0 py-2 text-primary">
+    <ul class="list-unstyled">
+      <li class="list-group-item px-0 border-0 py-2 text-muted">
         <i class="fas fa-check-circle text-success me-3"></i>
         Menyediakan layanan optimal
       </li>
-      <li class="list-group-item px-0 border-0 py-2 text-primary">
+      <li class="list-group-item px-0 border-0 py-2 text-muted">
         <i class="fas fa-check-circle text-success me-3"></i>
         Kirim berita & event terbaru
       </li>
-      <li class="list-group-item px-0 border-0 py-2 text-primary">
+      <li class="list-group-item px-0 border-0 py-2 text-muted">
         <i class="fas fa-check-circle text-success me-3"></i>
         Analisis pengunjung (anonim)
       </li>
     </ul>
   </div>
-
-  <div class="privacy-highlight text-center">
-    <i class="fas fa-handshake fa-2x me-3 mb-3 text-secondary align-middle"></i>
+  <div class="privacy-highlight text-start">
     <strong class="d-inline-block">
       Kami <span class="text-decoration-underline text-danger">TIDAK</span> menjual data pribadi Anda.
     </strong>
   </div>
-
-  <div class="privacy-section">
-    <div class="privacy-icon">
-      <i class="fas fa-share-nodes"></i>
+  <div class="col-lg-12 p-3 mb-6">
+    <div class="mb-6">
+      <i class="privacy-icon fas fa-share-nodes"></i>
     </div>
-    <h2 class="h4 font-bold mb-4">
+    <h5 class="mb-3">
       3. Berbagi Data
-    </h2>
-    <p class="mb-4">
+    </h5>
+    <p class="mb-6">
       Data dibagikan TERBATAS dengan:
     </p>
     <div class="row g-3">
-      <div class="col-lg-4 col-md-6">
-        <div class="glass h-100">
-          <div class="text-center p-4">
-            <i class="fas fa-server fa-2x text-secondary mb-3"></i>
-            <h6 class="font-semibold">Penyedia Layanan</h6>
+      <div class="col-md-4">
+        <div class="glass glass-hover h-100">
+          <div class="text-center p-4 text-muted">
+            <i class="fas fa-server fa-2x mb-3"></i>
+            <div><strong>Penyedia Layanan</strong>
+            </div>
             <small class="text-muted">Hosting, email service</small>
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-6">
-        <div class="glass h-100">
-          <div class="text-center p-4">
-            <i class="fab fa-google fa-2x text-secondary mb-3"></i>
-            <h6 class="font-semibold">Google Analytics</h6>
-            <small class="text-muted">Data anonim</small>
+      <div class="col-md-4">
+        <div class="glass glass-hover h-100">
+          <div class="text-center p-4 text-muted">
+            <i class="fab fa-google fa-2x mb-3"></i>
+            <div>
+            <strong>Google Analytics</strong>
+            </div>
+            <small>Data anonim</small>
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-12">
-        <div class="glass h-100">
-          <div class="text-center p-4">
-            <i class="fas fa-gavel fa-2x text-secondary mb-3"></i>
-            <h6 class="font-semibold">Otoritas Hukum</h6>
-            <small class="text-muted">Jika diminta resmi</small>
+      <div class="col-md-4">
+        <div class="glass glass-hover h-100">
+          <div class="text-center p-4 text-muted">
+            <i class="fas fa-gavel fa-2x mb-3"></i>
+            <div>
+            <strong>Otoritas Hukum</strong>
+            </div>
+            <small>Jika diminta resmi</small>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="privacy-section">
-    <div class="privacy-icon">
-      <i class="fas fa-cookie"></i>
+  <div class="col-lg-12 p-3">
+    <div class="mb-6">
+      <i class="privacy-icon fas fa-cookie"></i>
     </div>
-    <h2 class="h4 font-bold mb-4">
+    <h5 class="mb-3">
       4. Cookie
-    </h2>
-    <p class="mb-4">
+    </h5>
+    <p class="mb-6">
       Kami menggunakan cookie untuk pengalaman terbaik.
       <strong>Anda bisa nonaktifkan di pengaturan browser kapan saja.</strong>
     </p>
   </div>
-
-  <div class="privacy-section">
-    <div class="privacy-icon">
-      <i class="fas fa-user-check"></i>
+  <div class="p-3 mb-6">
+    <div class="mb-6">
+      <i class="privacy-icon fas fa-user-check"></i>
     </div>
-    <h2 class="h4 font-bold mb-4">
+    <h5 class="mb-6">
       5. Hak Anda
-    </h2>
+    </h5>
     <div class="row g-3">
       <div class="col-md-6">
-        <div class="d-flex align-items-center p-6 glass">
-          <i class="fas fa-eye fa-2x me-3 text-secondary"></i>
-          <div>
-            <strong class="h6">Lihat Data Anda</strong>
-            <small class="d-block text-muted">Request kapan saja</small>
+        <div class="d-flex align-items-center p-5 glass glass-hover">
+          <i class="fas fa-eye fa-2x me-3 text-muted"></i>
+          <div class="text-muted">
+            <strong>Lihat Data Anda</strong>
+            <small class="d-flex"><a
+            href="https://ayokebandung.id/request" class="mr-1">Request</a> kapan saja</small>
           </div>
         </div>
       </div>
       <div class="col-md-6">
-        <div class="d-flex align-items-center p-6 glass">
-          <i class="fas fa-bell-slash fa-2x text-secondary me-3"></i>
+        <div class="d-flex align-items-center p-5 glass glass-hover">
+          <i class="fas fa-bell-slash fa-2x text-muted me-3"></i>
           <div>
-            <strong class="h6">Batal Langganan</strong>
-            <small class="d-block text-muted">Unsubscribe email</small>
+            <strong>Batal Langganan</strong>
+            <small class="d-flex"><a
+            href="https://ayokebandung.id/unsubscribe"
+            class="mr-1">Unsubscribe</a>
+            email</small>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="privacy-section">
-    <div class="privacy-icon">
-      <i class="fas fa-lock"></i>
+  <div class="mb-6 p-3">
+    <div class="mb-6">
+      <i class="privacy-icon fas fa-lock"></i>
     </div>
-    <h2 class="h4 font-bold mb-4">
+    <h5 class="mb-6">
       6. Keamanan
     </h2>
     <div class="row g-4">
       <div class="col-lg-6">
-        <div class="glass p-6">
-          <i class="text-primary fas fa-lock-open me-2"></i>
-          <strong class="h6">SSL Encryption</strong><br>
-          <p>
+        <div class="glass glass-hover p-3 text-muted">
+          <i class="fas fa-lock-open mr-1"></i>
+          <strong>SSL Encryption</strong><br>
+          <small>
             Semua data dienkripsi end-to-end
-          </p>
+          </small>
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="glass p-6">
-          <i class="text-primary fas fa-exclamation-triangle me-2"></i>
-          <strong class="h6">Waspada Phishing</strong><br>
-          <p>
+        <div class="glass glass-hover p-3 text-muted">
+          <i class="fas fa-exclamation-triangle mr-1"></i>
+          <strong>Waspada Phishing</strong><br>
+          <small>
             Jangan klik link mencurigakan
-          </p>
+          </small>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="privacy-contact">
-  <h3 class="mb-4 font-bold">
-    <i class="fas fa-question-circle text-secondary me-2"></i>Pertanyaan?
-  </h3>
-  <p class="mb-4">
+<div class="mt-6 alert alert-warning text-muted px-6">
+  <ul class="list-unstyled">
+    <li class="mt-3">
+    <strong>Pertanyaan?</strong>
+    </li>
+  <li class="small">
     Hubungi tim kami untuk informasi lebih lanjut
-  </p>
-  <div class="h3 mb-0">
-    <a href="mailto:admin@ayokebandung.com" class="privacy-email">
-      <i class="fas fa-envelope"></i>
-      admin@ayokebandung.com
+  </li>
+  <li>
+   <a href="mailto:admin@ayokebandung.id" class="text-muted">
+      <i class="mr-1 fas fa-envelope"></i>
+      admin@ayokebandung.id
     </a>
-  </div>
+  </li>
+  </ul>
 </div>
 </div>
+
 <?php
 require '../includes/footer.php';
 ?>

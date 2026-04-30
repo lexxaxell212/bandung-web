@@ -3,7 +3,7 @@ $page_title = 'Kritik dan Saran';
 require '../includes/header.php'; 
 ?>
 
-<div class="container">
+<div class="container py-5">
 <style>
 :root {
       --success-gradient: linear-gradient(135deg, #198754, #20c997);
@@ -14,9 +14,7 @@ require '../includes/header.php';
       .feedback-feedbackForm {
         padding: 25px 10px;
         margin-top: 70px;
-        margin-bottom: 100px;
-        border-radius: 18px;
-        box-shadow: 0 10px 20px rgba(127,127,190, 0.5);
+        border-radius: 16px;
       }
       .feedback-success-card {
         background: var(--success-gradient);
@@ -47,19 +45,15 @@ require '../includes/header.php';
         }
       }
     </style>
-    <section class="p-5 mb-5 mt-5">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8 text-center mt-5">
-            <i class="fas fa-comments fa-3x mb-4 opacity-75"></i>
-            <h1 class="feedback-hero-title text-title mb-3">Kritik & Saran</h1>
-            <p>
+    <section id="Kritik-dan-saran">
+          <div class="col-lg-8 text-center">
+            <h1 class="mb-6 fs-1">Kritik & Saran</h1>
+            <p class="mb-6">
               Bantu kami menjadi lebih baik dengan feedback Anda
             </p>
           </div>
-        </div>
-      </div>
     </section>
+    
     <div id="feedback-successMsg" class="feedback-success-card mx-auto mb-5" style="max-width: 700px;">
       <div class="card-body py-5">
         <div class="text-center">
@@ -79,23 +73,14 @@ require '../includes/header.php';
       </div>
     </div>
     <div id="feedback-feedbackForm" class="mx-auto feedback-feedbackForm" style="max-width: 700px;">
-      <div class="p-5 m-5">
-        <div class="text-center mb-6">
-          <h3 class="mb-3">
-            <i class="fas fa-edit text-primary me-2"></i>
-            Isi Form Kritik & Saran
-          </h3>
-          <p class="mb-6">
-            Kritik dan Saran anda sangat berarti bagi kami.
-          </p>
-        </div>
+      <div class="mb-6 p-3">
 
         <form id="feedback-feedbackFormMain">
-          <div class="row g-4 mt-6">
+          <div class="row g-4">
 
-            <div class="col-12 mt-6">
+            <div class="col-12">
               <div class="form-floating">
-                <input type="text" class="form-control" id="feedback-nama" name="nama" placeholder="Nama" required>
+                <input type="text" class="form-control text-muted" id="feedback-nama" name="nama" placeholder="Nama" required>
                 <label for="feedback-nama">
                   <span class="text-muted"><i class="fas fa-user me-2"></i>Nama</span>
                 </label>
@@ -159,19 +144,13 @@ require '../includes/header.php';
               </div>
             </div>
 
-            <div class="col-12 mb-6">
-              <div class="d-grid mb-6">
+            <div class="col-12">
+              <div class="d-grid">
                 <button type="submit" class="btn btn-primary feedback-btn-send mb-6 mx-auto">
                   <i class="fas fa-paper-plane me-2"></i>
                   <span id="feedback-btnText">Kirim Feedback</span>
                   <span id="feedback-loadingSpinner" class="feedback-loading-spinner d-none ms-2"></span>
                 </button>
-              </div>
-              <div class="text-center mt-6">
-                <small class="text-muted mt-6">
-                  <i class="fas fa-lock me-1"></i>
-                  Data aman & private • Dikirim ke admin@ayokebandung.id
-                </small>
               </div>
             </div>
           </div>
@@ -276,10 +255,6 @@ require '../includes/header.php';
             }
           });
 
-          document.addEventListener('DOMContentLoaded', () => {
-            const namaField = document.getElementById('feedback-nama');
-            if (namaField) namaField.focus();
-          });
         </script>
 
 </div>

@@ -5,64 +5,14 @@ require_once $lib_path;
 autoload_core();
 session_start();
 
-$message = $type = $email_value = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email'])) {
-    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
-    
-    // Validasi
-    if (!isValidEmailDomain($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $type = 'error';
-        $message = '❌ Email tidak valid atau domain tidak didukung!';
-        $email_value = $_POST['email'];
-    } else {
-        // MAGIC 1 QUERY: INSERT OR REACTIVATE
-        $stmt = $pdo->prepare("
-            INSERT INTO subscribers (email, status, subscribed_at) 
-            VALUES (?, 'active', NOW())
-            ON DUPLICATE KEY UPDATE 
-                status = 'active', 
-                subscribed_at = NOW(), 
-                unsubscribe_token = NULL
-        ");
-        
-        if ($stmt->execute([$email])) {
-            // Selalu success (insert/update)
-            $type = 'success';
-            $message = '✅ Berhasil berlangganan newsletter!';
-            
-            // Generate token baru (untuk reactivate juga)
-            $subscriber_id = $pdo->lastInsertId();
-            if ($subscriber_id) {
-                generateUnsubscribeToken($pdo, $subscriber_id);
-            }
-        } else {
-            $type = 'error';
-            $message = '❌ Gagal menyimpan data!';
-        }
-    }
-}
-
-// DOMAIN VALIDATION FUNCTION
-function isValidEmailDomain($email) {
-    $allowed_domains = [
-        'gmail.com', 'googlemail.com',
-        'yahoo.com', 'ymail.com', 'rocketmail.com',
-        'outlook.com', 'hotmail.com', 'live.com',
-        'icloud.com', 'me.com',
-        'protonmail.com', 'proton.me'
-    ];
-    
-    $domain = strtolower(substr(strrchr($email, "@"), 1));
-    return in_array($domain, $allowed_domains);
-}
-
-$page_title ??= SITE_NAME ?? 'AyoKeBandung';
+$page_title = $_POST['title'] ?? $page_title ?? 'Ayokebandung.id';
+$page_title = htmlspecialchars($page_title);
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <title><?php echo SITE_NAME; ?></title>
+  <title><?php echo $page_title; ?></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Language" content="id-ID">
@@ -70,31 +20,87 @@ $page_title ??= SITE_NAME ?? 'AyoKeBandung';
   <!-- load assets -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="<?php echo CSS_URL; ?>glassmorphism-blue.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link href="<?php echo CSS_URL; ?>glassmorphism-blue3.css" rel="stylesheet">
   <link href="<?php echo CSS_URL; ?>float-chat.css" rel="stylesheet">
   <link href="<?php echo CSS_URL; ?>style.css" rel="stylesheet">
   <link href="<?php echo CSS_URL; ?>footer.css" rel="stylesheet">
   <link rel="icon" href="<?php echo IMG_URL; ?>favicon.ico">
 </head>
 <body>
- <div class="fab-chatbot-container">
-    <div class="fab-chatbot-label">
-      <p style="color: var(--blue-100);">
-        Hai, Aku Asisten. Siap bantu kamu!
-      </p>
-    </div>
-    <button class="fab-chatbot" id="chatbotFabBtn">
+  
+   <button class="fab-chatbot" id="chatbotFabBtn">
       <i class="fas fa-comment-dots"></i>
     </button>
-  </div>
+    
+    <style>
+     .scroll-top-btn {
+    position: fixed;
+    bottom: 100px;
+    right: clamp(14px, 3.8vw, 26px);
+    z-index: 1064;
+    width: 46px;
+    height: 46px;
+    background: var(--blue-100);
+    border: 1px solid var(--blue-200);
+    border-radius: 50%;
+    color: var(--blue-900);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8) translateY(20px) rotate(-180deg);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-top-btn:hover {
+    transform: scale(1.01) !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+@keyframes scrollTopSlideIn {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.9) translateY(20px) rotate(-180deg); 
+    }
+    50% { 
+        transform: scale(1) rotate(360deg); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1) translateY(0) rotate(0deg); 
+    }
+}
+@media (min-width: 768px) {
+            .scroll-top-btn { right: clamp(24px, 4.5vw, 45px); }
+        }
+        @media (min-width: 992px) { 
+            .scroll-top-btn { 
+                right: clamp(65px, 6vw, 90px);
+            }
+        }
+        @media (min-width: 1200px) { 
+            .scroll-top-btn { 
+                right: clamp(120px, 8vw, 160px);
+            }
+        }
+    </style>
+    <button id="scrollTopBtn" class="scroll-top-btn">↑</button>
+ 
   <div class="chatbot offcanvas offcanvas-end" id="chatbot">
     <div class="offcanvas-header">
       <div class="chatbot-header container">
         <h6 class="offcanvas-title mb-0">
           <i class="fas fa-solid fa-circle-user me-2"></i>
-          Asisten Website
+          Asisten Web
         </h6>
-        <button class="close-btn" onclick="closeChatbot()"><i class="fa-solid fa-xmark"></i></button>
+        <button class="close-btn" data-bs-dismiss="offcanvas"><i class="fa-solid fa-xmark"></i></button>
       </div>
     </div>
     <div class="offcanvas-body p-3">
@@ -169,7 +175,7 @@ $page_title ??= SITE_NAME ?? 'AyoKeBandung';
             <span>Mode Gelap</span>
           </div>
           <div class="weather" id="w">
-                <div>Weather Load...</div>
+                <div>Weather Loads...</div>
           </div>
         </ul>
       </div>

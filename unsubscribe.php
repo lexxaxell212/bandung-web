@@ -54,8 +54,8 @@ if (!isset($_GET['token']) || empty($_GET['token'])) {
                         </p>
                         <hr style='margin: 30px 0; border: none; height: 1px; background: #e5e7eb;'>
                         <p style='color: #9ca3af; font-size: 14px;'>
-                            © " . date('Y') . " Ayoke Bandung<br>
-                            <a href='https://ayokebandung.id' style='color: #3b82f6; text-decoration: none;'>← Kembali ke Website</a>
+                            © " . date('Y') . " Ayokebandung.id<br>
+                            <a href='https://ayokebandung.id' style='color: #ccc; text-decoration: none;'>← Kembali ke Website</a>
                         </p>
                     </div>
                 </body>

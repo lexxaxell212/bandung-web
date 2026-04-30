@@ -8,7 +8,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
             rel="stylesheet"
         />
-        <link href="https://ayokebandung.id/assets/css/glassmorphism-blue.css"
+        <link href="https://ayokebandung.id/assets/css/glassmorphism-blue3.css"
         rel="stylesheet">
         <style>
             #mobile-toggle {
@@ -356,19 +356,22 @@
                 
                 <nav class="sidebar-nav">
                     <a href="<?php echo ADMIN_URL; ?>" class="nav-item"
-                        ><i class="fas fa-tachometer-alt"></i>Dashboard</a
+                        ><i class="fas fa-tachometer-alt"></i>dashBoard</a
                     >
                     <a href="<?php echo ADMIN_URL; ?>database_manager" class="nav-item"
-                        ><i class="fas fa-database"></i>Database Management</a
+                        ><i class="fas fa-database"></i>DB Manager</a
                     >
                     <a href="<?php echo ADMIN_URL; ?>newsletter" class="nav-item"
                         ><i class="fas fa-plane"></i>Newsletter</a
                     >
+                    <a href="<?php echo ADMIN_URL; ?>pages" class="nav-item"
+                        ><i class="fas fa-plane"></i>Pages Builder</a
+                    >
                     <a href="<?php echo ADMIN_URL; ?>blog_manager" class="nav-item"
-                        ><i class="fas fa-chart-line"></i>Blog Manager</a
+                        ><i class="fas fa-chart-line"></i>Blog Builder</a
                     >
                     <a href="<?php echo ADMIN_URL; ?>modal_manager" class="nav-item"
-                        ><i class="fas fa-chart-line"></i>Modal Manager</a
+                        ><i class="fas fa-chart-line"></i>CMPT Manager</a
                     >
                     <a href="<?php echo ADMIN_URL; ?>setting" class="nav-item"
                         ><i class="fas fa-cog"></i>Settings</a

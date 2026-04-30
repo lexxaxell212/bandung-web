@@ -1,5 +1,4 @@
 <?php
-session_start();
 // Cek apakah sudah consent
 $has_consent = isset($_COOKIE['consent_accepted']);
 if ($has_consent && $_COOKIE['consent_accepted'] === '1') {

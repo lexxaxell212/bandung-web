@@ -2,163 +2,173 @@
 $page_title = 'Layanan';
 require '../includes/header.php'; 
 ?>
-<div class="container">
-     <style>
-        .section-title-custom {
-            color: var(--blue-900);
-            border-bottom: 2px solid var(--blue-200);
-            padding-bottom: 0.75rem;
-            margin-bottom: 2.5rem;
-        }
 
-        .transport-card {
-          background: var(--blue-50);
-            border-left: 4px solid var(--blue-300);
-            box-shadow: 0 8px 25px rgba(59,130,246,0.1);
-            transition: all 0.2s;
-            border-radius: 12px !important;
-        }
-
-        .transport-card:hover {
-            box-shadow: 0 8px 25px rgba(59,130,246,0.2);
-            transform: translateY(-2px);
-        }
-
-        .transport-logo-custom {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            background: var(--blue-50);
-            padding: 8px;
-            border-radius: 8px;
-        }
-
-        .table-custom {
-            box-shadow: 0 8px 25px rgba(59,130,246,0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            background: var(--blue-50);
-        }
-
-        .table-header-custom, .table-header-custom h5 {
-            background: var(--blue-200);
-            color: var(--blue-600);
-            font-weight: 600;
-            border-bottom: 2px solid #var(--blue-100);
-        }
-        
-    </style>
-    
-    <div>
-        
-        <!-- Hero -->
-        <section class="py-5 text-center mb-5">
-            <div class="container">
-                <h1 class="text-primary display-4 font-semibold mb-3">Layanan Transportasi Bandung</h1>
-                <p>
-                    Temukan opsi transportasi tercepat, termurah, dan terpercaya di Kota Kembang.
-                </p>
-            </div>
-        </section>
-
-        <!-- Online Transport -->
-        <section class="py-10">
-            <h2 class="h2 font-semibold section-title-custom d-flex align-items-center gap-2">
-                <i class="fas fa-mobile-screen-button"></i>
-                Online Transportasi
-            </h2>
-            <div class="row g-4">
-              
-                <!-- Gojek -->
-                <div class="col-xl-4 col-lg-6">
-                    <div class="card h-100 transport-card p-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Logo_Gojek.svg/200px-Logo_Gojek.svg.png" 
-                                 alt="Gojek" class="transport-logo-custom me-3">
-                            <div>
-                                <h5 class="mb-1 font-semibold">Gojek</h5>
-                            </div>
-                        </div>
-                        <p class="mb-3">Pilihan terpopuler. Driver terbanyak, promo harian.</p>
-                        <a href="https://gojek.com" class="btn btn-outline-primary btn-sm  px-4" target="_blank">
-                            <i class="fas fa-download me-1"></i> Buka Gojek
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-        
-         <!-- Airport & Station -->
-        <section>
-            <h2 class="h2 font-semibold section-title-custom d-flex align-items-center gap-2">
-                <i class="fas fa-plane"></i>
-                Bandara & Stasiun
-            </h2>
-            <div class="row g-4">
-              
-                <div id="card-airportstation" class="col-lg-6">
-                    <div class="card h-100 transport-card p-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="text-primary fs-1 me-3 p-3 rounded-3">
-                                <i class="fas fa-plane"></i>
-                            </div>
-                            <div>
-                                <h5 class="mb-1 font-semibold">Bandara Husein Snd</h5>
-                                <span class="text-secondary">15 menit ke kota</span>
-                            </div>
-                        </div>
-                        <a href="" class="btn btn-outline-primary btn-sm  px-4" target="_blank">
-                            <i class="fas fa-map me-1"></i> Buka Map
-                        </a>
-                    </div>
-                </div>
-                
-            </div>
-        </section>
-
-        <!-- Public Transport -->
-        <section class="py-10">
-            <h2 class="h2 font-semibold section-title-custom d-flex align-items-center gap-2">
-                <i class="fas fa-bus"></i>
-                Angkot & TMB
-            </h2>
-            <div class="card table-custom">
-                <div class="card-header table-header-custom py-3 px-4">
-                    <h5 class="mb-0">Rute Populer Bandung</h5>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <tbody>
-                                <tr>
-                                    <th scope="row"><strong>01 Cihampelas ↔ Pasirluyu</strong></th>
-                                    <td>05:00-21:00</td>
-                                    <td><span class="badge bg-primary">Rp 3.600</span></td>
-                                    <td>Lengkong</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><strong>03 Dago ↔ Cicaheum</strong></th>
-                                    <td>05:00-22:00</td>
-                                    <td><span class="badge bg-primary">Rp 3.600</span></td>
-                                    <td>Cicaheum</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><strong>TMB Route 1</strong></th>
-                                    <td>06:00-20:00</td>
-                                    <td><span class="badge bg-primary">Rp 4.000</span></td>
-                                    <td>Leuwipanjang</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-    </div>
-
+<div class="container py-5">
+<!-- Header -->
+<div class="text-center mb-6">
+<h1 class="fs-1 mb-6">Transportasi Bandung 2026</h1>
+<p class="">Opsi transportasi tercepat, termurah, dan terpercaya di Kota Kembang.</p>
 </div>
+<!-- Cards Grid -->
+<div class="row g-4 mt-6">
+<!-- 1. Transportasi Aplikasi -->
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+<div class="glass glass-hover h-100 shadow-lg">
+<div class="card-body p-4">
+<div class="d-flex align-items-start mb-3">
+<div class="me-3">
+<i class="fas fa-motorcycle fa-2x text-muted py-5"></i>
+<h6 class="mb-2">Grab/Gojek</h6>
+<p class="mb-2">Layanan door-to-door yang fleksibel, mencakup motor (Bike) dan mobil (Car).</p>
+
+<ul class="list-unstyled mb-3">
+<li class="text-muted small mb-1"><strong>Motor :</strong> Jasa minimal sekitar Rp9.200 – Rp11.000 (untuk 4 km
+pertama), dengan tarif selanjutnya sekitar Rp2.300 – Rp2.750/km.</li>
+<li class="text-muted small mb-1">
+<strong>Mobil :</strong> Tarif sangat bergantung pada jam sibuk (surge pricing) dan jarak, biasanya mulai dari Rp15.000 – Rp20.000 untuk jarak pendek.
+</li>
+<li class="text-muted small mb-5"><strong>Pelayanan :</strong> Penjemputan sesuai titik GPS, pelacakan real-time, pilihan pembayaran tunai atau dompet digital (OVO/GoPay), dan fitur keamanan (tombol darurat).</li>
+</ul>
+<a href="https://google.com/search?q=gojek"><button class="btn btn-primary btn-sm">Gojek
+<i class="fas fa-angle-right me-1"></i>
+</button>
+</a>
+<a href="https://google.com/search?q=grab"><button class="btn btn-primary btn-sm">Grab<i class="fas fa-angle-right me-1"></i></button></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. Bus Umum -->
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+<div class="glass glass-hover h-100 shadow-lg">
+<div class="card-body p-4">
+<div class="d-flex align-items-start mb-3">
+<div class="me-3">
+<i class="fas fa-bus fa-2x text-muted py-5"></i>
+<h6 class="mb-2">Metro Jabar Trans</h6>
+<p class="mb-2">Evolusi dari Trans Metro Bandung (TMB) dan Teman Bus yang kini terintegrasi dalam sistem Metro Jabar Trans (MJT).</p>
+<div class="d-flex flex-wrap gap-1 mb-2">
+<ul class="list-unstyled mb-2">
+<li class="text-muted small mb-1"><strong>Umum :</strong> Flat Rp4.900 per perjalanan (berlaku mulai 1 April 2026).</li>
+<li class="text-muted small mb-1">
+<strong>Pelajar :</strong> Rp2.000 (dengan menunjukkan kartu pelajar/seragam).
+</li>
+<li class="text-muted small mb-1"><strong>Pelayanan :</strong> Bus ber-AC, berhenti hanya di halte resmi, pembayaran menggunakan kartu uang elektronik (Tap-on-Bus) atau QRIS. Mencakup rute strategis seperti Dago, Leuwipanjang, Jatinangor, dan Alun-alun.</li>
+</ul>
+</div>
+<ul class="list-unstyled list-inline small mb-3">
+<li class="d-inline me-2 text-muted"><i class="fas fa-check text-success me-1"></i>Halte resmi</li>
+<li class="d-inline text-muted"><i class="fas fa-check text-success me-1"></i>QRIS</li>
+</ul>
+<a href="https://www.google.com/maps/search/?api=1&query=halte%20metro%20jabar%20trans%20terdekat"><button
+class="mt-2 btn btn-primary btn-sm">Cek Halte terdekat<i class="fas fa-angle-right me-1"></i></button></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Terminal Bus -->
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+<div class="glass glass-hover h-100 shadow-lg">
+<div class="card-body p-4">
+<div class="d-flex align-items-start mb-3">
+<div class="me-3">
+<i class="fas fa-building fa-2x text-muted py-5"></i>
+<h6 class="mb-2">Terminal Leuwipanjang</h6>
+<p class="mb-2">Pusat pemberangkatan bus Antar Kota Antar Provinsi (AKAP) dan Antar Kota Dalam Provinsi (AKDP).</p>
+<div class="d-flex flex-wrap gap-1 mb-2">
+<ul class="list-unstyled mb-3">
+<li class="text-muted small mb-1"><strong>Status Terbaru (April 2026) :</strong> Layanan bus AKAP/AKDP mulai dipusatkan di Terminal Leuwipanjang. Terminal Cicaheum dialihfungsikan menjadi depo dan pusat layanan BRT Metro Jabar Trans.</li>
+<li class="text-muted small mb-1">
+<strong>Tarif :</strong> Bergantung pada tujuan (Contoh: Bandung – Subang mulai Rp60.000, Bandung – Jakarta via Damri sekitar Rp175.000).
+</li>
+<li class="text-muted small mb-1"><strong>Pelayanan :</strong> Ruang tunggu penumpang, loket tiket terpadu, area UMKM, dan integrasi dengan angkutan pengumpan (feeder).</li>
+</ul>
+</div>
+<ul class="list-unstyled list-inline small mb-3">
+<li class="d-inline me-2 text-muted"><i class="fas fa-check text-success me-1"></i>Loket terpadu</li>
+<li class="d-inline text-muted"><i class="fas fa-check text-success me-1"></i>UMKM</li>
+</ul>
+<a href="https://www.google.com/maps/search/?api=1&query=Terminal%20Lewuipanjang%20bandung"><button
+class="mt-2 btn btn-primary btn-sm">Lihat Maps<i class="fas fa-angle-right me-1"></i></button></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Kereta Api -->
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+<div class="glass glass-hover h-100 shadow-lg">
+<div class="card-body p-4">
+<div class="d-flex align-items-start mb-3">
+<div class="me-3">
+<i class="fas fa-train fa-2x text-muted py-5"></i>
+<h6 class="mb-2">Stasiun Hall/Kiaracondong</h6>
+<p class="mb-2">Gerbang utama jalur kereta api jarak jauh dan komuter (Lokal Bandung Raya).</p>
+<div class="d-flex flex-wrap gap-1 mb-2">
+<ul class="list-unstyled mb-3">
+<li class="text-muted small mb-1"><strong>Lokal / Commuter Line :</strong> Tarif
+sekitar Rp5000.</li>
+<li class="text-muted small mb-1">
+<strong>Jarak jauh :</strong> Variatif mulai dari Rp80.000 (Ekonomi) hingga Rp500.000+ (Eksekutif/Luxury).
+</li>
+<li class="text-muted small mb-1"><strong>Whoosh (Kereta Cepat) :</strong> Tarif normal sekitar Rp300.000 (Stasiun Tegalluar/Padalarang).</li>
+<li class="text-muted small mb-1"><strong>Stasiun Bandung (Hall) :</strong> Fasilitas kelas satu, akses langsung ke pusat kota, integrasi dengan KA Feeder Whoosh.</li>
+<li class="text-muted small mb-1"><strong>Stasiun Kiaracondong :</strong> Fokus pada kereta kelas ekonomi, fasilitas sudah direnovasi lebih modern dengan area tunggu yang lebih luas.</li>
+</ul>
+</div>
+<ul class="list-unstyled list-inline small mb-3">
+<li class="d-inline me-2 text-muted"><i class="fas fa-check text-success me-1"></i>Renovasi modern</li>
+<li class="d-inline text-muted"><i class="fas fa-check text-success me-1"></i>Feeder Whoosh</li>
+</ul>
+<a href="https://www.google.com/maps/search/?api=1&query=statiun%20kiaracondong%20bandung"><button
+class="mt-2 btn btn-primary btn-sm">Lihat Maps<i class="fas fa-angle-right me-1"></i></button></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. Bandara -->
+<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+<div class="glass glass-hover h-100 shadow-lg">
+<div class="card-body p-4">
+<div class="d-flex align-items-start mb-3">
+<div class="me-3">
+<i class="fas fa-plane fa-2x text-muted py-5"></i>
+<h6 class="mb-2">Bandara Kertajati/BDO</h6>
+<p class="mb-2">Layanan transportasi udara yang menghubungkan Bandung dengan kota-kota lain. Penerbangan jet komersial saat ini dipusatkan di Bandara Kertajati (KJT), sementara Husein Sastranegara (BDO) melayani pesawat baling-baling (propeller) dan jet pribadi/militer.</p>
+<div class="d-flex flex-wrap gap-1 mb-2">
+<ul class="list-unstyled mb-3">
+<li class="text-muted small mb-1"><strong>Tarif Damri ke Kertajati :</strong> Sekitar Rp90.000 – Rp120.000 dari pusat kota Bandung.</li>
+<li class="text-muted small mb-1">
+<strong>Pelayanan :</strong> Layanan shuttle terjadwal, area check-in mandiri, dan fasilitas standar bandara internasional di Kertajati.
+</li>
+</div>
+<ul class="list-unstyled list-inline small mb-3">
+<li class="d-inline me-2 text-muted"><i class="fas fa-check text-success me-1"></i>Shuttle terjadwal</li>
+<li class="d-inline text-muted"><i class="fas fa-check text-success me-1"></i>Check-in mandiri</li>
+</ul>
+<a href="https://www.google.com/maps/search/?api=1&query=bandara%20kertajati%20bdo"><button
+class="mt-2 btn btn-primary btn-sm">Lihat Maps<i class="fas fa-angle-right me-1"></i></button></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tips -->
+<div class="col-12 mt-6">
+<div class="alert alert-warning shadow-lg mt-6">
+<h6 class="mb-2 fw-bold">
+<i class="fas fa-lightbulb me-2"></i>
+Tips Perjalanan Bandung
+</h6>
+<p class="mb-0">Gunakan <strong>Metro Jabar Trans</strong> untuk rute utama atau <strong>Ojek Online</strong> untuk kecepatan menembus kemacetan Bandung.</p>
+</div>
+</div>
+</div>
+</div>
+
 <?php
 require '../includes/footer.php';
 ?>

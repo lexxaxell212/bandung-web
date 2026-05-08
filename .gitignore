@@ -1,0 +1,32 @@
+# Core
+config.php
+api/groq-chat.php
+api/weather.php
+lib/functions.php
+.env
+
+# Log
+*.log
+error_log
+logs/
+
+# Backup
+*.bak
+*.bak.*
+
+# Uploads
+admin/uploads/.htaccess
+admin/uploads 
+uploads/
+
+# Etc
+readme/
+styling.html
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

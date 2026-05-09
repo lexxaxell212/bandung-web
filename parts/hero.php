@@ -7,8 +7,10 @@
   ];
   foreach ($slides as $i => $s): 
   ?>
-  <div class="hero-item hero-slide-<?= $s['slug'] ?> <?= $i === 0 ? 'active' : '' ?>"
-       <?= $i === 0 ? 'data-first="true"' : '' ?>>
+  <div class="hero-item <?= $i === 0 ? 'active hero-slide-' . $s['slug'] : '' ?>"
+       <?php if ($i > 0): ?>
+         data-slug="<?= $s['slug'] ?>"
+       <?php endif; ?>>
     <div class="hero-overlay"></div>
     <div class="container h-100 d-flex align-items-center">
       <div class="glass-hero-card col-12 col-md-7 col-lg-5">

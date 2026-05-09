@@ -664,6 +664,12 @@
 .newsletter-section {
   padding:6rem 1rem
 }
+.newsletter-section:hover h2.newsletter-text {
+  color: var(--blue-700) !important;
+}
+h2.newsletter-text {
+  color: var(--text-muted);
+}
 .newsletter-card {
   max-width:650px;
   margin:0 auto
@@ -780,7 +786,7 @@
 }
 li.list,li.list a {
   list-style:none;
-  color:var(--blue-950);
+  color:var(--text-muted);
   text-decoration:none
 }
 li.list a:hover,li.list a:active {
@@ -802,8 +808,8 @@ li.list a:hover,li.list a:active {
   margin:10px auto
 }
 .logo-main {
-  height:100px;
-  width:200px;
+  height:85px;
+  width:170px;
   background-image:var(--logo-path);
   background-size:cover;
   background-position:center;
@@ -811,6 +817,7 @@ li.list a:hover,li.list a:active {
 }
 .logo-social {
   text-decoration:none;
+  color: var(--text-muted);
   font-size:25px;
   display:flex;
   align-items:center;
@@ -830,8 +837,8 @@ li.list a:hover,li.list a:active {
 .chatbot {
   position:fixed !important;
   width:100% !important;
-  height:80%;
-  top: 20% !important;
+  height:85%;
+  top: 15% !important;
   transform: translateY(0);
   opacity:0;
   box-shadow:0 20px 60px rgb(0 0 0 / .3);

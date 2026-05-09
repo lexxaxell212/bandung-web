@@ -4,11 +4,10 @@
     <section class="newsletter-section py-5">
       <div class="row justify-content-center">
         <div class="col-xl-8 col-lg-10 text-center">
-          <i class="fas fa-envelope mb-4" style="font-size:40px; color:
-          var(--blue-900);"></i>
+          <i class="fas fa-envelope mb-4 text-muted" style="font-size:40px;"></i>
           <div id="registernewsletter" class="mb-4">
-            <h2 class="fw-bold">NEWSLETTER</h2>
-            <p>Dapatkan event dan update Bandung terkini via email.</p>
+            <h2 class="fw-bold newsletter-text">NEWSLETTER</h2>
+            <p class="text-muted">Dapatkan event dan update Bandung terkini via email.</p>
           </div>
           
           <div class="newsletter-container mx-auto" style="max-width: 500px;">
@@ -24,19 +23,19 @@
         </div>
       </div>
     </section>
-    <div class="logo-container text-center mt-5">
-      <div class="logo-main mb-4 mx-auto"></div>
-      <div class="logo-footer d-flex justify-content-center gap-3">
-        <a class="logo-social text-muted" href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a class="logo-social text-muted" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-        <a class="logo-social text-muted" href="#" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+    <div class="logo-container text-center mt-5 mb-6">
+      <div class="logo-main mb-6 mx-auto"></div>
+      <div class="logo-footer d-flex justify-content-center gap-3 mt-3">
+        <a class="logo-social" href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a class="logo-social" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a class="logo-social" href="#" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
       </div>
     </div>
     <div class="footer-links text-center mt-4">
       <ul class="list-inline">
-        <li class="list-inline-item"><a href="<?= PAGES_URL ?>tentang" class="text-decoration-none text-muted">Tentang</a></li>
+        <li class="list-inline-item"><a href="<?= PAGES_URL ?>tentang" class="text-decoration-none">Tentang</a></li>
         <li class="list-inline-item px-3 text-muted">|</li>
-        <li class="list-inline-item"><a href="<?= PAGES_URL ?>privacy-policy" class="text-decoration-none text-muted">Privasi</a></li>
+        <li class="list-inline-item"><a href="<?= PAGES_URL ?>privacy-policy" class="text-decoration-none">Privasi</a></li>
       </ul>
     </div>
     <div class="text-center mt-5 pb-3">

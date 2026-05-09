@@ -1,11 +1,15 @@
 const toggler = document.getElementById("navbarToggler");
 const menuOverlay = document.getElementById("menuOverlay");
 const navbarCollapse = document.getElementById("navbarNav");
-const searchBtn = document.getElementById("searchBtn");
-const searchBody = document.getElementById("searchBody");
-const searchModalBackdrop = document.getElementById("searchModalBackdrop");
-const searchModalContainer = document.getElementById("searchModalContainer");
-const searchModalClose = document.getElementById("searchModalClose");
+
+// Fungsi pembantu untuk menutup Offcanvas Bootstrap 5
+function closeAllOffcanvas() {
+  const activeOffcanvas = document.querySelector('.offcanvas.show');
+  if (activeOffcanvas && window.bootstrap?.Offcanvas) {
+    const instance = window.bootstrap.Offcanvas.getInstance(activeOffcanvas);
+    if (instance) instance.hide();
+  }
+}
 
 function toggleMenu() {
   const isOpen = menuOverlay.classList.contains("menu-open");
@@ -16,6 +20,9 @@ function toggleMenu() {
     toggler.classList.remove("menu-open");
     document.body.style.overflow = "";
   } else {
+    // Tutup Chatbot dulu sebelum buka Menu Utama
+    closeAllOffcanvas();
+
     menuOverlay.classList.add("menu-open");
     navbarCollapse.classList.add("menu-open");
     toggler.classList.add("menu-open");
@@ -23,65 +30,15 @@ function toggleMenu() {
   }
 }
 
-function openSearchModal() {
-  if (navbarCollapse.classList.contains("menu-open")) {
-    toggleMenu();
-  }
-  searchBody.classList.add("search-open-show");
-  searchModalBackdrop.classList.add("search-open-show");
-  searchModalContainer.classList.add("search-open-show");
-  document.body.style.overflow = "hidden";
-}
-
-function closeSearchModal() {
-  searchBody.classList.remove("search-open-show");
-  searchModalBackdrop.classList.remove("search-open-show");
-  searchModalContainer.classList.remove("search-open-show");
-  document.body.style.overflow = "";
-  resetUI();
-  if (input) {
-    input.value = "";
-  }
-}
-
+// Event Listeners Navigasi
 if (toggler) toggler.addEventListener("click", toggleMenu);
 if (menuOverlay) menuOverlay.addEventListener("click", toggleMenu);
-if (searchBtn) searchBtn.onclick = openSearchModal;
 
-if (searchBody) {
-  searchBody.onclick = closeSearchModal;
-}
-
-if (searchModalClose) {
-  searchModalClose.onclick = (e) => {
-    e.stopPropagation();
-    closeSearchModal();
-  };
-}
-
-if (searchModalBackdrop) {
-  searchModalBackdrop.onclick = (e) => {
-    e.stopPropagation();
-    closeSearchModal();
-  };
-}
-
-if (searchModalContainer) {
-  searchModalContainer.onclick = (e) => {
-    e.stopPropagation();
-  };
-}
-
+// Global Listener untuk Keyboard (Escape)
 document.addEventListener("keydown", (e) => {
-  if ((e.ctrlKey || e.metaKey) && e.key === "k") {
-    e.preventDefault();
-    openSearchModal();
-  }
   if (e.key === "Escape") {
     if (menuOverlay?.classList.contains("menu-open")) {
       toggleMenu();
-    } else if (searchBody?.classList.contains("search-open-show")) {
-      closeSearchModal();
     }
   }
 });
@@ -105,6 +62,10 @@ class SmartFab {
   }
 
   onFabClick = () => {
+    // Tutup Menu Utama dulu kalau sedang terbuka sebelum buka Chatbot
+    if (menuOverlay && menuOverlay.classList.contains("menu-open")) {
+      toggleMenu();
+    }
     this.toggleChatbot();
   };
 
@@ -168,10 +129,6 @@ class SmartFab {
     this.fab.removeEventListener("click", this.onFabClick);
   }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  new SmartFab("chatbotFabBtn", 200);
-});
 
 // scroll top
 class SmartScrollTop {
@@ -270,10 +227,6 @@ class SmartScrollTop {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  new SmartScrollTop("scrollTopBtn");
-});
-
 // DARKMODE
 function toggleDark(el) {
   document.documentElement.toggleAttribute("data-dark");
@@ -281,8 +234,32 @@ function toggleDark(el) {
   localStorage.dark = document.documentElement.hasAttribute("data-dark");
 }
 
-// Load saved state
-if (localStorage.dark === "true") {
-  document.documentElement.setAttribute("data-dark", "");
-  document.querySelector(".switch").classList.add("on");
-}
+// Inisialisasi saat DOM siap
+document.addEventListener("DOMContentLoaded", () => {
+  new SmartFab("chatbotFabBtn", 200);
+  new SmartScrollTop("scrollTopBtn");
+  
+    // --- LOGIKA LOCK SCROLL BUAT OFFCANVAS ---
+  const chatbotElement = document.getElementById("chatbot");
+  if (chatbotElement) {
+    // Saat Offcanvas mulai dibuka
+    chatbotElement.addEventListener('show.bs.offcanvas', () => {
+      document.body.style.overflow = "hidden";
+    });
+
+    // Saat Offcanvas mulai ditutup
+    chatbotElement.addEventListener('hide.bs.offcanvas', () => {
+      // Kembalikan scroll HANYA JIKA menu navigasi (overlay) juga tidak sedang buka
+      if (!menuOverlay.classList.contains("menu-open")) {
+        document.body.style.overflow = "";
+      }
+    });
+  }
+
+  // Load saved dark mode state
+  if (localStorage.dark === "true") {
+    document.documentElement.setAttribute("data-dark", "");
+    const switchEl = document.querySelector(".switch");
+    if (switchEl) switchEl.classList.add("on");
+  }
+});

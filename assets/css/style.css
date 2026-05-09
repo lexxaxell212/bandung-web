@@ -1756,3 +1756,12 @@ li.list a:hover,li.list a:active {
     right:clamp(120px,8vw,160px)
   }
 }
+.swal2-container.swal2-top-end {
+    top: 75px !important;
+    z-index: 9999 !important;
+}
+@media (max-width: 768px) {
+    .swal2-container.swal2-top-end {
+        top: 20px !important;
+    }
+}

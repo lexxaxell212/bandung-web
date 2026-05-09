@@ -7,18 +7,19 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!form) return;
 
     const notify = (msg, icon = 'success') => {
-        Swal.fire({
-            text: msg,
-            icon: icon,
-            toast: true, 
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            background: '#fff',
-            color: '#1a2478'
+    Swal.fire({
+        text: msg,
+        icon: icon,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#fff',
+        color: '#1a2478',
         });
     };
+
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(() => {
-            notify('Koneksi lagi bermasalah nih, Kang!', 'error');
+            notify('Koneksi lagi bermasalah nih..', 'error');
         })
         .finally(() => {
             btn.disabled = false;

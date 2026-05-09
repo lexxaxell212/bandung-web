@@ -32,6 +32,7 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
   <link rel="icon" href="<?= IMG_URL ?>favicon.ico">
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
   <script>
     const CONFIG = {
         baseUrl: '<?= BASE_URL ?>',

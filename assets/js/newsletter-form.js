@@ -6,21 +6,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (!form) return;
 
+    const notify = (msg, icon = 'success') => {
+        Swal.fire({
+            text: msg,
+            icon: icon,
+            toast: true, 
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#fff',
+            color: '#1a2478'
+        });
+    };
+
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         const email = input.value.trim();
         const domain = email.split('@')[1];
 
         if (!allowed.includes(domain)) {
-            alert('Gunakan domain email umum (Gmail/Yahoo/Outlook)');
+            notify('Gunakan email umum ya (Gmail/Yahoo/Outlook)', 'warning');
             return;
         }
 
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        btn.style.opacity = '0.7';
+        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
 
         const formData = new FormData(form);
-        formData.append('action', 'newsletter');
 
         fetch(CONFIG.baseUrl + 'newsletter-ajax.php', {
             method: 'POST',
@@ -28,12 +42,19 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(res => res.json())
         .then(data => {
-            alert(data.message);
-            if (data.success) input.value = '';
+            if (data.success) {
+                notify(data.message, 'success');
+                input.value = '';
+            } else {
+                notify(data.message, 'error');
+            }
         })
-        .catch(() => alert('Gangguan koneksi!'))
+        .catch(() => {
+            notify('Koneksi lagi bermasalah nih, Kang!', 'error');
+        })
         .finally(() => {
             btn.disabled = false;
+            btn.style.opacity = '1';
             btn.innerHTML = '<i class="fas fa-paper-plane"></i>';
         });
     });

@@ -775,12 +775,12 @@ summary {
 
         // Preview gambar sebelum upload (add form)
         // Update event listeners
-imgEdit.addEventListener('change', function () {
-    previewImage(this, 'image-preview-edit', 'edit-image-url');
-});
-imgAdd.addEventListener('change', function () {
-    previewImage(this, 'image-preview-add', 'add-image-url');
-});
+        imgEdit.addEventListener('change', function () {
+            previewImage(this, 'image-preview-edit', 'edit-image-url');
+        });
+        imgAdd.addEventListener('change', function () {
+            previewImage(this, 'image-preview-add', 'add-image-url');
+        });
 
         // Animasi details
         document.querySelectorAll('details').forEach(function (detail) {

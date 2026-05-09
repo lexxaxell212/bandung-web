@@ -56,7 +56,7 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
   <script src="<?= JS_URL ?>newsletter-form.js" defer></script>
 </head>
 <body>
-  <nav class="navbar">
+<nav class="navbar">
     <div class="container">
       <a class="navbar-brand" aria-label="Halaman awal" href="<?= BASE_URL ?>">
         <div class="logo-navbar"></div>
@@ -113,7 +113,8 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
       </div>
     </div>
   </nav>
-  <div id="live-search-wrapper" role="search" aria-label="Pencarian situs">
+  
+<div id="live-search-wrapper" role="search" aria-label="Pencarian situs">
   <div class="ls-inner container">
     <div class="ls-bar">
       <i class="fas fa-search ls-icon-search" aria-hidden="true"></i>
@@ -131,7 +132,7 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
     <div id="live-search-dropdown" role="listbox" aria-label="Hasil pencarian"></div>
   </div>
 </div>
-  <div class="chatbot offcanvas" id="chatbot">
+<div class="chatbot offcanvas" id="chatbot">
     <div class="offcanvas-header">
       <div class="chatbot-header container">
         <span class="offcanvas-title fw-semibold fs-5"><i class="fas fa-solid fa-circle-user

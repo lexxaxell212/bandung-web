@@ -11,39 +11,35 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, is-mobile=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $page_title ?></title>
-  
-  <meta name="description" content="Eksplorasi Wisata, Kuliner, dan Budaya Bandung 2026 Terlengkap.">
+
+  <meta name="description" content="Eksplorasi Wisata, Kuliner, dan Budaya Bandung Terlengkap.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="<?= BASE_URL ?>">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="icon" href="<?= IMG_URL ?>favicon.ico" type="image/x-icon">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
-  
+  <link rel="preload" as="font" href="<?= FONTS_URL ?>inter-v20-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="<?= FONTS_URL ?>inter-v20-latin-900.woff2" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="<?= CSS_URL ?>bs533.min.css">
+  <link rel="stylesheet" href="<?= CSS_URL ?>fa651.all.min.css">
   <link rel="stylesheet" href="<?= CSS_URL ?>glassmorphism-blue3.css">
   <link rel="stylesheet" href="<?= CSS_URL ?>style.css">
-  <link rel="icon" href="<?= IMG_URL ?>favicon.ico">
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
   <script>
     const CONFIG = {
-        baseUrl: '<?= BASE_URL ?>',
+      baseUrl: '<?= BASE_URL ?>',
     };
   </script>
+
+  <script src="<?= JS_URL ?>bs533.bundle.min.js" defer></script>
+  <script src="<?= JS_URL ?>swal2.all.min.js" defer></script>
   <script src="<?= JS_URL ?>chat.js" defer></script>
   <script src="<?= JS_URL ?>live-search.js" defer></script>
   <script src="<?= JS_URL ?>navbar.js" defer></script>
   <script src="<?= JS_URL ?>weather.js" defer></script>
   <script src="<?= JS_URL ?>newsletter-form.js" defer></script>
-  
 </head>
 <body>
   <nav class="navbar">

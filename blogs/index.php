@@ -1,7 +1,7 @@
 <?php
 $page_title = "Blogs";
 require_once "../includes/header.php";
-require_once "../includes/blog-config.php";
+require_once "../config/blog-config.php";
 
 // Variables
 $id = (int) ($_GET["id"] ?? 0);

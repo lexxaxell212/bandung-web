@@ -63,7 +63,6 @@
     #e0f2fe 100%
   );
   --font-primary: "Inter", sans-serif;
-  --font-secondary: "Plus Jakarta Sans", "system-ui", "sans-serif"
   --space-0: 0;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -109,7 +108,7 @@
   --glass-backdrop: rgba(0, 0, 0, 0.15);
   --logo-path: url("https://ayokebandung.id/assets/images/logo.png");
   --bg-html: #1e293b;
-  --bg-white: #222;
+  --bg-white: #111;
   --bg-light: linear-gradient(135deg, #020617 0%, #030712 50%, #0f172a 100%);
   --misty-soft: #1e293b;
   --text-primary: #f8fafc;
@@ -135,6 +134,7 @@ body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  font-display: swap;
   font-weight: 400;
   color: var(--blue-900);
   background: var(--misty-soft);
@@ -145,7 +145,7 @@ body {
   padding: 0;
   position: relative;
   margin: 0;
-  font-size: 14.5px;
+  font-size: 14px;
   line-height: 1.6;
 }
 body::before {
@@ -167,6 +167,7 @@ p {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  opacity: 0.95;
 }
 .h1,
 .h2,
@@ -174,8 +175,9 @@ p {
 h1,
 h2,
 h3 {
-  font-family: var(--font-secondary);
-  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
   text-transform: uppercase;
   background: linear-gradient(135deg, #1e40af, #2563eb);
   -webkit-background-clip: text;
@@ -193,34 +195,24 @@ h6 {
   text-transform: uppercase;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 800;
+  font-weight: 900;
 }
 
+/* inter-regular - latin */
 @font-face {
-  font-family: "graphikbold";
-  src: url("/assets/fonts/graphik-700-webfont.woff2") format("woff2"),
-    url("/assets/fonts/graphik-700-webfont.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
   font-display: swap;
-}
-
-@font-face {
-  font-family: "graphikmedium";
-  src: url("/assets/fonts/graphik-400-webfont.woff2") format("woff2"),
-    url("/assets/fonts/graphik-400-webfont.woff") format("woff");
+  font-family: 'Inter';
+  font-style: normal;
   font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+  src: url('../fonts/inter-v20-latin-regular.woff2') format('woff2')
 }
-
+/* inter-900 - latin */
 @font-face {
-  font-family: "oxygen";
-  src: url("/assets/fonts/oxygen-400-webfont.woff2") format("woff2"),
-    url("/assets/fonts/oxygen-400-webfont.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
   font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../fonts/inter-v20-latin-900.woff2') format('woff2')
 }
 
 .fs-1 {
@@ -271,7 +263,7 @@ h6 {
   -webkit-text-fill-color: transparent;
 }
 .text-hero {
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 2.1rem;
@@ -307,16 +299,19 @@ h6 {
   font-weight: 600;
 }
 .font-bold {
-  font-weight: 700 !important;
+  font-weight: 900 !important;
+}
+.fw-bold {
+  font-weight: 900 !important;
 }
 .font-semibold {
   font-weight: 600 !important;
 }
 .font-medium {
-  font-weight: 500 !important;
+  font-weight: 400 !important;
 }
 .bg-gray {
-  background: rgba(127, 127, 127, 0.15);
+  background: rgba(127, 127, 127, 0.09);
   color: var(--blue-900);
 }
 .bg-primary {
@@ -900,7 +895,7 @@ h6 {
   box-shadow: var(--glass-shadow);
 }
 .navbar-brand {
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   font-weight: 700;
   font-size: 1.5rem;
   color: #0f172a;

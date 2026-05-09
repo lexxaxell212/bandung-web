@@ -1,7 +1,7 @@
 <?php
 $page_title = "Penginapan";
 require "../includes/header.php";
-require_once "../includes/blog-config.php";
+require_once "../config/blog-config.php";
 ?>
 
 <div class="container py-5">

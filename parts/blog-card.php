@@ -1,5 +1,5 @@
 <?php
-require_once "includes/blog-config.php";
+require_once "config/blog-config.php";
 
 $pdo = $GLOBALS["pdo"] ?? null;
 $id = (int) ($_GET["id"] ?? 0);

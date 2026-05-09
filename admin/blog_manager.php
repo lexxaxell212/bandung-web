@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_id']) || empty($_SESSION['admin_id'])) {
     exit;
 }
 
-include '../includes/blog-config.php';
+include '../config/blog-config.php';
 
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));

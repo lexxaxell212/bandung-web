@@ -239,22 +239,32 @@ document.addEventListener("DOMContentLoaded", () => {
   new SmartFab("chatbotFabBtn", 200);
   new SmartScrollTop("scrollTopBtn");
   
-    // --- LOGIKA LOCK SCROLL BUAT OFFCANVAS ---
   const chatbotElement = document.getElementById("chatbot");
+  
+  const refreshScrollLock = () => {
+    const isMenuOpen = menuOverlay?.classList.contains("menu-open");
+    const isOffcanvasOpen = document.querySelector('.offcanvas.show');
+    
+    if (!isMenuOpen && !isOffcanvasOpen) {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    }
+  };
+
   if (chatbotElement) {
-    // Saat Offcanvas mulai dibuka
     chatbotElement.addEventListener('show.bs.offcanvas', () => {
       document.body.style.overflow = "hidden";
     });
 
-    // Saat Offcanvas mulai ditutup
-    chatbotElement.addEventListener('hide.bs.offcanvas', () => {
-      // Kembalikan scroll HANYA JIKA menu navigasi (overlay) juga tidak sedang buka
-      if (!menuOverlay.classList.contains("menu-open")) {
-        document.body.style.overflow = "";
-      }
-    });
+    chatbotElement.addEventListener('hidden.bs.offcanvas', refreshScrollLock);
   }
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-bs-dismiss="offcanvas"]')) {
+      setTimeout(refreshScrollLock, 100);
+    }
+  });
+
 
   // Load saved dark mode state
   if (localStorage.dark === "true") {

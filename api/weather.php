@@ -1,5 +1,5 @@
 <?php
-define('WEATHER_API_KEY', '');
+require_once '../config.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: https://ayokebandung.id');
@@ -25,3 +25,4 @@ if (!$data || $data['cod'] !== 200) {
 }
 
 echo json_encode($data);
+?>

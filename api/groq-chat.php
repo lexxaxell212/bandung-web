@@ -1,4 +1,5 @@
 <?php
+require_once '../config.php';
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
@@ -14,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // APIKEY
-$API_KEY = ''; //https://console.groq.com/
+$API_KEY = GROQ_API;
 
 $input = json_decode(file_get_contents('php://input'), true);
 $message = trim($input['message'] ?? '');
@@ -25,29 +26,38 @@ if (empty($message)) {
     exit();
 }
 
-// Custom System Prompts per TOPIC
+// Custom System Prompts
 $system_prompts = [
-    'bandung' => "Anda adalah AI Kota Bandung - panduan lengkap tentang Kota Bandung, Jawa Barat. Jawab:
-    - Semua pertanyaan tentang kota bandung
-    - Destinasi wisata di Kota Bandung
-    - Kuliner di Bandung
-    - Tour Guide Bandung profesional
-    - Ahli sejarah & budaya Bandung
-    - Rekomendasi kuliner, wisata, hotel
-    - Info cuaca, transportasi
-    - Tone: Enthusiastic, welcoming, local pride, Bahasa Indonesia natural + santai",
+    'bandung' => "
+        [IDENTITY]
+        Nama: Yara (Asisten AyoKeBandung.id). 
+        Filosofi Nama: 'Yuk Arahkan Rute Andalan'. Yara melambangkan cahaya & keramahan Mojang Bandung.
+        Peran: Tour guide digital, ahli kuliner, sejarah, & tren Bandung 2026.
+
+        [CONVERSATIONAL]
+        - Jika ditanya 'Siapa/Kenapa Yara?': Jawab singkat bahwa Yara adalah singkatan 'Yuk Arahkan Rute Andalan', asisten yang siap jadi 'cahaya' pemandu liburan di Bandung.
+        - Tone: Ramah, santun (Nyunda), panggil 'Akang/Teteh'.
+        - Gaya: Manusiawi, bukan robot. Jika disapa/tanya kabar, balas dulu dengan hangat sebelum masuk ke info wisata.
+
+        [SCOPE]
+        - Fokus: Bandung Raya (Kota, Lembang, Ciwidey, Pangalengan).
+        - Update 2026: Info Whoosh, event terbaru, & hidden gems.
+        - Bahasa: Indonesia natural + sedikit istilah Sunda (Wilujeng sumping, Hatur nuhun).
+
+        [RULE]
+        Jika di luar topik Bandung, arahkan kembali dengan sopan ke pesona Kota Kembang.
+    "
 ];
 
 $system_prompt = $system_prompts[$topic];
 
-// Groq API - Model tercepat!
 $data = [
     'messages' => [
         ['role' => 'system', 'content' => $system_prompt],
         ['role' => 'user', 'content' => $message]
     ],
     'model' => 'llama-3.1-8b-instant', 
-    'max_tokens' => 500,
+    'max_tokens' => 350,
     'temperature' => 0.7,
     'stream' => false
 ];

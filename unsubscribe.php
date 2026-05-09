@@ -1,16 +1,15 @@
 <?php
-require_once "lib/functions.php";
-autoload_core();
+require_once "includes/header.php";
+
+$_POST["title"] = "Unsubscribe";
 
 $status = "";
 $message = "";
 $show_form = false;
 
-// 1. LOGIKA POST: Input Email Manual
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["email"])) {
     $email = trim($_POST["email"]);
     
-    // Cari subscriber aktif
     $stmt = $pdo->prepare("SELECT id, email FROM subscribers WHERE email = ? AND status = 'active'");
     $stmt->execute([$email]);
     $subscriber = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -21,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["email"])) {
             $status = "success";
             $message = "Email <strong>" . htmlspecialchars($email) . "</strong> berhasil dihentikan langganannya.";
             
-            // Panggil fungsi sentral PHPMailer dari lib/functions.php
             $subject = "Berhasil Unsubscribe - Ayokebandung.id";
             $msg = "<h2>Unsubscribe Berhasil</h2><p>Email <b>$email</b> telah dihapus dari daftar newsletter kami.</p>";
             kirimEmailAyo($email, $subject, $msg);
@@ -31,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["email"])) {
         $message = "Email tidak ditemukan atau sudah tidak aktif.";
     }
 } 
-// 2. LOGIKA GET: Klik Link dari Email (Token)
+
 elseif (isset($_GET["token"]) && !empty($_GET["token"])) {
     $token = trim($_GET["token"]);
     $stmt = $pdo->prepare("SELECT id, email, token_expires FROM subscribers WHERE unsubscribe_token = ? AND status = 'active'");
@@ -53,7 +51,6 @@ elseif (isset($_GET["token"]) && !empty($_GET["token"])) {
                 $status = "success";
                 $message = "Berhasil unsubscribe melalui link aman.";
                 
-                // Kirim konfirmasi via PHPMailer
                 $subject = "Berhasil Unsubscribe - Ayokebandung.id";
                 $msg = "<h2>Unsubscribe Berhasil</h2><p>Kamu tidak akan lagi menerima email dari kami.</p>";
                 kirimEmailAyo($subscriber['email'], $subject, $msg);
@@ -64,40 +61,23 @@ elseif (isset($_GET["token"]) && !empty($_GET["token"])) {
     $show_form = true;
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unsubscribe - Ayokebandung.id</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #f8f9fa; height: 100vh; display: flex; align-items: center; font-family: 'Inter', sans-serif; }
-        .card-unsubscribe { max-width: 450px; margin: auto; border: none; border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        .icon-box { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: -40px auto 20px; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .btn-primary { background: #1a2478; border: none; padding: 12px; border-radius: 10px; }
-        .btn-primary:hover { background: #0d144d; }
-    </style>
-</head>
-<body>
-
+<style>
+.card-unsubscribe { max-width: 450px; margin: auto; border: none; border-radius: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+.icon-box { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: -40px auto 20px; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+</style>
 <div class="container">
-    <div class="card card-unsubscribe p-4">
-        <div class="card-body text-center">
-            
-            <div class="icon-box">
-                <?php if ($status == "success"): ?>
-                    <i class="fa-solid fa-circle-check fa-3x text-success"></i>
-                <?php elseif ($status == "error" && !$show_form): ?>
-                    <i class="fa-solid fa-circle-xmark fa-3x text-danger"></i>
-                <?php else: ?>
-                    <i class="fa-solid fa-envelope-circle-check fa-3x text-primary"></i>
-                <?php endif; ?>
-            </div>
-
-            <h4 class="fw-bold mb-3">Unsubscribe</h4>
+  <div class="card card-unsubscribe p-4">
+    <div class="card-body text-center">
+      <div class="icon-box">
+        <?php if ($status == "success"): ?>
+          <i class="fa-solid fa-circle-check fa-3x text-success"></i>
+        <?php elseif ($status == "error" && !$show_form): ?>
+          <i class="fa-solid fa-circle-xmark fa-3x text-danger"></i>
+        <?php else: ?>
+          <i class="fa-solid fa-envelope-circle-check fa-3x text-primary"></i>
+        <?php endif; ?>
+      </div>
+      <h4 class="fw-bold mb-3">Unsubscribe</h4>
 
             <?php if ($message): ?>
                 <div class="alert <?php echo $status == 'success' ? 'alert-success' : 'alert-danger'; ?> border-0 small">
@@ -119,18 +99,18 @@ elseif (isset($_GET["token"]) && !empty($_GET["token"])) {
 
             <?php if ($status == "success" || ($status == "error" && !$show_form)): ?>
                 <div class="mt-3">
-                    <a href="https://ayokebandung.id" class="btn btn-light w-100 text-muted">
+                    <a href="<?= BASE_URL ?>" class="btn btn-light w-100 text-muted">
                         <i class="fa-solid fa-arrow-left me-2"></i>Kembali ke Beranda
                     </a>
                 </div>
             <?php endif; ?>
 
             <p class="mt-4 mb-0 text-secondary" style="font-size: 0.75rem;">
-                &copy; 2026 Ayokebandung.id
+                <?= date('Y') ?> <?= SITE_NAME ?>
             </p>
         </div>
     </div>
 </div>
-
-</body>
-</html>
+<?php 
+require "includes/footer.php";
+?>

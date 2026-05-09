@@ -1,205 +1,57 @@
 <?php
-$has_consent = isset($_COOKIE["consent_accepted"]);
-if ($has_consent && $_COOKIE["consent_accepted"] === "1") {<?php
-  ?>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+// Cek status consent
+$consent_accepted = ($_COOKIE["consent_accepted"] ?? "0") === "1";
+$categories = json_decode($_COOKIE["consent_categories"] ?? '{}', true);
+
+// Render Script jika sudah diizinkan
+if ($consent_accepted): ?>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= G_TAG_ID ?>"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
+        gtag('js', new Date()); gtag('config', '<?= G_TAG_ID ?>');
     </script>
-    <?php if (isset($_COOKIE["consent_categories"])):
-      $categories = json_decode($_COOKIE["consent_categories"], true);
-      if ($categories["marketing"] ?? false): ?>
+
+    <?php if ($categories['marketing'] ?? false): ?>
         <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', 'YOUR_FB_PIXEL_ID');
-        fbq('track', 'PageView');
+            !function(f,b,e,v,n,t,s){/* Script FB Pixel Standard */}...
+            fbq('init', '<?= FB_PIXEL_ID ?>'); fbq('track', 'PageView');
         </script>
-        <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=YOUR_FB_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
-    <?php 
-    endif; ?>
-    <?php
-    endif; ?>
-    <?php 
-    return;
-    }
-?>
-<div id="consentBanner" class="consent-banner">
-    <div class="consent-content">
-        <div class="consent-text">
-            <h5>Kami menghormati privasi Anda!</h5>
-            <p>
-                Website ini menggunakan cookies untuk:<br>
-                <strong>• Analytics:</strong> Memahami perilaku pengunjung<br>
-                <strong>• Marketing:</strong> Iklan yang lebih relevan di Facebook/Google<br>
-                <strong>• Functional:</strong> Chat, preferensi, pengalaman terbaik
-            </p>
-        </div>
-        <div class="consent-buttons">
-            <button class="btn-consent btn-accept" onclick="acceptAll()">
-                Terima Semua
-            </button>
-            <a href="#" class="btn-consent btn-preferences" onclick="openPreferences();return false;">
-                Preferences
-            </a>
-        </div>
-    </div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php if (!$consent_accepted): ?>
+<div id="consentBanner" class="consent-banner show">
+    <h5>Privasi Akang & Teteh</h5>
+    <p>Bantu Yara ningkatin ayokebandung.id lewat cookies ya!</p>
+    <button onclick="saveConsent(true)">Terima Semua</button>
+    <button onclick="openPreferences()">Atur Sendiri</button>
 </div>
-<div id="preferencesModal" class="preferences-modal">
-    <div class="preferences-content">
-        <h3>Atur Preferensi Cookies</h3>
-        <p>Pilih kategori cookies yang ingin Anda izinkan:</p>
-        <div class="toggle-group">
-            <div class="toggle-item">
-                <div>
-                    <strong>Necessary</strong><br>
-                    <small>Sesi, login, keamanan (selalu aktif)</small>
-                </div>
-                <div class="toggle-switch necessary active">
-                    <div class="toggle-slider"></div>
-                </div>
-            </div>
-            <div class="toggle-item">
-                <div>
-                    <strong>Analytics</strong><br>
-                    <small>Google Analytics, statistik pengunjung</small>
-                </div>
-                <div class="toggle-switch analytics">
-                    <div class="toggle-slider"></div>
-                </div>
-            </div>
-            <div class="toggle-item">
-                <div>
-                    <strong>Marketing</strong><br>
-                    <small>Facebook Pixel, iklan targeted</small>
-                </div>
-                <div class="toggle-switch marketing">
-                    <div class="toggle-slider"></div>
-                </div>
-            </div>
-            <div class="toggle-item">
-                <div>
-                    <strong>Functional</strong><br>
-                    <small>Chat, wishlist, tema</small>
-                </div>
-                <div class="toggle-switch functional">
-                    <div class="toggle-slider"></div>
-                </div>
-            </div>
-        </div>
-        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
-            <button class="btn-consent btn-preferences" onclick="rejectAll()">Tolak Semua</button>
-            <button class="btn-consent btn-accept"
-            onclick="savePreferences()">Simpan</button>
-        </div>
-    </div>
+<?php endif; ?>
+
+<div id="prefModal" style="display:none;" class="modal">
+    <h3>Preferensi Cookies</h3>
+    <label><input type="checkbox" id="check_analytics"> Analytics</label><br>
+    <label><input type="checkbox" id="check_marketing"> Marketing</label><br>
+    <button onclick="saveConsent(false)">Simpan</button>
 </div>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    if (!getCookie('consent_accepted')) {
-        setTimeout(() => {
-            document.getElementById('consentBanner').classList.add('show');
-        }, 2000);
-    }
-});
-let consentCategories = {
-    necessary: true,
-    analytics: false,
-    marketing: false,
-    functional: false
-};
-function acceptAll() {
-    consentCategories = {
+function saveConsent(all = true) {
+    const cats = {
         necessary: true,
-        analytics: true,
-        marketing: true,
-        functional: true
+        analytics: all || document.getElementById('check_analytics').checked,
+        marketing: all || document.getElementById('check_marketing').checked
     };
-    saveConsent();
-}
-function openPreferences() {
-    document.getElementById('preferencesModal').style.display = 'flex';
-    updateToggles();
-}
-function updateToggles() {
-    Object.keys(consentCategories).forEach(key => {
-        const toggle = document.querySelector(`.toggle-switch.${key}`);
-        if (consentCategories[key]) {
-            toggle.classList.add('active');
-        } else {
-            toggle.classList.remove('active');
-        }
-    });
-}
-document.querySelectorAll('.toggle-switch').forEach(toggle => {
-    toggle.addEventListener('click', function() {
-        const category = this.classList[1];
-        consentCategories[category] = !consentCategories[category];
-        updateToggles();
-    });
-});
-function rejectAll() {
-    consentCategories = { necessary: true, analytics: false, marketing: false, functional: false };
-    saveConsent();
-}
-function savePreferences() {
-    document.getElementById('preferencesModal').style.display = 'none';
-    saveConsent();
-}
-function saveConsent() {
+
     fetch('/api/consent.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            consent_given: true,
-            categories: consentCategories,
-            session_id: '<?= session_id() ?>'
-        })
-    }).then(response => response.json()).then(data => {
-        if (data.success) {
-            document.getElementById('consentBanner').classList.remove('show');
-            document.getElementById('consentBanner').style.display = 'none';
-            if (consentCategories.analytics) loadAnalytics();
-            if (consentCategories.marketing) loadMarketing();
-        }
-    });
+        body: JSON.stringify({ categories: cats })
+    }).then(() => location.reload()); // Reload biar script tracker langsung jalan
 }
-function loadAnalytics() {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
-    document.head.appendChild(script);
-    
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function() { window.dataLayer.push(arguments); };
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-}
-function loadMarketing() {
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'YOUR_FB_PIXEL_ID');
-    fbq('track', 'PageView');
-}
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
+
+function openPreferences() {
+    document.getElementById('prefModal').style.display = 'block';
 }
 </script>

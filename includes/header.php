@@ -1,10 +1,10 @@
 <?php
+// Hello Core //
 $lib_path = dirname(__DIR__) . "/lib/functions.php";
 if (!file_exists($lib_path)) die("lib/functions.php missing: " . $lib_path);
 require_once $lib_path;
-autoload_core();
+autoload_core(); // Core Here //
 
-// Handle title lebih clean
 $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.id"));
 ?>
 <!DOCTYPE html>
@@ -29,8 +29,15 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
   
   <link rel="stylesheet" href="<?= CSS_URL ?>glassmorphism-blue3.css">
   <link rel="stylesheet" href="<?= CSS_URL ?>style.css">
-  <link rel="stylesheet" href="<?= CSS_URL ?>live-search.css">
   <link rel="icon" href="<?= IMG_URL ?>favicon.ico">
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="<?= JS_URL ?>chat.js" defer></script>
+  <script src="<?= JS_URL ?>live-search.js" defer></script>
+  <script src="<?= JS_URL ?>navbar.js" defer></script>
+  <script src="<?= JS_URL ?>weather.js" defer></script>
+  <script src="<?= JS_URL ?>newsletter-form.js" defer></script>
+  
 </head>
 <body>
   <nav class="navbar">
@@ -46,7 +53,6 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
           <div class="hamburger"></div>
         </button>
       </div>
-      
       <div class="menu-overlay" id="menuOverlay"></div>
       <div class="navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
@@ -64,7 +70,8 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>informasi-terkini"><i class="fa-solid fa-newspaper"></i>Informasi Terkini</a></li>
-          <li class="nav-item"><a class="nav-link" href="<?= BLOG_URL ?>"><i class="fa-solid fa-book"></i>Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="<?= BLOGS_URL ?>"><i
+          class="fa-solid fa-book"></i>Blogs</a></li>
           <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>panduan-maps"><i class="fa-solid fa-location-dot"></i>Panduan Maps</a></li>
           <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>kritik-dan-saran"><i class="fa-solid fa-envelope"></i>Kritik dan Saran</a></li>
           <div class="toggle">
@@ -76,19 +83,17 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
       </div>
     </div>
   </nav>
-
   <div id="live-search-wrapper">
     <div class="search-input-bar container">
       <input type="text" id="searchInput2" placeholder="Mau cari apa di Bandung?">
       <div id="live-search-dropdown"></div>
     </div>
   </div>
-
   <div class="chatbot offcanvas" id="chatbot">
     <div class="offcanvas-header">
       <div class="chatbot-header container">
         <h6 class="offcanvas-title"><i class="fas fa-solid fa-circle-user me-2"></i>Asisten Web</h6>
-        <button class="close-btn" data-bs-dismiss="offcanvas"><i class="fa-solid fa-xmark"></i></button>
+        <button class="close-btn text-white" data-bs-dismiss="offcanvas"><i class="fa-solid fa-xmark"></i></button>
       </div>
     </div>
     <div class="offcanvas-body p-3">
@@ -104,8 +109,6 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
       </div>
     </div>
   </div>
-
-  <button class="fab-chatbot" id="chatbotFabBtn" aria-label="Open Chat"><i class="fas fa-comment-dots"></i></button>
-  <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">↑</button>
-  
-  <div class="main-content">
+<button class="fab-chatbot" id="chatbotFabBtn" aria-label="Open Chat"><i class="fas fa-comment-dots"></i></button>
+<button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">↑</button>
+<div class="main-content">

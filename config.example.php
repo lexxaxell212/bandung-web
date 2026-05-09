@@ -1,5 +1,4 @@
 <?php
-// config.php - DATABASE ONLY (No overlap dengan setup.php)
 if (defined("CONFIG_LOADED")) {
   return;
 }
@@ -32,4 +31,17 @@ try {
   error_log("DB Error: " . $e->getMessage(), 3, LOGS_PATH . "db.log");
   $GLOBALS["pdo"] = null;
 }
-?>
+
+// Mail password
+define('SMTP_USER', 'example@gmail.com');
+define('SMTP_PASS', 'token');
+
+// Groq api
+define('GROQ_API', '');
+
+// Openweather api
+define('WEATHER_API_KEY', '');
+
+// Consent
+define('G_TAG_ID', 'G-XXXXXXXXXX');
+define('FB_PIXEL_ID', 'YOUR_FB_PIXEL_ID');

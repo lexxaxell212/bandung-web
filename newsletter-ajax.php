@@ -20,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST["email"])) {
     $response["message"] = "Email tidak valid atau domain tidak didukung!";
     $response["email_value"] = $_POST["email"];
   } else {
-    // 1. QUERY INSERT / UPDATE
     $stmt = $pdo->prepare("
             INSERT INTO subscribers (email, status, subscribed_at) 
             VALUES (?, 'active', NOW())
@@ -31,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST["email"])) {
         ");
 
     if ($stmt->execute([$email])) {
-      // 2. Ambil ID (bisa dari lastInsertId atau query ulang kalau update)
       $subscriber_id = $pdo->lastInsertId();
       if (!$subscriber_id) {
           $stmt_getId = $pdo->prepare("SELECT id FROM subscribers WHERE email = ?");
@@ -39,11 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST["email"])) {
           $subscriber_id = $stmt_getId->fetchColumn();
       }
 
-      // 3. Generate Token Unsubscribe Baru
       $token = generateUnsubscribeToken($pdo, $subscriber_id);
       $unsub_link = "https://ayokebandung.id/unsubscribe.php?token=" . $token;
 
-      // 4. KIRIM EMAIL KONFIRMASI (Pakai Fungsi Sentral)
       $subject = "Konfirmasi Berlangganan - Ayokebandung.id";
       $message_html = "
         <div style='font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;'>
@@ -70,7 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST["email"])) {
 
 echo json_encode($response);
 
-// DOMAIN VALIDATION (Tetap sama)
 function isValidEmailDomain($email) {
   $allowed_domains = ["gmail.com", "googlemail.com", "yahoo.com", "ymail.com", "rocketmail.com", "outlook.com", "hotmail.com", "live.com", "icloud.com", "me.com", "protonmail.com", "proton.me"];
   $domain = strtolower(substr(strrchr($email, "@"), 1));

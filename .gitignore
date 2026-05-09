@@ -1,8 +1,5 @@
 # Core
 config.php
-api/groq-chat.php
-api/weather.php
-lib/functions.php
 .env
 
 # Log
@@ -15,7 +12,6 @@ logs/
 *.bak.*
 
 # Uploads
-admin/uploads/.htaccess
 admin/uploads 
 uploads/
 

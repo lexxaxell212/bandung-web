@@ -1,24 +1,6 @@
 <?php
-/**
- * chatbot.php
- *
- * CHANGELOG (tambahan dari versi sebelumnya):
- * -------------------------------------------
- * [FEATURE] Conversation history — backend sekarang menerima array `history`
- *           dari frontend, memvalidasinya, lalu menyertakannya di antara
- *           system prompt dan pesan user terbaru ke Groq API.
- *
- * [IMPROVE] Validasi history ketat:
- *           - Hanya terima role 'user' dan 'assistant'
- *           - Content harus string dan tidak boleh kosong
- *           - Dibatasi MAX_HISTORY_PAIRS (10 pasang = 20 pesan) agar tidak
- *             membuang token secara berlebihan
- *           - Pesan user terbaru tidak diduplikasi dari history
- */
-
 require_once '../config.php';
 
-// ─── Konfigurasi ──────────────────────────────────────────────────────────────
 const GROQ_ENDPOINT      = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODEL         = 'llama-3.1-8b-instant';
 const MAX_TOKENS         = 350;
@@ -29,7 +11,6 @@ const MAX_HISTORY_PAIRS  = 10;
 const ALLOWED_ORIGIN     = 'https://ayokebandung.id';
 const DEV_MODE           = false;
 
-// ─── Headers ──────────────────────────────────────────────────────────────────
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: ' . ALLOWED_ORIGIN);
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -40,20 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respond(405, ['error' => 'Method not allowed. Use POST.']);
 }
 
-// ─── Helper ───────────────────────────────────────────────────────────────────
 function respond(int $code, array $body): never {
     http_response_code($code);
     echo json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit();
 }
 
-// ─── System Prompts ───────────────────────────────────────────────────────────
 $system_prompts = [
     'bandung' => <<<PROMPT
-Kamu adalah Yara, asisten wisata resmi AyoKeBandung.id. YARA = "Yuk Arahkan Rute Andalan".
+Kamu adalah Yara, asisten website Ayokebandung.id yang bertugas membantu user
+apabila butuh bantuan informasi. YARA = "Yuk Arahkan Rute Andalan".
 
 KEPRIBADIAN:
-- Hangat, ramah seperti Mojang Bandung. Panggil user "Akang" (pria) atau "Teteh" (wanita). Jika tidak tahu gender, gunakan "Sobat".
+- Hangat, ramah seperti Mojang Bandung. Panggil user "Sobat"
 - Boleh sisipkan kata Sunda ringan: "Wilujeng", "Hatur nuhun", "Mangga" — tapi tetap utamakan Bahasa Indonesia yang natural.
 - Jika user menyapa atau tanya kabar: balas hangat singkat, lalu tawarkan bantuan wisata. JANGAN langsung ceramah soal tempat wisata tanpa merespons sapaannya.
 
@@ -73,13 +53,13 @@ FORMAT JAWABAN:
 BATASAN KETAT:
 - JANGAN menjawab pertanyaan di luar topik Bandung & wisata (politik, coding, matematika, dll).
 - Jika ada pertanyaan di luar topik, HARUS redirect dengan kalimat seperti:
-  "Wah, pertanyaannya seru Akang/Teteh, tapi Yara lebih jago soal Bandung nih 😄 Ada yang ingin Akang/Teteh eksplor di Kota Kembang?"
+  "Wah, pertanyaannya seru Sobat, tapi Yara lebih jago soal Bandung nih 😄 Ada
+  yang ingin Sobat eksplor di Kota Kembang?"
 - JANGAN mengarang fakta. Jika tidak tahu, katakan jujur dan sarankan cek sumber resmi.
 - JANGAN menyebut kompetitor (website/aplikasi wisata lain) secara positif.
 PROMPT
 ];
 
-// ─── Parse & Validasi Input ───────────────────────────────────────────────────
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (!is_array($input)) {
@@ -100,12 +80,9 @@ if (!isset($system_prompts[$topic])) {
     respond(400, ['error' => "Topic '$topic' tidak dikenali. Topic tersedia: $validTopics."]);
 }
 
-// ─── Validasi & Sanitasi History ─────────────────────────────────────────────
-// Frontend mengirim history TERMASUK pesan user terbaru,
-// jadi kita slice -1 untuk skip duplikasi sebelum append $message di bawah
 $rawHistory = is_array($input['history'] ?? null) ? $input['history'] : [];
-$rawHistory = array_slice($rawHistory, 0, -1);                   // buang pesan user terbaru
-$rawHistory = array_slice($rawHistory, -(MAX_HISTORY_PAIRS * 2)); // batasi panjang
+$rawHistory = array_slice($rawHistory, 0, -1);
+$rawHistory = array_slice($rawHistory, -(MAX_HISTORY_PAIRS * 2));
 
 $history = [];
 foreach ($rawHistory as $entry) {
@@ -123,14 +100,12 @@ foreach ($rawHistory as $entry) {
     ];
 }
 
-// ─── Susun Messages: system → history → pesan terbaru ────────────────────────
 $messages = array_merge(
     [['role' => 'system', 'content' => $system_prompts[$topic]]],
     $history,
     [['role' => 'user', 'content' => $message]]
 );
 
-// ─── Kirim ke Groq API ────────────────────────────────────────────────────────
 $payload = [
     'model'       => GROQ_MODEL,
     'max_tokens'  => MAX_TOKENS,
@@ -164,7 +139,6 @@ if ($curl_err !== 0) {
     ));
 }
 
-// ─── Handle Response ──────────────────────────────────────────────────────────
 $result = json_decode($response, true);
 
 if ($http_code === 200 && isset($result['choices'][0]['message']['content'])) {

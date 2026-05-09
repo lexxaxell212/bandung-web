@@ -208,12 +208,10 @@
   align-items:center;
   justify-content:center;
   border-radius:12px;
-  background:#fff0;
   border:none
 }
 .close-btn:hover {
   border-radius:var(--radius);
-  background:var(--blue-200);
   border:none
 }
 .menu-overlay {

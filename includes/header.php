@@ -98,7 +98,7 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
   <div class="chatbot offcanvas" id="chatbot">
     <div class="offcanvas-header">
       <div class="chatbot-header container">
-        <span class="offcanvas-title fw-bold fs-3"><i class="fas fa-solid fa-circle-user
+        <span class="offcanvas-title fw-semibold fs-5"><i class="fas fa-solid fa-circle-user
         me-2"></i>Asisten Web</span>
         <button class="close-btn text-white" data-bs-dismiss="offcanvas"><i class="fa-solid fa-xmark"></i></button>
       </div>

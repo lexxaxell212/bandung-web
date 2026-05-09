@@ -1,6 +1,7 @@
 # Core
 config.php
 .env
+vendor/
 
 # Log
 *.log

@@ -49,8 +49,8 @@ $categories = safe_get_categories($pdo);
       </div>
     </div>
     <div class="slider-controls p-5">
-      <button class="btn-sm btn btn-outline-primary border-0" id="btnPrev" onclick="moveSlide(-1)"><i class="fas fa-angle-left"></i></button>
-      <button class="btn-sm btn btn-outline-primary border-0" id="btnNext" onclick="moveSlide(1)"><i class="fas fa-angle-right"></i></button>
+      <button style="color:var(--blue-700)" class="btn-sm btn btn-outline-primary border-0" id="btnPrev" onclick="moveSlide(-1)"><i class="fas fa-angle-left"></i></button>
+      <button style="color:var(--blue-700)" class="btn-sm btn btn-outline-primary border-0" id="btnNext" onclick="moveSlide(1)"><i class="fas fa-angle-right"></i></button>
     </div>
   </div>
 </section>

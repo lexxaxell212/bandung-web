@@ -538,6 +538,30 @@ body::before {
   /* Sembunyikan overlay di desktop */
   .menu-overlay { display: none; }
 }
+@media (min-width: 992px) {
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Nav links di tengah */
+  .navbar-collapse {
+    flex: 1;
+    display: flex !important;
+    justify-content: center;
+  }
+
+  /* Kasih lebar fixed biar brand & actions seimbang */
+  .navbar-brand {
+    min-width: 100px;
+  }
+
+  .navbar-actions {
+    min-width: 100px;
+    justify-content: flex-end;
+  }
+}
 .search-btn {
   position: relative;
   width: 40px;

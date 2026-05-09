@@ -1,27 +1,40 @@
-const toggler       = document.getElementById("navbarToggler");
-const menuOverlay   = document.getElementById("menuOverlay");
+const toggler        = document.getElementById("navbarToggler");
+const menuOverlay    = document.getElementById("menuOverlay");
 const navbarCollapse = document.getElementById("navbarNav");
 
 const ScrollLock = {
   _count: 0,
+  _pendingOpen: false,
 
   lock() {
+    this._pendingOpen = false;
     this._count++;
     document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = this._getScrollbarWidth() + "px";
   },
 
-  unlock() {
+  unlock(skipIfPending = false) {
     this._count = Math.max(0, this._count - 1);
     if (this._count === 0) {
+      if (skipIfPending && this._pendingOpen) return;
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
     }
   },
 
+  flagPendingOpen() {
+    this._pendingOpen = true;
+  },
+
   reset() {
     this._count = 0;
+    this._pendingOpen = false;
     document.body.style.overflow = "";
     document.body.style.paddingRight = "";
+  },
+
+  _getScrollbarWidth() {
+    return window.innerWidth - document.documentElement.clientWidth;
   }
 };
 
@@ -40,18 +53,27 @@ function toggleMenu() {
     menuOverlay.classList.remove("menu-open");
     navbarCollapse.classList.remove("menu-open");
     toggler.classList.remove("menu-open");
-    ScrollLock.unlock(); // [FIX] Pakai ScrollLock
+    ScrollLock.unlock();
   } else {
-    closeOffcanvas();
-
-    menuOverlay.classList.add("menu-open");
-    navbarCollapse.classList.add("menu-open");
-    toggler.classList.add("menu-open");
-    ScrollLock.lock(); // [FIX] Pakai ScrollLock
+    if (document.querySelector(".offcanvas.show")) {
+      ScrollLock.flagPendingOpen();
+      closeOffcanvas();
+      setTimeout(() => {
+        menuOverlay.classList.add("menu-open");
+        navbarCollapse.classList.add("menu-open");
+        toggler.classList.add("menu-open");
+        ScrollLock.lock();
+      }, 50);
+    } else {
+      menuOverlay.classList.add("menu-open");
+      navbarCollapse.classList.add("menu-open");
+      toggler.classList.add("menu-open");
+      ScrollLock.lock();
+    }
   }
 }
 
-if (toggler)     toggler.addEventListener("click", toggleMenu);
+if (toggler) toggler.addEventListener("click", toggleMenu);
 if (menuOverlay) menuOverlay.addEventListener("click", toggleMenu);
 
 document.addEventListener("keydown", (e) => {
@@ -62,7 +84,7 @@ document.addEventListener("keydown", (e) => {
 
 class SmartFab {
   constructor(fabId = "chatbotFabBtn", scrollThreshold = 200) {
-    this.fab       = document.getElementById(fabId);
+    this.fab = document.getElementById(fabId);
     this.threshold = scrollThreshold;
     this.isVisible = false;
     this.init();
@@ -78,46 +100,45 @@ class SmartFab {
   }
 
   onFabClick = () => {
-    const isMenuOpen = !!menuOverlay?.classList.contains("menu-open"); // [FIX] boolean eksplisit
+    const isMenuOpen = menuOverlay?.classList.contains("menu-open");
     if (isMenuOpen) {
-      toggleMenu(); // toggleMenu sudah panggil ScrollLock.unlock()
+      toggleMenu();
+      setTimeout(() => this.toggleChatbot(), 50);
+    } else {
+      this.toggleChatbot();
     }
-    this.toggleChatbot();
   };
 
   toggleChatbot() {
     const chatbotElement = document.getElementById("chatbot");
     if (window.bootstrap?.Offcanvas && chatbotElement) {
-      const modal =
-        window.bootstrap.Offcanvas.getInstance(chatbotElement) ||
-        new window.bootstrap.Offcanvas(chatbotElement);
+      const existing = window.bootstrap.Offcanvas.getInstance(chatbotElement);
+      const modal = existing ?? new window.bootstrap.Offcanvas(chatbotElement, {
+        scroll: true,
+        backdrop: false
+      });
       modal.toggle();
     }
   }
 
-  handleScroll() {
-    this.updateVisibility();
-  }
+  handleScroll() { this.updateVisibility(); }
 
   updateVisibility() {
     const shouldShow = window.scrollY >= this.threshold;
-    if (shouldShow && !this.isVisible) {
-      this.show();
-    } else if (!shouldShow && this.isVisible) {
-      this.hide();
-    }
+    if (shouldShow && !this.isVisible) this.show();
+    else if (!shouldShow && this.isVisible) this.hide();
   }
 
   show() {
-    this.fab.style.opacity    = "1";
-    this.fab.style.transform  = "scale(1) translateY(0)";
+    this.fab.style.opacity = "1";
+    this.fab.style.transform = "scale(1) translateY(0)";
     this.fab.style.visibility = "visible";
-    this.fab.style.animation  = "fabSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
+    this.fab.style.animation = "fabSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
     this.isVisible = true;
   }
 
   hide() {
-    this.fab.style.opacity   = "0";
+    this.fab.style.opacity = "0";
     this.fab.style.transform = "scale(0.8) translateY(20px)";
     this.isVisible = false;
     setTimeout(() => {
@@ -137,24 +158,22 @@ class SmartFab {
   }
 
   destroy() {
-    window.removeEventListener("scroll", this._scrollHandler); // [FIX] referensi benar
+    window.removeEventListener("scroll", this._scrollHandler);
     this.fab.removeEventListener("click", this.onFabClick);
   }
 }
 
 class SmartScrollTop {
   constructor(btnId = "scrollTopBtn") {
-    this.btn       = document.getElementById(btnId);
+    this.btn = document.getElementById(btnId);
     this.isVisible = false;
     this.init();
   }
 
   init() {
     if (!this.btn) return;
-
     this._scrollHandler = this.throttle(this.handleScroll.bind(this), 16);
     this._resizeHandler = this.throttle(this.handleResize.bind(this), 250);
-
     this.updateVisibility();
     window.addEventListener("scroll", this._scrollHandler, { passive: true });
     window.addEventListener("resize", this._resizeHandler);
@@ -162,45 +181,37 @@ class SmartScrollTop {
   }
 
   destroy() {
-    window.removeEventListener("scroll", this._scrollHandler); // [FIX] referensi benar
-    window.removeEventListener("resize", this._resizeHandler); // [FIX] referensi benar
+    window.removeEventListener("scroll", this._scrollHandler);
+    window.removeEventListener("resize", this._resizeHandler);
     this.btn?.removeEventListener("click", this.scrollToTop);
   }
 
   handleScroll() {
     const nearBottom = this.isNearBottom();
-    if (nearBottom && !this.isVisible)  this.show();
+    if (nearBottom && !this.isVisible) this.show();
     else if (!nearBottom && this.isVisible) this.hide();
   }
 
-  handleResize() {
-    this.updateVisibility();
-  }
-
-  updateVisibility() {
-    this.handleScroll();
-  }
+  handleResize() { this.updateVisibility(); }
+  updateVisibility() { this.handleScroll(); }
 
   isNearBottom() {
-    const scrollTop         = window.scrollY;
-    const docHeight         = document.documentElement.scrollHeight;
-    const scrolledFromBottom = docHeight - scrollTop - window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+    const scrolledFromBottom = docHeight - window.scrollY - window.innerHeight;
     return scrolledFromBottom <= docHeight * 0.25;
   }
 
-  scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  scrollToTop() { window.scrollTo({ top: 0, behavior: "smooth" }); }
 
   show() {
-    this.btn.style.opacity    = "1";
-    this.btn.style.transform  = "scale(1) translateY(0)";
+    this.btn.style.opacity = "1";
+    this.btn.style.transform = "scale(1) translateY(0)";
     this.btn.style.visibility = "visible";
     this.isVisible = true;
   }
 
   hide() {
-    this.btn.style.opacity   = "0";
+    this.btn.style.opacity = "0";
     this.btn.style.transform = "scale(0.7) translateY(20px)";
     this.isVisible = false;
     setTimeout(() => {
@@ -233,12 +244,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatbotElement = document.getElementById("chatbot");
 
   if (chatbotElement) {
+    new window.bootstrap?.Offcanvas(chatbotElement, {
+      scroll: true,
+      backdrop: false
+    });
+
     chatbotElement.addEventListener("show.bs.offcanvas", () => {
       ScrollLock.lock();
     });
 
     chatbotElement.addEventListener("hidden.bs.offcanvas", () => {
-      ScrollLock.unlock();
+      ScrollLock.unlock(true);
     });
   }
 

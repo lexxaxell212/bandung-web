@@ -16,7 +16,7 @@
                 </div>
                 
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold">Judul Artikel Kamu</h5>
+                    <h3 class="card-title fw-bold">Judul Artikel Kamu</h3>
                     <p class="card-text text-muted mb-4">
                         Ringkasan konten yang bikin penasaran pengunjung buat klik...
                     </p>

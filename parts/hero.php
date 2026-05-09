@@ -1,14 +1,14 @@
 <section id="hero-website" class="hero-wrapper position-relative overflow-hidden">
   <?php 
   $slides = [
-    ['title' => 'WISATA', 'desc' => 'Eksplorasi destinasi ikonik Bandung dengan layanan premium.', 'img' => 'wisata.webp'],
-    ['title' => 'KULINER', 'desc' => 'Manjakan lidah dengan cita rasa autentik kelas dunia.', 'img' => 'kuliner.webp'],
-    ['title' => 'HOTEL', 'desc' => 'Temukan kemewahan menginap terbaik di lokasi strategis.', 'img' => 'hotel.webp']
+    ['title' => 'WISATA',  'desc' => 'Eksplorasi destinasi ikonik Bandung dengan layanan premium.', 'slug' => 'wisata'],
+    ['title' => 'KULINER', 'desc' => 'Manjakan lidah dengan cita rasa autentik kelas dunia.',       'slug' => 'kuliner'],
+    ['title' => 'HOTEL',   'desc' => 'Temukan kemewahan menginap terbaik di lokasi strategis.',     'slug' => 'hotel']
   ];
   foreach ($slides as $i => $s): 
   ?>
-  <div class="hero-item <?= $i === 0 ? 'active' : '' ?>" 
-       style="background-image: url('<?= IMG_URL . $s['img'] ?>')">
+  <div class="hero-item hero-slide-<?= $s['slug'] ?> <?= $i === 0 ? 'active' : '' ?>"
+       <?= $i === 0 ? 'data-first="true"' : '' ?>>
     <div class="hero-overlay"></div>
     <div class="container h-100 d-flex align-items-center">
       <div class="glass-hero-card col-12 col-md-7 col-lg-5">
@@ -23,7 +23,6 @@
     </div>
   </div>
   <?php endforeach; ?>
-
   <div class="hero-dots">
     <?php foreach ($slides as $i => $s): ?>
       <span class="dot <?= $i === 0 ? 'active' : '' ?>" onclick="heroJump(<?= $i ?>)"></span>

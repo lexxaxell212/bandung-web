@@ -58,15 +58,11 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
 <body>
 <nav class="navbar">
   <div class="container">
-
     <a class="navbar-brand" aria-label="Halaman awal" href="<?= BASE_URL ?>">
       <div class="logo-navbar"></div>
     </a>
-
-    <!-- Desktop nav -->
     <div class="nav-desktop" id="navbarNav">
       <ul class="nav-desktop-list">
-
         <li class="nav-desktop-item nav-desktop-dropdown">
           <button class="nav-desktop-link nav-dd-trigger" aria-expanded="false">
             <i class="fa-solid fa-grip" aria-hidden="true"></i>
@@ -82,7 +78,6 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
             <a class="nav-dd-item" href="<?= PAGES_URL ?>penginapan"><i class="fa-solid fa-hotel"></i>Penginapan</a>
           </div>
         </li>
-
         <li class="nav-desktop-item">
           <a class="nav-desktop-link" href="<?= PAGES_URL ?>informasi-terkini">
             <i class="fa-solid fa-newspaper" aria-hidden="true"></i>Informasi Terkini
@@ -106,8 +101,6 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
 
       </ul>
     </div>
-
-    <!-- Desktop right actions -->
     <div class="navbar-actions">
       <button class="dm-btn" id="dmToggle" aria-label="Toggle dark mode"
         onclick="toggleDark(this)">
@@ -155,8 +148,6 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
         </span>
       </button>
     </div>
-
-    <!-- Mobile overlay & collapse tetap sama -->
     <div class="menu-overlay" id="menuOverlay"></div>
     <div class="navbar-collapse" id="navbarNav-mobile">
       <ul class="navbar-nav ms-auto">
@@ -183,13 +174,12 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
 
   </div>
 </nav>
-  
 <div id="live-search-wrapper" role="search" aria-label="Pencarian situs">
   <div class="ls-inner container">
     <div class="ls-bar">
       <i class="fas fa-search ls-icon-search" aria-hidden="true"></i>
       <input type="text" id="searchInput2"
-             placeholder="Mau cari apa di Bandung?"
+             placeholder="Mau cari apa nih ?"
              autocomplete="off"
              spellcheck="false"
              aria-label="Kolom pencarian"

@@ -62,6 +62,9 @@
   }
 
   function openWrapper() {
+    if (document.getElementById('menuOverlay')?.classList.contains('menu-open')) {
+    window.toggleMenu?.(); // close menu
+    }
     wrapper.classList.add('active');
     trigger.classList.add('is-active');
     document.body.style.overflow = 'hidden';
@@ -77,6 +80,7 @@
     input.value = '';
     clearDropdown();
   }
+  window.closeSearch = closeWrapper; // expose global
 
   function onInput() {
     const q = input.value.trim();

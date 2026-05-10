@@ -1,6 +1,6 @@
 const toggler        = document.getElementById("navbarToggler");
 const menuOverlay    = document.getElementById("menuOverlay");
-const navbarCollapse = document.getElementById("navbarNav");
+const navbarCollapse = document.getElementById("navbarNav-mobile");
 
 const ScrollLock = {
   _count: 0,
@@ -55,6 +55,7 @@ function toggleMenu() {
     toggler.classList.remove("menu-open");
     ScrollLock.unlock();
   } else {
+    window.closeSearch?.(); // close live search
     if (document.querySelector(".offcanvas.show")) {
       ScrollLock.flagPendingOpen();
       closeOffcanvas();
@@ -233,7 +234,7 @@ class SmartScrollTop {
 
 function toggleDark(el) {
   document.documentElement.toggleAttribute("data-dark");
-  el.classList.toggle("on");
+  el.classList.toggle("dark");
   localStorage.setItem("dark", document.documentElement.hasAttribute("data-dark"));
 }
 
@@ -258,9 +259,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (localStorage.getItem("dark") === "true") {
-    document.documentElement.setAttribute("data-dark", "");
-    const switchEl = document.querySelector(".switch");
-    if (switchEl) switchEl.classList.add("on");
-  }
+      if (localStorage.getItem("dark") === "true") {
+      document.documentElement.setAttribute("data-dark", "");
+      document.getElementById("dmToggle")?.classList.add("dark");
+    }
 });

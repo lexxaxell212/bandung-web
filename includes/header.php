@@ -109,7 +109,31 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
 
     <!-- Desktop right actions -->
     <div class="navbar-actions">
-      <div class="switch" onclick="toggleDark(this)" title="Mode Gelap"></div>
+      <button class="dm-btn" id="dmToggle" aria-label="Toggle dark mode"
+        onclick="toggleDark(this)">
+        <div class="dm-icon">
+          <svg class="dm-svg" viewBox="0 0 20 20" fill="none"
+               stroke="currentColor" stroke-width="1.8">
+            <circle class="sun-core" cx="10" cy="10" r="4"/>
+            <line class="sun-ray" x1="10" y1="1"   x2="10" y2="3"/>
+            <line class="sun-ray" x1="10" y1="17"  x2="10" y2="19"/>
+            <line class="sun-ray" x1="1"  y1="10"  x2="3"  y2="10"/>
+            <line class="sun-ray" x1="17" y1="10"  x2="19" y2="10"/>
+            <line class="sun-ray" x1="3.2"  y1="3.2"  x2="4.6"  y2="4.6"/>
+            <line class="sun-ray" x1="15.4" y1="15.4" x2="16.8" y2="16.8"/>
+            <line class="sun-ray" x1="15.4" y1="4.6"  x2="16.8" y2="3.2"/>
+            <line class="sun-ray" x1="3.2"  y1="16.8" x2="4.6"  y2="15.4"/>
+          </svg>
+          <svg class="dm-svg" viewBox="0 0 20 20" fill="none"
+               stroke="currentColor" stroke-width="1.8">
+            <path class="moon-path" stroke-linecap="round" stroke-linejoin="round"
+                  d="M17 12.5A7 7 0 0 1 9 4.5a7 7 0 1 0 8 8z"/>
+            <circle class="star star-1" cx="15" cy="4"  r="0.8" fill="currentColor" stroke="none"/>
+            <circle class="star star-2" cx="17" cy="7"  r="0.5" fill="currentColor" stroke="none"/>
+            <circle class="star star-3" cx="13" cy="2"  r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+      </button>
       <button class="search-btn" id="btn-search" aria-label="Search">
         <span class="search-btn-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -153,10 +177,6 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
         <li class="nav-item"><a class="nav-link" href="<?= BLOGS_URL ?>"><i class="fa-solid fa-book"></i>Blogs</a></li>
         <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>panduan-maps"><i class="fa-solid fa-location-dot"></i>Panduan Maps</a></li>
         <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>kritik-dan-saran"><i class="fa-solid fa-envelope"></i>Kritik dan Saran</a></li>
-        <div class="toggle">
-          <div class="switch" onclick="toggleDark(this)"><span></span></div>
-          <span>Mode Gelap</span>
-        </div>
         <div class="weather" id="w"><small>Cek cuaca...</small></div>
       </ul>
     </div>

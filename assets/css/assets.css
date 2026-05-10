@@ -171,6 +171,13 @@ body::before {
   font-display: swap;
   font-family: 'Inter';
   font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/inter-v20-latin-700.woff2') format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Inter';
+  font-style: normal;
   font-weight: 900;
   src: url('../fonts/inter-v20-latin-900.woff2') format('woff2')
 }
@@ -316,12 +323,6 @@ body::before {
 .dropdown-item {
   border-radius: var(--radius-md);
   margin: var(--space-1);
-  color: #475569;
-}
-.dropdown-item:hover,
-.dropdown-item:focus {
-  background: var(--glass-bg-hover);
-  color: var(--blue-600);
 }
 .menu-overlay {
   position:fixed;
@@ -772,26 +773,25 @@ body::before {
   bottom:clamp(14px,3.8vw,26px);
   right:clamp(14px,3.8vw,26px);
   z-index:1062;
-  width:56px;
-  height:56px;
+  width:48px;
+  height:48px;
   background:var(--blue-600);
-  border:solid 1px var(--blue-700);
-  border-radius:0.9rem;
+  border:solid 1px var(--glass-border);
+  border-radius:0.75rem;
   color:var(--blue-50);
-  font-size:1.2rem;
+  font-size:1.1rem;
   cursor:pointer;
   display:flex;
   align-items:center;
   justify-content:center;
   opacity:0;
   visibility:hidden;
-  box-shadow:0 8px 25px rgb(59 130 246 / .3);
+  box-shadow:0 8px 24px rgb(59 130 246 / .16);
   transform:scale(.8) translateY(20px);
   transition:all 0.4s cubic-bezier(.4,0,.2,1)
 }
 .fab-chatbot:hover {
-  transform: scale(1.1) !important;
-  box-shadow:0 8px 25px rgb(59 130 246 / .4);
+  transform: scale(1.01) !important;
 }
 @keyframes fabSlideIn {
   0% {

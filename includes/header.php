@@ -39,6 +39,7 @@ $isPintasanActive = (bool) array_filter(
   <link rel="icon" href="<?= IMG_URL ?>favicon.ico" type="image/x-icon">
   
   <link rel="preload" as="font" href="<?= FONTS_URL ?>inter-v20-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="<?= FONTS_URL ?>inter-v20-latin-700.woff2" type="font/woff2" crossorigin>
   <link rel="preload" as="font" href="<?= FONTS_URL ?>inter-v20-latin-900.woff2" type="font/woff2" crossorigin>
 
   <link rel="stylesheet" href="<?= CSS_URL ?>bs533.min.css">
@@ -93,12 +94,12 @@ $isPintasanActive = (bool) array_filter(
             <i class="fa-solid fa-chevron-down nav-dd-chevron" aria-hidden="true"></i>
           </button>
           <div class="nav-dd-panel">
-            <a class="nav-dd-item" href="<?= PAGES_URL ?>sejarah"><i class="fa-solid fa-landmark"></i>Sejarah</a>
-            <a class="nav-dd-item" href="<?= PAGES_URL ?>budaya"><i class="fa-solid fa-broom-ball"></i>Budaya</a>
-            <a class="nav-dd-item" href="<?= PAGES_URL ?>kuliner"><i class="fa-solid fa-bowl-rice"></i>Kuliner</a>
-            <a class="nav-dd-item" href="<?= PAGES_URL ?>layanan"><i class="fa-solid fa-bus"></i>Layanan</a>
-            <a class="nav-dd-item" href="<?= PAGES_URL ?>wisata"><i class="fa-solid fa-map-location-dot"></i>Wisata</a>
-            <a class="nav-dd-item" href="<?= PAGES_URL ?>penginapan"><i class="fa-solid fa-hotel"></i>Penginapan</a>
+            <a class="nav-dd-item <?= isActive('/pages/sejarah') ?>" href="<?= PAGES_URL ?>sejarah"><i class="fa-solid fa-landmark"></i>Sejarah</a>
+            <a class="nav-dd-item <?= isActive('/pages/budaya') ?>" href="<?= PAGES_URL ?>budaya"><i class="fa-solid fa-broom-ball"></i>Budaya</a>
+            <a class="nav-dd-item <?= isActive('/pages/kuliner') ?>" href="<?= PAGES_URL ?>kuliner"><i class="fa-solid fa-bowl-rice"></i>Kuliner</a>
+            <a class="nav-dd-item <?= isActive('/pages/layanan') ?>" href="<?= PAGES_URL ?>layanan"><i class="fa-solid fa-bus"></i>Layanan</a>
+            <a class="nav-dd-item <?= isActive('/pages/wisata') ?>" href="<?= PAGES_URL ?>wisata"><i class="fa-solid fa-map-location-dot"></i>Wisata</a>
+            <a class="nav-dd-item <?= isActive('/pages/penginapan') ?>" href="<?= PAGES_URL ?>penginapan"><i class="fa-solid fa-hotel"></i>Penginapan</a>
           </div>
         </li>
         <li class="nav-desktop-item">
@@ -107,7 +108,7 @@ $isPintasanActive = (bool) array_filter(
           </a>
         </li>
         <li class="nav-desktop-item">
-          <a class="nav-desktop-link <?= isActive('/pages/blogs') ?>" href="<?= BLOGS_URL ?>">
+          <a class="nav-desktop-link <?= isActive('/blogs') ?>" href="<?= BLOGS_URL ?>">
             <i class="fa-solid fa-book" aria-hidden="true"></i>Blogs
           </a>
         </li>
@@ -179,16 +180,16 @@ $isPintasanActive = (bool) array_filter(
             <i class="fa-solid fa-grip"></i> Pintasan
           </a>
           <ul class="dropdown-menu p-5 me-2">
-            <li><a class="dropdown-item" href="<?= PAGES_URL ?>sejarah"><i class="fa-solid fa-landmark me-2"></i>Sejarah</a></li>
-            <li><a class="dropdown-item" href="<?= PAGES_URL ?>budaya"><i class="fa-solid fa-broom-ball me-2"></i>Budaya</a></li>
-            <li><a class="dropdown-item" href="<?= PAGES_URL ?>kuliner"><i class="fa-solid fa-bowl-rice me-2"></i>Kuliner</a></li>
-            <li><a class="dropdown-item" href="<?= PAGES_URL ?>layanan"><i class="fa-solid fa-bus me-2"></i>Layanan</a></li>
-            <li><a class="dropdown-item" href="<?= PAGES_URL ?>wisata"><i class="fa-solid fa-map-location-dot me-2"></i>Wisata</a></li>
-            <li><a class="dropdown-item" href="<?= PAGES_URL ?>penginapan"><i class="fa-solid fa-hotel me-2"></i>Penginapan</a></li>
+            <li><a class="dropdown-item <?= isActive('/pages/sejarah') ?>" href="<?= PAGES_URL ?>sejarah"><i class="fa-solid fa-landmark me-2"></i>Sejarah</a></li>
+            <li><a class="dropdown-item <?= isActive('/pages/budaya') ?>" href="<?= PAGES_URL ?>budaya"><i class="fa-solid fa-broom-ball me-2"></i>Budaya</a></li>
+            <li><a class="dropdown-item <?= isActive('/pages/kuliner') ?>" href="<?= PAGES_URL ?>kuliner"><i class="fa-solid fa-bowl-rice me-2"></i>Kuliner</a></li>
+            <li><a class="dropdown-item <?= isActive('/pages/layanan') ?>" href="<?= PAGES_URL ?>layanan"><i class="fa-solid fa-bus me-2"></i>Layanan</a></li>
+            <li><a class="dropdown-item <?= isActive('/pages/wisata') ?>" href="<?= PAGES_URL ?>wisata"><i class="fa-solid fa-map-location-dot me-2"></i>Wisata</a></li>
+            <li><a class="dropdown-item <?= isActive('/pages/penginapan') ?>" href="<?= PAGES_URL ?>penginapan"><i class="fa-solid fa-hotel me-2"></i>Penginapan</a></li>
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link <?= isActive('/pages/informasi-terkini') ?>" href="<?= PAGES_URL ?>informasi-terkini"><i class="fa-solid fa-newspaper"></i>Informasi Terkini</a></li>
-        <li class="nav-item"><a class="nav-link <?= isActive('/pages/blogs') ?>" href="<?= BLOGS_URL ?>"><i class="fa-solid fa-book"></i>Blogs</a></li>
+        <li class="nav-item"><a class="nav-link <?= isActive('/blogs') ?>" href="<?= BLOGS_URL ?>"><i class="fa-solid fa-book"></i>Blogs</a></li>
         <li class="nav-item"><a class="nav-link <?=
         isActive('/pages/panduan-maps') ?>" href="<?= PAGES_URL
         ?>panduan-maps"><i class="fa-solid fa-location-dot"></i>Panduan

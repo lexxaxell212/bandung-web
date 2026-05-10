@@ -122,6 +122,22 @@
 *::after {
   box-sizing: border-box;
 }
+html,
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+.navbar,
+.navbar-collapse,
+.glass,
+.card,
+.btn,
+.nav-desktop-link,
+.nav-dd-panel,
+.dropdown-menu {
+  transition: background-color 0.4s ease, 
+              color 0.4s ease, 
+              border-color 0.4s ease;
+}
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;

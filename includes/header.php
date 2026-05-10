@@ -57,62 +57,112 @@ $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.
 </head>
 <body>
 <nav class="navbar">
-    <div class="container">
-      <a class="navbar-brand" aria-label="Halaman awal" href="<?= BASE_URL ?>">
-        <div class="logo-navbar"></div>
-      </a>
-      <div class="navbar-actions">
-        <button class="search-btn" id="btn-search" aria-label="Search">
-            <span class="search-btn-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
-         stroke-width="2.2" stroke-linecap="round">
-                <circle class="s-circle" cx="10.5" cy="10.5" r="6.5"/>
-                <line class="s-handle" x1="15.5" y1="15.5" x2="21" y2="21"/>
-                <line class="s-cross" x1="4" y1="17" x2="20" y2="4"/>
-              </svg>
-            </span>
-        </button>
-        <button class="navbar-toggler" type="button" id="navbarToggler" aria-label="Toggle Menu">
-            <span class="hamburger-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2.2" stroke-linecap="round">
-                <line class="h-top" x1="3" y1="6"  x2="21" y2="6"/>
-                <line class="h-mid" x1="3" y1="12" x2="21" y2="12"/>
-                <line class="h-bot" x1="3" y1="18" x2="21" y2="18"/>
-              </svg>
-            </span>
+  <div class="container">
+
+    <a class="navbar-brand" aria-label="Halaman awal" href="<?= BASE_URL ?>">
+      <div class="logo-navbar"></div>
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="nav-desktop" id="navbarNav">
+      <ul class="nav-desktop-list">
+
+        <li class="nav-desktop-item nav-desktop-dropdown">
+          <button class="nav-desktop-link nav-dd-trigger" aria-expanded="false">
+            <i class="fa-solid fa-grip" aria-hidden="true"></i>
+            Pintasan
+            <i class="fa-solid fa-chevron-down nav-dd-chevron" aria-hidden="true"></i>
           </button>
-      </div>
-      <div class="menu-overlay" id="menuOverlay"></div>
-      <div class="navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle mb-2" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="fa-solid fa-grip"></i> Pintasan
-            </a>
-            <ul class="dropdown-menu p-5 me-2">
-              <li><a class="dropdown-item" href="<?= PAGES_URL ?>sejarah"><i class="fa-solid fa-landmark me-2"></i>Sejarah</a></li>
-              <li><a class="dropdown-item" href="<?= PAGES_URL ?>budaya"><i class="fa-solid fa-broom-ball me-2"></i>Budaya</a></li>
-              <li><a class="dropdown-item" href="<?= PAGES_URL ?>kuliner"><i class="fa-solid fa-bowl-rice me-2"></i>Kuliner</a></li>
-              <li><a class="dropdown-item" href="<?= PAGES_URL ?>layanan"><i class="fa-solid fa-bus me-2"></i>Layanan</a></li>
-              <li><a class="dropdown-item" href="<?= PAGES_URL ?>wisata"><i class="fa-solid fa-map-location-dot me-2"></i>Wisata</a></li>
-              <li><a class="dropdown-item" href="<?= PAGES_URL ?>penginapan"><i class="fa-solid fa-hotel me-2"></i>Penginapan</a></li>
-            </ul>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>informasi-terkini"><i class="fa-solid fa-newspaper"></i>Informasi Terkini</a></li>
-          <li class="nav-item"><a class="nav-link" href="<?= BLOGS_URL ?>"><i
-          class="fa-solid fa-book"></i>Blogs</a></li>
-          <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>panduan-maps"><i class="fa-solid fa-location-dot"></i>Panduan Maps</a></li>
-          <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>kritik-dan-saran"><i class="fa-solid fa-envelope"></i>Kritik dan Saran</a></li>
-          <div class="toggle">
-            <div class="switch" onclick="toggleDark(this)"><span></span></div>
-            <span>Mode Gelap</span>
+          <div class="nav-dd-panel">
+            <a class="nav-dd-item" href="<?= PAGES_URL ?>sejarah"><i class="fa-solid fa-landmark"></i>Sejarah</a>
+            <a class="nav-dd-item" href="<?= PAGES_URL ?>budaya"><i class="fa-solid fa-broom-ball"></i>Budaya</a>
+            <a class="nav-dd-item" href="<?= PAGES_URL ?>kuliner"><i class="fa-solid fa-bowl-rice"></i>Kuliner</a>
+            <a class="nav-dd-item" href="<?= PAGES_URL ?>layanan"><i class="fa-solid fa-bus"></i>Layanan</a>
+            <a class="nav-dd-item" href="<?= PAGES_URL ?>wisata"><i class="fa-solid fa-map-location-dot"></i>Wisata</a>
+            <a class="nav-dd-item" href="<?= PAGES_URL ?>penginapan"><i class="fa-solid fa-hotel"></i>Penginapan</a>
           </div>
-          <div class="weather" id="w"><small>Cek cuaca...</small></div>
-        </ul>
-      </div>
+        </li>
+
+        <li class="nav-desktop-item">
+          <a class="nav-desktop-link" href="<?= PAGES_URL ?>informasi-terkini">
+            <i class="fa-solid fa-newspaper" aria-hidden="true"></i>Informasi Terkini
+          </a>
+        </li>
+        <li class="nav-desktop-item">
+          <a class="nav-desktop-link" href="<?= BLOGS_URL ?>">
+            <i class="fa-solid fa-book" aria-hidden="true"></i>Blogs
+          </a>
+        </li>
+        <li class="nav-desktop-item">
+          <a class="nav-desktop-link" href="<?= PAGES_URL ?>panduan-maps">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>Panduan Maps
+          </a>
+        </li>
+        <li class="nav-desktop-item">
+          <a class="nav-desktop-link" href="<?= PAGES_URL ?>kritik-dan-saran">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>Kritik dan Saran
+          </a>
+        </li>
+
+      </ul>
     </div>
-  </nav>
+
+    <!-- Desktop right actions -->
+    <div class="navbar-actions">
+      <div class="switch" onclick="toggleDark(this)" title="Mode Gelap"></div>
+      <button class="search-btn" id="btn-search" aria-label="Search">
+        <span class="search-btn-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round">
+            <circle class="s-circle" cx="10.5" cy="10.5" r="6.5"/>
+            <line class="s-handle" x1="15.5" y1="15.5" x2="21" y2="21"/>
+            <line class="s-cross"  x1="4"    y1="17"   x2="20" y2="4"/>
+          </svg>
+        </span>
+      </button>
+      <button class="navbar-toggler" type="button" id="navbarToggler" aria-label="Toggle Menu">
+        <span class="hamburger-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.2" stroke-linecap="round">
+            <line class="h-top" x1="3" y1="6"  x2="21" y2="6"/>
+            <line class="h-mid" x1="3" y1="12" x2="21" y2="12"/>
+            <line class="h-bot" x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+
+    <!-- Mobile overlay & collapse tetap sama -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="navbar-collapse" id="navbarNav-mobile">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mb-2" href="#" role="button" data-bs-toggle="dropdown">
+            <i class="fa-solid fa-grip"></i> Pintasan
+          </a>
+          <ul class="dropdown-menu p-5 me-2">
+            <li><a class="dropdown-item" href="<?= PAGES_URL ?>sejarah"><i class="fa-solid fa-landmark me-2"></i>Sejarah</a></li>
+            <li><a class="dropdown-item" href="<?= PAGES_URL ?>budaya"><i class="fa-solid fa-broom-ball me-2"></i>Budaya</a></li>
+            <li><a class="dropdown-item" href="<?= PAGES_URL ?>kuliner"><i class="fa-solid fa-bowl-rice me-2"></i>Kuliner</a></li>
+            <li><a class="dropdown-item" href="<?= PAGES_URL ?>layanan"><i class="fa-solid fa-bus me-2"></i>Layanan</a></li>
+            <li><a class="dropdown-item" href="<?= PAGES_URL ?>wisata"><i class="fa-solid fa-map-location-dot me-2"></i>Wisata</a></li>
+            <li><a class="dropdown-item" href="<?= PAGES_URL ?>penginapan"><i class="fa-solid fa-hotel me-2"></i>Penginapan</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>informasi-terkini"><i class="fa-solid fa-newspaper"></i>Informasi Terkini</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= BLOGS_URL ?>"><i class="fa-solid fa-book"></i>Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>panduan-maps"><i class="fa-solid fa-location-dot"></i>Panduan Maps</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= PAGES_URL ?>kritik-dan-saran"><i class="fa-solid fa-envelope"></i>Kritik dan Saran</a></li>
+        <div class="toggle">
+          <div class="switch" onclick="toggleDark(this)"><span></span></div>
+          <span>Mode Gelap</span>
+        </div>
+        <div class="weather" id="w"><small>Cek cuaca...</small></div>
+      </ul>
+    </div>
+
+  </div>
+</nav>
   
 <div id="live-search-wrapper" role="search" aria-label="Pencarian situs">
   <div class="ls-inner container">

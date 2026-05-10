@@ -9,7 +9,6 @@
             <span class="fs-2 fw-bold newsletter-text">NEWSLETTER</span>
             <p class="text-muted">Dapatkan event dan update Bandung terkini via email.</p>
           </div>
-          
           <div class="newsletter-container mx-auto" style="max-width: 500px;">
             <form class="newsletter-form d-flex gap-2" id="newsletterForm">
               <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">

@@ -1,9 +1,7 @@
 <?php
-// Cek status consent
 $consent_accepted = ($_COOKIE["consent_accepted"] ?? "0") === "1";
 $categories = json_decode($_COOKIE["consent_categories"] ?? '{}', true);
 
-// Render Script jika sudah diizinkan
 if ($consent_accepted): ?>
     <script async src="https://www.googletagmanager.com/gtag/js?id=<?= G_TAG_ID ?>"></script>
     <script>
@@ -48,7 +46,7 @@ function saveConsent(all = true) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ categories: cats })
-    }).then(() => location.reload()); // Reload biar script tracker langsung jalan
+    }).then(() => location.reload());
 }
 
 function openPreferences() {

@@ -1,7 +1,9 @@
 # Core
-config.php
 .env
 vendor/
+config.php
+config/db.php
+config/key.php
 
 # Log
 *.log

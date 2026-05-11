@@ -388,14 +388,12 @@ body::before {
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     visibility 0s linear 0s;
 }
-/* ── Dropdown mobile panel ───────────────────────────────── */
 .navbar-collapse .dropdown-menu {
   position: static !important;
   box-shadow: none;
   border: none;
   background: transparent;
   margin-left: 12px !important;
-  /* Animasi smooth — override Bootstrap display:block/none */
   display: block !important;
   overflow: hidden;
   max-height: 0;
@@ -421,9 +419,6 @@ body::before {
   margin-right: 0 !important;
 }
 
-
-
-/* ── Dropdown item mobile ────────────────────────────────── */
 .navbar-collapse .dropdown-item {
   padding: 12px !important;
   font-size: 13.5px;
@@ -438,7 +433,6 @@ body::before {
   color: var(--blue-700) !important;
 }
 
-/* ── Chevron rotate ──────────────────────────────────────── */
 .navbar-collapse .dropdown-toggle::after {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -447,13 +441,11 @@ body::before {
   transform: rotate(180deg);
 }
 
-/* ── Scroll di dalam nav list ────────────────────────────── */
 .navbar-collapse {
   overflow-y: visible;
   max-height: none;
 }
 
-/* Dark mode */
 [data-dark] .navbar-collapse {
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.50),
@@ -466,6 +458,7 @@ body::before {
 .nav-link {
   color: var(--blue-900) !important;
   padding: 12px !important;
+  margin: 4px;
   border-radius: 0.75rem;
   border: none;
   display: flex;
@@ -482,7 +475,8 @@ body::before {
 }
 .nav-link i {
   width: 24px;
-  font-size: 1.2rem;
+  opacity: 0.92;
+  font-size: 1.1rem;
   margin-right: 12px;
 }
 .dropdown-menu {

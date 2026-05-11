@@ -1,6 +1,9 @@
 .main-content {
-  padding-top: calc(var(--navbar-height) + 35px);
-  padding-bottom: calc(var(--navbar-height) + 35px);
+  padding-top: var(--navbar-height);
+  padding-bottom: var(--navbar-height);
+}
+section {
+  padding: var(--space-10);
 }
 @media (min-width: 576px) {
   .container {
@@ -86,10 +89,10 @@
   font-weight: 900 !important;
 }
 .font-semibold {
-  font-weight: 600 !important;
+  font-weight: 700 !important;
 }
-.font-medium {
-  font-weight: 400 !important;
+.fw-semibold {
+  font-weight: 700 !important;
 }
 .p-0 {
   padding: var(--space-0) !important;
@@ -386,11 +389,11 @@
   cursor: pointer !important;
 }
 ::selection {
-  background: var(--blue-700);
+  background: #1a4a8a;
   color: white;
 }
 ::-moz-selection {
-  background: var(--blue-700);
+  background:#1a4a8a;
   color: white;
 }
 .card,

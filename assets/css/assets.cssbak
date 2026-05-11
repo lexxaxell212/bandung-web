@@ -1,15 +1,15 @@
 :root {
   --blue-50: #f8fafc;
-  --blue-100: #e8f1fb;
-  --blue-200: #c3d9f5;
-  --blue-300: #93bced;
+  --blue-100: #f1f5f9;
+  --blue-200: #cbd5e1;
+  --blue-300: #bfdbfe;
   --blue-400: #76a9fa;
   --blue-500: #2563eb;
   --blue-600: #1d4ed8;
   --blue-700: #1e40af;
   --blue-800: #1e3a8a;
-  --blue-900: #071a36;
-  --blue-950: #040e1f;
+  --blue-900: #1e293b;
+  --blue-950: #020617;
   --orange-500: #f97316;
   --orange-600: #ea580c;
   --orange-700: #c2410c;
@@ -24,17 +24,15 @@
   --dark-800: #1e293b;
   --dark-900: #0f172a;
   --dark-950: #020617;
-  --glass-bg: rgba(255,255,255,0.55);
-  --glass-bg-hover: rgba(255,255,255,0.55);
-  --glass-bg-active: rgba(255,255,255,0.65);
-  --glass-border: rgba(255,255,255,0.75);
-  --glass-shadow: 0 8px 32px rgba(31,60,120,0.10);
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-bg-hover: rgba(255, 255, 255, 0.4);
+  --glass-bg-active: rgba(255, 255, 255, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   --glass-backdrop: rgba(255, 255, 255, 0.15);
-  --glass-blur: blur(18px);
+  --glass-blur: 16px;
   --glass-glow: 0 0 20px rgba(14, 165, 233, 0.2);
-  
   --logo-path: url("https://ayokebandung.id/assets/images/logo-d.png");
-  
   --bg-html: #fff;
   --bg-white: #fff;
   --bg-light: linear-gradient(
@@ -55,9 +53,8 @@
       transparent 50%
     ),
     linear-gradient(135deg, #fdfdfd 0%, #f5f7fa 50%, #fefefe 100%);
-    
-  --text-primary: #040e1f;
-  --text-secondary: #1a4a8a;
+  --text-primary: #020617;
+  --text-secondary: #172554;
   --text-muted: #334155;
   --bg-primary: linear-gradient(
     135deg,
@@ -74,8 +71,8 @@
   --space-5: 1.25rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
-  --space-10: 4rem;
-  --space-12: 6rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
   --space-16: 10rem;
   --radius-none: 0;
   --radius-sm: 0.375rem;
@@ -89,6 +86,7 @@
   --navbar-height:70px;
 }
 [data-dark] {
+  /* Inverted */
   --blue-950: #eff6ff;
   --blue-900: #ecfeff;
   --blue-800: #cffafe;
@@ -103,27 +101,21 @@
   --orange-500: #c2410c;
   --orange-600: #ea580c;
   --orange-700: #f97316;
-  
-  --glass-bg: #0f1724;
-  --glass-bg-hover: #0f1724;
-  --glass-bg-active: #0f1724;
-  --glass-border: #1e2d42;
-  --glass-shadow: transparent;
-  --glass-backdrop: transparent;
-  --glass-blur: blur(0);
-  
+  --glass-bg: rgba(51, 65, 85, 0.4);
+  --glass-bg-hover: rgba(71, 85, 105, 0.4);
+  --glass-bg-active: rgba(71, 85, 105, 0.4);
+  --glass-border: rgba(100, 116, 139, 0.2);
+  --glass-shadow: 0 4px 19px rgba(51, 65, 85, 0.09);
+  --glass-backdrop: rgba(0, 0, 0, 0.15);
   --logo-path: url("https://ayokebandung.id/assets/images/logo.png");
-  
   --bg-html: #1e293b;
   --bg-white: #111;
   --bg-light: linear-gradient(135deg, #020617 0%, #030712 50%, #0f172a 100%);
-  --bg-primary: linear-gradient(90deg, #0f172a 0%, #020617 100%);
-  --misty-soft: #020810;
-  
+  --misty-soft: #1e293b;
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
   --text-muted: #cbd5e1;
-  
+  --bg-primary: linear-gradient(90deg, #0f172a 0%, #020617 100%);
 }
 *,
 *::before,
@@ -330,142 +322,61 @@ body::before {
 }
 .dropdown-item {
   border-radius: var(--radius-md);
+  margin: var(--space-1);
 }
-
 .menu-overlay {
-  position: fixed;
-  top: var(--navbar-height);
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(127, 137, 147, 0.1);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  z-index: 1072 !important;
-  transition:
-    opacity 0.3s ease,
-    visibility 0s linear 0.3s;
+  position:fixed;
+  top:var(--navbar-height);
+  left:0;
+  width:100%;
+  height:100vh;
+  backdrop-filter:grayscale(1);
+  -webkit-backdrop-filter:grayscale(1);
+  background:rgb(0 0 0 / .35);
+  opacity:0;
+  visibility:hidden;
+  z-index:1072!important
 }
 .menu-overlay.menu-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: all;
-  transition:
-    opacity 0.3s ease,
-    visibility 0s linear 0s;
+  opacity:1;
+  visibility:visible
 }
 .navbar-collapse {
-  position: fixed;
-  top: calc(var(--navbar-height) + 12px); 
-  right: 12px;
-  width: min(320px, calc(100vw - 32px));
-  overflow-y: visible;
-  max-height: none;
-  z-index: 1074 !important;
-  border-radius: 0.75rem;
-  padding: 8px 12px !important;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 14px 32px rgba(60,60,60,0.30);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px) scale(0.98);
-  transform-origin: top right;
+  position: fixed;
+  top: var(--navbar-height);
+  right: 0;
+  width: 100%;
+  z-index: 1074 !important;
+  background: var(--blue-50);
+  border-bottom: 2px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  padding: 3rem 2rem;
+  overflow-y: auto;
+  transform: translateY(-8px);
   transition:
     opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    visibility 0s linear 0.3s;
+    visibility 0s linear 0.3s; 
 }
 .navbar-collapse.menu-open {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
   transition:
     opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     visibility 0s linear 0s;
 }
-/* ── Dropdown mobile panel ───────────────────────────────── */
-.navbar-collapse .dropdown-menu {
-  position: static !important;
-  box-shadow: none;
-  border: none;
-  background: transparent;
-  margin-left: 12px !important;
-  /* Animasi smooth — override Bootstrap display:block/none */
-  display: block !important;
-  overflow: hidden;
-  max-height: 0;
-  padding: 0 !important;
-  margin: 0 !important;
-  opacity: 0;
-  transition:
-    max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.25s ease,
-    transform 0.25s ease;
-  pointer-events: none;
-}
-
-.navbar-collapse .dropdown-menu.show {
-  max-height: 400px;
-  padding: 8px !important; 
-  margin-top: -50px !important;
-  margin-bottom: 50px !important;
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: all;
-  margin-left: 12px !important;
-  margin-right: 0 !important;
-}
-
-
-
-/* ── Dropdown item mobile ────────────────────────────────── */
-.navbar-collapse .dropdown-item {
-  padding: 12px !important;
-  font-size: 13.5px;
-  border-radius: 10px;
-  color: var(--blue-900) !important;
-  background: transparent;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-
-.navbar-collapse .dropdown-item:hover {
-  background: rgba(37, 99, 176, 0.07);
-  color: var(--blue-700) !important;
-}
-
-/* ── Chevron rotate ──────────────────────────────────────── */
-.navbar-collapse .dropdown-toggle::after {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.navbar-collapse .dropdown-toggle[aria-expanded="true"]::after {
-  transform: rotate(180deg);
-}
-
-/* ── Scroll di dalam nav list ────────────────────────────── */
-.navbar-collapse {
-  overflow-y: visible;
-  max-height: none;
-}
-
-/* Dark mode */
-[data-dark] .navbar-collapse {
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.50),
-    0 4px 16px rgba(0, 0, 0, 0.30);
-}
 .navbar-nav {
   flex-direction:column;
   /*gap:1.2rem;*/
+  margin-left:auto
 }
 .nav-link {
   color: var(--blue-900) !important;
-  padding: 12px !important;
+  padding: 1rem !important;
   border-radius: 0.75rem;
   border: none;
   display: flex;
@@ -478,7 +389,7 @@ body::before {
 .nav-link.active {
   background: rgba(37, 99, 176, 0.07);
   color: var(--blue-700) !important;
-  transform: translateX(2px);
+  transform: translateX(10px);
 }
 .nav-link i {
   width: 24px;
@@ -495,7 +406,7 @@ body::before {
   background: transparent;
   padding: 7px 12px !important;
   font-size: 14px;
-  
+  margin-bottom: 5px;
   border-radius: 0.75rem;
   border: none;
   display: flex;
@@ -509,7 +420,7 @@ body::before {
 .dropdown-item:hover {
   background: rgba(37, 99, 176, 0.07);
   color: var(--blue-700) !important;
-  transform: translateX(2px);
+  transform: translateX(4px);
 }
 .weather {
   margin-top:2rem;
@@ -857,103 +768,30 @@ body::before {
 .menu-open .hamburger-icon svg {
   color: var(--blue-700);
 }
-.scroll-top-btn {
-  position:fixed;
-  bottom:100px;
-  right:clamp(14px,3.8vw,26px);
-  z-index:1064;
-  width:52px;
-  height:52px;
-  background:var(--blue-50);
-  border:none;
-  border-radius:50%;
-  color: #333;
-  font-size:20px;
-  font-weight: 700;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow: 0 6px 24px rgba(37,39,36,0.09);
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    opacity 0.3s ease;
-  opacity:0;
-  visibility:hidden;
-}
-[data-dark] .scroll-top-btn {
-  background: #050f1e;
-  color: #fff;
-}
-.scroll-top-btn:hover {
-  transform:scale(1.01)!important;
-}
-@keyframes scrollTopSlideIn {
-  0% {
-    opacity:0;
-    transform:scale(.9) translateY(20px) rotate(-180deg)
-  }
-  50% {
-    transform:scale(1) rotate(360deg)
-  }
-  100% {
-    opacity:1;
-    transform:scale(1) translateY(0) rotate(0deg)
-  }
-}
-@media (min-width:768px) {
-  .scroll-top-btn {
-    right:clamp(24px,4.5vw,45px)
-  }
-}
-@media (min-width:992px) {
-  .scroll-top-btn {
-    right:clamp(65px,6vw,90px)
-  }
-}
-@media (min-width:1200px) {
-  .scroll-top-btn {
-    right:clamp(120px,8vw,160px)
-  }
-}
 .fab-chatbot {
   position:fixed;
   bottom:clamp(14px,3.8vw,26px);
   right:clamp(14px,3.8vw,26px);
   z-index:1062;
-  width:52px;
-  height:52px;
-  background:var(--blue-500);
-  border:none;
-  border-radius:50%;
-  color: #fff;
-  font-size:20px;
+  width:48px;
+  height:48px;
+  background:var(--blue-600);
+  border:solid 1px var(--glass-border);
+  border-radius:0.75rem;
+  color:var(--blue-50);
+  font-size:1.1rem;
   cursor:pointer;
   display:flex;
   align-items:center;
   justify-content:center;
   opacity:0;
   visibility:hidden;
-  box-shadow: 0 6px 24px rgba(37,99,176,0.35);
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    opacity 0.3s ease;
+  box-shadow:0 8px 24px rgb(59 130 246 / .16);
+  transform:scale(.8) translateY(20px);
+  transition:all 0.4s cubic-bezier(.4,0,.2,1)
 }
 .fab-chatbot:hover {
-  background: var(--blue-600);
-  transform: scale(1.08) translateY(-2px);
-  box-shadow: 0 10px 32px rgba(37,99,176,0.42);
-}
-.fab-chatbot:active { 
-  transform: scale(0.96); 
-}
-[data-dark] .fab-chatbot {
-  background: var(--blue-500);
-  box-shadow: 0 6px 24px rgba(0,0,0,0.40);
+  transform: scale(1.01) !important;
 }
 @keyframes fabSlideIn {
   0% {
@@ -1144,7 +982,7 @@ body::before {
 }
 #live-search-wrapper {
   --ls-z        : 1068;
-  --ls-radius   : 0.75rem;
+  --ls-radius   : 16px;
   --ls-duration : 0.25s;
   --ls-ease     : cubic-bezier(0.4, 0, 0.2, 1);
   --ls-shadow   : 0 24px 64px rgba(0,0,0,0.14), 0 4px 16px rgba(0,0,0,0.08);
@@ -1191,7 +1029,7 @@ body::before {
   align-items: center;
   gap: 12px;
   background: var(--blue-50, #eaf1fb);
-  border: 1px solid  rgba(255,255,255,0.2);
+  border: 1.5px solid var(--glass-border, rgba(255,255,255,0.6));
   border-radius: var(--ls-radius);
   padding: 0 16px;
   box-shadow: var(--ls-shadow);
@@ -1199,8 +1037,8 @@ body::before {
               box-shadow var(--ls-duration) var(--ls-ease);
 }
 .ls-bar:focus-within {
-  border-color: solid 1px rgba(0,0,0,0.1);
-  box-shadow: var(--ls-shadow), 0 0 0 3px rgba(92,155,227,0.09);
+  border-color: var(--blue-300, #5c9be3);
+  box-shadow: var(--ls-shadow), 0 0 0 3px rgba(92,155,227,0.15);
 }
 .ls-icon-search {
   font-size: 15px;
@@ -1213,15 +1051,15 @@ body::before {
   padding: 16px 0;
   border: none;
   background: transparent;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
-  color: var(--blue-900, #040e1f);
+  color: var(--blue-950, #040e1f);
   outline: none;
   min-width: 0;
   letter-spacing: -0.01em;
 }
 #searchInput2::placeholder {
-  color: var(--blue-800);
+  color: var(--blue-500, #2563b0);
   opacity: 0.45;
 }
 .ls-close-btn {
@@ -1243,7 +1081,6 @@ body::before {
 .ls-close-btn:hover {
   background: rgba(0,0,0,0.12);
   transform: scale(1.1);
-  color: var(--blue-500);
 }
 #live-search-dropdown {
   margin-top: 8px;
@@ -1314,26 +1151,26 @@ body::before {
 }
 .ls-item:active { transform: translateX(3px) scale(0.99); }
 .ls-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--blue-900);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue-800, #0f2f5e);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.4;
 }
 .ls-desc {
-  font-size: 13px;
-  color: var(--blue-900);
-  opacity: 0.7;
+  font-size: 12px;
+  color: var(--blue-500, #2563b0);
+  opacity: 0.65;
   margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 #live-search-dropdown mark {
-  background: rgba(92,155,227,0.07);
-  color: var(--blue-700, #0f2f5e);
+  background: rgba(92,155,227,0.25);
+  color: var(--blue-800, #0f2f5e);
   border-radius: 3px;
   padding: 0 2px;
   font-weight: 700;
@@ -1344,7 +1181,7 @@ body::before {
   padding: 28px 16px;
   text-align: center;
   font-size: 13px;
-  color: var(--blue-700);
+  color: var(--blue-500, #2563b0);
   opacity: 0.6;
 }
 .ls-loading {

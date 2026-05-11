@@ -172,14 +172,16 @@ $isPintasanActive = (bool) array_filter(
         </span>
       </button>
     </div>
-    <div class="menu-overlay" id="menuOverlay"></div>
-    <div class="navbar-collapse" id="navbarNav-mobile">
-      <ul class="navbar-nav ms-auto">
+  </div>
+</nav>
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="navbar-collapse" id="navbarNav-mobile">
+      <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle mb-2 <?= $isPintasanActive ? 'is-current' : '' ?>" href="#" role="button" data-bs-toggle="dropdown">
             <i class="fa-solid fa-grip"></i> Pintasan
           </a>
-          <ul class="dropdown-menu p-5 me-2">
+          <ul class="dropdown-menu">
             <li><a class="dropdown-item <?= isActive('/pages/sejarah') ?>" href="<?= PAGES_URL ?>sejarah"><i class="fa-solid fa-landmark me-2"></i>Sejarah</a></li>
             <li><a class="dropdown-item <?= isActive('/pages/budaya') ?>" href="<?= PAGES_URL ?>budaya"><i class="fa-solid fa-broom-ball me-2"></i>Budaya</a></li>
             <li><a class="dropdown-item <?= isActive('/pages/kuliner') ?>" href="<?= PAGES_URL ?>kuliner"><i class="fa-solid fa-bowl-rice me-2"></i>Kuliner</a></li>
@@ -201,9 +203,6 @@ $isPintasanActive = (bool) array_filter(
         <div class="weather" id="w"><small>Cek cuaca...</small></div>
       </ul>
     </div>
-
-  </div>
-</nav>
 <div id="live-search-wrapper" role="search" aria-label="Pencarian situs">
   <div class="ls-inner container">
     <div class="ls-bar">

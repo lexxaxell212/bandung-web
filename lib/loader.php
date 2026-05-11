@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\Exception;
 if (!function_exists("autoload_core")) {
     function autoload_core() {
       $dir = __DIR__;
-       foreach (["", "../config/", "../../config/" as $level) {
+       foreach (["", "../config/", "../../config/"] as $level) {
          $constants = $dir . "/" . $level . "constants.php";
          $db  = $dir . "/" . $level . "db.php";
          $key  = $dir . "/" . $level . "key.php";

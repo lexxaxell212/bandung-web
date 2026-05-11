@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__ . '/maintenance.php';
-//
 // Hello Core //
 $lib_path = dirname(__DIR__) . "/lib/functions.php";
 if (!file_exists($lib_path)) die("lib/functions.php missing: " . $lib_path);
 require_once $lib_path;
 autoload_core(); // Core Here //
+
+require_once __DIR__ . '/maintenance.php';
 
 $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? "Ayokebandung.id"));
 

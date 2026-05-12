@@ -4,8 +4,7 @@
 
 $page_title = "Blogs";
 
-//require_once SRC_PATH . "header.php";
-//require_once LIB_PATH . "blogs.php";
+require_once LIB_PATH . "blogs.php";
 
 // Variables
 $id = (int) ($_GET["id"] ?? 0);

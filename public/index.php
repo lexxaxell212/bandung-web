@@ -3,7 +3,6 @@ require_once __DIR__ . "/../bootstrap.php";
 autoload_core();
 
 require_once __DIR__ . "/router.php";
-require_once LIB_PATH . "blogs.php";
 require_once LIB_PATH . "mailer.php";
 require_once LIB_PATH . "subscriber.php";
 

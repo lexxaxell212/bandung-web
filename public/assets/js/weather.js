@@ -34,7 +34,7 @@ const statLabels = {
 
 async function u() {
   try {
-    const r = await fetch('/api/weather.php?city=Bandung')
+    const r = await fetch('/api/api-weather.php?city=Bandung')
       d = await r.json();
       if (d.error) throw new Error(d.error);
 

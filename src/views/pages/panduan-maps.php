@@ -1,6 +1,6 @@
 <?php
 $page_title = "Panduan Maps";
-require_once SRC_PATH . "header.php";
+//require_once SRC_PATH . "header.php";
 ?>
 
 <div class="container">
@@ -166,4 +166,4 @@ require_once SRC_PATH . "header.php";
 </div>
 
 <?php
-require_once SRC_PATH . "footer.php"; ?>
+//require_once SRC_PATH . "footer.php"; ?>

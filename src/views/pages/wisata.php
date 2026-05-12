@@ -1,7 +1,7 @@
 <?php
 $page_title = "Wisata Bandung";
-require_once SRC_PATH . "header.php";
-require_once LIB_PATH . "blogs.php";
+//require_once SRC_PATH . "header.php";
+//require_once LIB_PATH . "blogs.php";
 ?>
 
 <div class="container py-5">
@@ -230,4 +230,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <?php
-require_once SRC_PATH . "footer.php"; ?>
+//require_once SRC_PATH . "footer.php"; ?>

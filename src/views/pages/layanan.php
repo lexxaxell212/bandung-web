@@ -1,6 +1,6 @@
 <?php
 $page_title = "Layanan";
-require_once SRC_PATH . "header.php";
+//require_once SRC_PATH . "header.php";
 ?>
 
 <div class="container py-5">
@@ -165,4 +165,4 @@ require_once SRC_PATH . "header.php";
 </div>
 
 <?php
-require_once SRC_PATH . "footer.php"; ?>
+//require_once SRC_PATH . "footer.php"; ?>

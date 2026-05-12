@@ -1,8 +1,8 @@
 <?php
 $page_title = "Unsubscribe";
 
-require_once LIB_PATH . "mailer.php";
-require_once LIB_PATH . "subscriber.php";
+//require_once LIB_PATH . "mailer.php";
+//require_once LIB_PATH . "subscriber.php";
 
 $status    = "";
 $message   = "";
@@ -53,9 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["email"])) {
     $show_form = true;
 }
 
-require_once SRC_PATH . "header.php";
+//require_once SRC_PATH . "header.php";
 
 safe_include(SRC_PATH . "partials/part-unsubscribe.php", "Unsubscribe");
 
-require_once SRC_PATH . "footer.php";
+//require_once SRC_PATH . "footer.php";
 ?>

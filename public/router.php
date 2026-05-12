@@ -2,33 +2,26 @@
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
 $routes = [
-    ''                           => null,
-    'pages/wisata'               => ROOT_PATH . 'public/pages/wisata.php',
-    'pages/kuliner'              => ROOT_PATH . 'public/pages/kuliner.php',
-    'pages/penginapan'           => ROOT_PATH . 'public/pages/penginapan.php',
-    'pages/budaya'               => ROOT_PATH . 'public/pages/budaya.php',
-    'pages/sejarah'              => ROOT_PATH . 'public/pages/sejarah.php',
-    'pages/tentang'              => ROOT_PATH . 'public/pages/tentang.php',
-    'pages/layanan'              => ROOT_PATH . 'public/pages/layanan.php',
-    'pages/privacy-policy'       => ROOT_PATH . 'public/pages/privacy-policy.php',
-    'pages/unsubscribe'          => ROOT_PATH . 'public/pages/unsubscribe.php',
-    'pages/kritik-dan-saran'     => ROOT_PATH . 'public/pages/kritik-dan-saran.php',
-    'pages/panduan-maps'         => ROOT_PATH . 'public/pages/panduan-maps.php',
-    'pages/kenapa-harus-bandung' => ROOT_PATH . 'public/pages/kenapa-harus-bandung.php',
-    'pages/informasi-terkini'    => ROOT_PATH . 'public/pages/informasi-terkini.php',
-    'blogs'                      => ROOT_PATH . 'public/blogs/index.php',
+    '' => SRC_PATH . 'pages/home.php',
+    'pages/kuliner'              => SRC_PATH . 'pages/kuliner.php',
+    'pages/penginapan'           => SRC_PATH . 'pages/penginapan.php',
+    'pages/budaya'               => SRC_PATH . 'pages/budaya.php',
+    'pages/sejarah'              => SRC_PATH . 'pages/sejarah.php',
+    'pages/tentang'              => SRC_PATH . 'pages/tentang.php',
+    'pages/layanan'              => SRC_PATH . 'pages/layanan.php',
+    'pages/privacy-policy'       => SRC_PATH . 'pages/privacy-policy.php',
+    'pages/unsubscribe'          => SRC_PATH . 'pages/unsubscribe.php',
+    'pages/kritik-dan-saran'     => SRC_PATH . 'pages/kritik-dan-saran.php',
+    'pages/panduan-maps'         => SRC_PATH . 'pages/panduan-maps.php',
+    'pages/kenapa-harus-bandung' => SRC_PATH . 'pages/kenapa-harus-bandung.php',
+    'pages/informasi-terkini'    => SRC_PATH . 'pages/informasi-terkini.php',
+    'blogs'                      => SRC_PATH . 'blogs/index.php',
 ];
 
-// exact match
 if (array_key_exists($uri, $routes)) {
-    if ($routes[$uri] !== null) {
-        require_once $routes[$uri];
-        exit;
-    }
-    // home
+    $view_content = $routes[$uri];
+    $page_title = ($uri === '') ? "Home - Ayokebandung.id" : "Ayokebandung.id";
 } else {
-    // 404
     http_response_code(404);
-    require_once ROOT_PATH . 'public/errors/404.php';
-    exit;
+    $view_content = SRC_PATH . "errors/404.php";
 }

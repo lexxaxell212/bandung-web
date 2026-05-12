@@ -1,6 +1,6 @@
 <?php
 $page_title = "Kuliner Bandung";
-require_once SRC_PATH . "header.php";
+//require_once SRC_PATH . "header.php";
 ?>
 
 <div class="container py-5">
@@ -168,4 +168,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <?php
-require_once SRC_PATH . "footer.php"; ?>
+//require_once SRC_PATH . "footer.php"; ?>

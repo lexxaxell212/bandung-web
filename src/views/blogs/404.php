@@ -1,7 +1,7 @@
 <?php
 http_response_code(404);
 $page_title = "404 page";
-require "../includes/header.php";
+//require "../includes/header.php";
 ?>
 <div class="text-center my-10 flex flex-col justify-center items-center">
   <h1 style="font-size:4rem;">
@@ -22,5 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php require "../includes/footer.php";
+<?php
+//require "../includes/footer.php";
 ?>

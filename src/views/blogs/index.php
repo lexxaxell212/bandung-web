@@ -1,11 +1,11 @@
 <?php
-require_once dirname(__DIR__, 2) . "/bootstrap.php";
-autoload_core();
+//require_once dirname(__DIR__, 2) . "/bootstrap.php";
+//autoload_core();
 
 $page_title = "Blogs";
 
-require_once SRC_PATH . "header.php";
-require_once LIB_PATH . "blogs.php";
+//require_once SRC_PATH . "header.php";
+//require_once LIB_PATH . "blogs.php";
 
 // Variables
 $id = (int) ($_GET["id"] ?? 0);
@@ -354,5 +354,5 @@ $categories = safe_get_categories($pdo);
 </div><!-- /container -->
 
 <?php
-require_once SRC_PATH . "footer.php";
+//require_once SRC_PATH . "footer.php";
 ?>

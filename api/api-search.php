@@ -2,13 +2,13 @@
 require_once __DIR__ . "/../bootstrap.php";
 autoload_core();
 
-$pdo = $GLOBALS['pdo'];
-
 if (!isset($GLOBALS['pdo'])) {
     http_response_code(500);
     echo json_encode(['error' => 'Koneksi database gagal.']);
     exit;
 }
+
+$pdo = $GLOBALS['pdo'];
 
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');

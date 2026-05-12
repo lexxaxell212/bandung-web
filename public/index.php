@@ -3,7 +3,6 @@ require_once __DIR__ . "/../bootstrap.php";
 autoload_core();
 
 require_once __DIR__ . "/router.php";
-resolve_route();
 
 // setelah ini baru home content
 $page_title = "Home - Ayokebandung.id";

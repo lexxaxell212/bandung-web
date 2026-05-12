@@ -39,8 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST["email"])) {
           $subscriber_id = $stmt_getId->fetchColumn();
       }
 
-      $token = generateUnsubscribeToken($pdo, $subscriber_id);
-      $unsub_link = "https://ayokebandung.id/unsubscribe.php?token=" . $token;
+      $token = generateUnsubscribeToken($subscriber_id);
+      $unsub_link = "https://ayokebandung.id/pages/unsubscribe.php?token=" . $token;
 
       $subject = "Konfirmasi Berlangganan - Ayokebandung.id";
       $message_html = "

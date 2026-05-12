@@ -135,7 +135,7 @@ curl_close($ch);
 
 if ($curl_err !== 0) {
     respond(503, array_merge(
-        ['success' => false, 'error' => 'Gagal menghubungi layanan AI. Silakan coba lagi.'],
+        ['success' => false, 'error' => 'Gagal menghubungi layanan. Silakan coba lagi.'],
         DEV_MODE ? ['curl_error' => $curl_msg] : []
     ));
 }

@@ -1,4 +1,4 @@
-const API_URL = "api/api-assistant.php";
+const API_URL = "/api/api-assistant.php";
 const TOPIC   = "bandung";
 const TIMEOUT = 20000;
 
@@ -106,7 +106,7 @@ async function sendMessage() {
   } catch (err) {
     removeLoadingBubble(loadingId);
     const msg = err.name === "AbortError"
-      ? "Request timeout. Coba lagi ya Akang/Teteh 🙏"
+      ? "Request timeout."
       : "Koneksi bermasalah. Periksa jaringanmu.";
     addMessage(msg, "error");
     conversationHistory.pop();

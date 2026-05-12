@@ -18,7 +18,6 @@ $routes = [
     'pages/panduan-maps'         => SRC_PATH . 'pages/panduan-maps.php',
     'pages/kenapa-harus-bandung' => SRC_PATH . 'pages/kenapa-harus-bandung.php',
     'pages/informasi-terkini'    => SRC_PATH . 'pages/informasi-terkini.php',
-    'pages/unsubscribe'          => SRC_PATH . 'pages/unsubscribe.php',
     'blogs'                      => SRC_PATH . 'blogs/index.php',
 ];
 

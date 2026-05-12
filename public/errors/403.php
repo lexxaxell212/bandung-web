@@ -37,7 +37,7 @@ http_response_code(403);
     <div>
         <h1>403</h1>
         <p>Kamu tidak punya akses ke halaman ini.<br>Hubungi admin jika ini kesalahan.</p>
-        <a href="/">← Kembali ke Beranda</a>
+        
     </div>
 </body>
 </html>

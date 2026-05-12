@@ -36,7 +36,7 @@ http_response_code(500);
     <div>
         <h1>500</h1>
         <p>Terjadi kesalahan di server.<br>Kami sedang memperbaikinya.</p>
-        <a href="/">← Kembali ke Beranda</a>
+        
     </div>
 </body>
 </html>

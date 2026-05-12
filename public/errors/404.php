@@ -37,7 +37,6 @@ http_response_code(404);
     <div>
         <h1>404</h1>
         <p>Halaman yang kamu cari tidak ditemukan.<br>Mungkin sudah dipindah atau dihapus.</p>
-        <a href="<?= BASE_URL ?>">← Kembali ke Beranda</a>
     </div>
 </body>
 </html>

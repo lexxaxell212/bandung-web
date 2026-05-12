@@ -33,6 +33,7 @@ define("BLOGS_URL",  BASE_URL . "blogs/");
 define("ADMIN_URL", BASE_URL . "admin/");
 
 // Core
+define("ROUTER_PATH", ROOT_PATH . "src/");
 define("LOGS_PATH",   ROOT_PATH . "errors/");
 define("LIB_PATH",    ROOT_PATH . "lib/");
 define("API_PATH",    ROOT_PATH . "api/");

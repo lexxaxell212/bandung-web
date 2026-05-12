@@ -1,6 +1,8 @@
 <?php
-require_once dirname(__DIR__, 2) . "/bootstrap.php";
-autoload_core();
+if (!defined('ROOT_PATH')) {
+    header('Location: /blogs');
+    exit;
+}
 
 $page_title = "Blogs";
 

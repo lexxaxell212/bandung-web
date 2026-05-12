@@ -4,6 +4,7 @@ autoload_core();
 
 $page_title = "Blogs";
 
+require_once SRC_PATH . "header.php";
 require_once LIB_PATH . "blogs.php";
 
 // Variables
@@ -351,3 +352,7 @@ $categories = safe_get_categories($pdo);
 <?php endif; ?>
 
 </div><!-- /container -->
+
+<?php
+require_once SRC_PATH . "footer.php";
+?>

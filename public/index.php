@@ -1,10 +1,13 @@
 <?php
-$page_title = "Home - Ayokebandung.id";
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 require_once __DIR__ . "/../bootstrap.php";
 autoload_core();
 
 require_once SRC_PATH . "header.php";
+
+$page_title = "Home - Ayokebandung.id";
 ?>
 
 <style>

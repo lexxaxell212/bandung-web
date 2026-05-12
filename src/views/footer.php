@@ -11,8 +11,9 @@
           </div>
           <div class="newsletter-container mx-auto" style="max-width: 500px;">
             <form class="newsletter-form d-flex gap-2" id="newsletterForm">
-              <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">
-              <input type="email" name="email" class="form-control email-input" id="emailInput" placeholder="user@gmail.com" required>
+              <input type="hidden" name="csrf_token" value="<?= generate_csrf_token() ?>">
+              <input type="email" name="email" class="form-control email-input"
+              id="emailInput" placeholder="nama@email.com" required>
               <button type="submit" class="btn btn-primary px-4 btn-sm" id="submitBtn">
                 Berlangganan
                 <i class="fas fa-paper-plane"></i>

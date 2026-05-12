@@ -5,8 +5,8 @@ $cat_id   = (int) ($_GET["cat"]  ?? 0);
 $page     = max(1, (int) ($_GET["page"] ?? 1));
 $per_page = 5;
 $offset   = ($page - 1) * $per_page;
-$posts      = safe_get_posts($per_page, $offset, $cat_id);
-$categories = safe_get_categories();
+$posts      = safe_get_posts($pdo, $per_page, $offset, $cat_id);
+$categories = safe_get_categories($pdo);
 ?>
 <script src="<?= JS_URL ?>card-slider.js" defer></script>
 <section class="container py-6" name="artikel-terbaru">

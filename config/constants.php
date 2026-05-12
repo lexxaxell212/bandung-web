@@ -5,13 +5,13 @@ define("CONSTANTS_LOADED", true);
 // https / http
 $protocol = (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== 'off') ? "https" : "http";
 $host = $_SERVER["HTTP_HOST"];
-$base_url = $protocol . "://" . $host . "/public/";
+$base_url = $protocol . "://" . $host . "/";
 
 // Base url
 if (!defined("BASE_URL")) define("BASE_URL", $base_url);
 
 // Base path
-define("ROOT_PATH", __DIR__ . "/");
+if (!defined("ROOT_PATH")) define("ROOT_PATH", dirname(__DIR__) . "/");
 
 // Site name
 define("SITE_NAME", "AYOKEBANDUNG.ID");
@@ -37,7 +37,7 @@ define("LOGS_PATH",     ROOT_PATH . "errors/");
 define("LIB_PATH",      ROOT_PATH . "lib/");
 define("API_PATH",      ROOT_PATH . "api/");
 define("CONFIG_PATH",   ROOT_PATH . "config/");
-define("RESOURCES_PATH", ROOT_PATH . "resources/views/");
+define("SRC_PATH",    ROOT_PATH . "src/views/");
 
 // Etc
 define("APP_TIMEZONE", "Asia/Jakarta");

@@ -1,7 +1,7 @@
 <?php
 $page_title = "Home - Ayokebandung.id";
 
-require_once __DIR__ . "/../lib/loader.php";
+require_once __DIR__ . "/../bootstrap.php";
 autoload_core();
 
 require_once SRC_PATH . "header.php";

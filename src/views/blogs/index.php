@@ -17,7 +17,6 @@ $offset = ($page - 1) * $per_page;
 // Fetch
 $total_pages = 1;
 if ($id > 0) {
-  session_start();
   $view_key = "post_view_{$id}";
   $post = safe_get_post($pdo, $id);
 

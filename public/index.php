@@ -10,11 +10,8 @@ $page_title = $page_title ?? "Ayokebandung.id";
 require_once SRC_PATH . "header.php";
 ?>
 
-<style>
-.main-content { padding-top: var(--navbar-height) !important; }
-</style>
-
 <div class="main-content">
+  
     <?php 
     if (isset($view_content) && file_exists($view_content)) {
         require_once $view_content;
@@ -22,6 +19,7 @@ require_once SRC_PATH . "header.php";
         require_once SRC_PATH . "errors/404.php";
     }
     ?>
+    
 </div>
 
 <?php 

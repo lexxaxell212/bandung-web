@@ -1,7 +1,8 @@
 <?php
 $page_title = "Blogs";
-require_once "../includes/header.php";
-require_once "../config/blog-config.php";
+
+require_once SRC_PATH . "header.php";
+require_once LIB_PATH . "blogs.php";
 
 // Variables
 $id = (int) ($_GET["id"] ?? 0);
@@ -349,4 +350,5 @@ $categories = safe_get_categories($pdo);
 
 </div><!-- /container -->
 
-<?php require "../includes/footer.php"; ?>
+<?php
+require_once SRC_PATH . "footer.php"; ?>

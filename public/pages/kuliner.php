@@ -1,10 +1,6 @@
 <?php
-require_once dirname(__DIR__, 2) . "/bootstrap.php";
-autoload_core();
-
-require_once SRC_PATH . "header.php";
-
 $page_title = "Kuliner Bandung";
+require_once SRC_PATH . "header.php";
 ?>
 
 <div class="container py-5">

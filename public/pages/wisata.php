@@ -1,11 +1,7 @@
 <?php
-require_once dirname(__DIR__, 2) . "/bootstrap.php";
-autoload_core();
-
+$page_title = "Wisata Bandung";
 require_once SRC_PATH . "header.php";
 require_once LIB_PATH . "blogs.php";
-
-$page_title = "Wisata Bandung";
 ?>
 
 <div class="container py-5">

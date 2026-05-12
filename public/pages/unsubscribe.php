@@ -1,11 +1,7 @@
 <?php
-require_once dirname(__DIR__, 2) . "/bootstrap.php";
-autoload_core();
-
+$_POST["title"] = "Unsubscribe";
 require_once LIB_PATH . "mailer.php";
 require_once LIB_PATH . "subscriber.php";
-
-$_POST["title"] = "Unsubscribe";
 
 $status    = "";
 $message   = "";

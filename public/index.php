@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . "/../bootstrap.php";
@@ -25,7 +26,7 @@ safe_include(SRC_PATH . "partials/kenapa-bandung.php", "Parts Kenapa Bandung");
 safe_include(SRC_PATH . "partials/blog-card.php", "Parts Artikel Terbaru");
 safe_include(SRC_PATH . "partials/update-card.php", "Parts Update Terkini");
 ?>
-<h1>Is work?</h1>
+
 <?php
 require_once SRC_PATH . "footer.php";
 ?>

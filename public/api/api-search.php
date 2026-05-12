@@ -1,4 +1,7 @@
 <?php
+require_once dirname(__DIR__, 2) . "/bootstrap.php";
+autoload_core();
+
 if (!isset($GLOBALS['pdo'])) {
     http_response_code(500);
     echo json_encode(['error' => 'Koneksi database gagal.']);

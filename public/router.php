@@ -2,7 +2,9 @@
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
 $routes = [
+  // home
     '' => SRC_PATH . 'pages/home.php',
+  // pages
     'pages/wisata'              => SRC_PATH . 'pages/wisata.php',
     'pages/kuliner'              => SRC_PATH . 'pages/kuliner.php',
     'pages/penginapan'           => SRC_PATH . 'pages/penginapan.php',
@@ -16,6 +18,7 @@ $routes = [
     'pages/panduan-maps'         => SRC_PATH . 'pages/panduan-maps.php',
     'pages/kenapa-harus-bandung' => SRC_PATH . 'pages/kenapa-harus-bandung.php',
     'pages/informasi-terkini'    => SRC_PATH . 'pages/informasi-terkini.php',
+    'pages/unsubscribe'          => SRC_PATH . 'pages/unsubscribe.php',
     'blogs'                      => SRC_PATH . 'blogs/index.php',
 ];
 

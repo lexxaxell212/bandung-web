@@ -148,21 +148,11 @@ $page_title = "Privacy policy";
     <div class="row g-3">
       <div class="col-md-6">
         <div class="d-flex align-items-center p-5 glass glass-hover">
-          <i class="fas fa-eye fa-2x me-3 text-muted"></i>
-          <div class="text-muted">
-            <strong>Lihat Data Anda</strong>
-            <small class="d-flex"><a
-            href="https://ayokebandung.id/request" class="mr-1">Request</a> kapan saja</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="d-flex align-items-center p-5 glass glass-hover">
           <i class="fas fa-bell-slash fa-2x text-muted me-3"></i>
           <div>
             <strong>Batal Langganan</strong>
             <small class="d-flex"><a
-            href="https://ayokebandung.id/unsubscribe"
+            href="<?= PAGES_URL ?>unsubscribe"
             class="mr-1">Unsubscribe</a>
             email</small>
           </div>
@@ -198,22 +188,6 @@ $page_title = "Privacy policy";
       </div>
     </div>
   </div>
-<div class="mt-6 alert alert-warning text-muted px-6">
-  <ul class="list-unstyled">
-    <li class="mt-3">
-    <strong>Pertanyaan?</strong>
-    </li>
-  <li class="small">
-    Hubungi tim kami untuk informasi lebih lanjut
-  </li>
-  <li>
-   <a href="mailto:admin@ayokebandung.id" class="text-muted">
-      <i class="mr-1 fas fa-envelope"></i>
-      admin@ayokebandung.id
-    </a>
-  </li>
-  </ul>
-</div>
 </div>
 
 <?php

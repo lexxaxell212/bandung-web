@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         fetch(CONFIG.baseUrl + '/api/api-newsletter.php', {
             method: 'POST',
+            headers: { 
+              'X-Requested-With': 'XMLHttpRequest',
+            },
             body: new URLSearchParams(formData)
         })
         .then(res => res.json())

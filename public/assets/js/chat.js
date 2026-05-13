@@ -87,7 +87,10 @@ async function sendMessage() {
 
     const response = await fetch(API_URL, {
       method:  "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+      },
       body:    JSON.stringify({ message, topic: TOPIC, history: conversationHistory }),
       signal:  controller.signal
     });

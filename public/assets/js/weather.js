@@ -34,7 +34,9 @@ const statLabels = {
 
 async function u() {
   try {
-    const r = await fetch('/api/api-weather.php?city=Bandung')
+    const r = await fetch('/api/api-weather.php?city=Bandung', {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+    })
       d = await r.json();
       if (d.error) throw new Error(d.error);
 

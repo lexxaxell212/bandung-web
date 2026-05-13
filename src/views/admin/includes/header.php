@@ -1,7 +1,9 @@
 <?php
 $admin_name = htmlspecialchars($_SESSION['admin_name'] ?? 'Admin');
 $admin_url  = defined('ADMIN_URL') ? ADMIN_URL : '/admin/';
-$current = basename($_SERVER['PHP_SELF'], '.php');
+$request_path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+$current = preg_replace('#^admin/?#', '', $request_path);
+
 function nav_active(string $page, string $current): string {
     return $page === $current ? ' nav-active' : '';
 }
@@ -9,17 +11,12 @@ function nav_active(string $page, string $current): string {
 
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <link href="https://ayokebandung.id/assets/css/assets.css" rel="stylesheet">
-  <link href="https://ayokebandung.id/assets/css/component.css" rel="stylesheet">
-  <link href="https://ayokebandung.id/assets/css/style.css" rel="stylesheet">
+  <link href="<?= CSS_URL ?>bs533.min.css" rel="stylesheet">
+  <link href="<?= CSS_URL ?>assets.css" rel="stylesheet">
+  <link href="<?= CSS_URL ?>component.css" rel="stylesheet">
+  <link href="<?= CSS_URL ?>style.css" rel="stylesheet">
   <style>
     #mobile-toggle {
       display: none;
@@ -193,7 +190,6 @@ function nav_active(string $page, string $current): string {
     }
   </style>
 </head>
-
 <body>
   <input type="checkbox" id="mobile-toggle">
   <header class="mobile-header">
@@ -205,7 +201,6 @@ function nav_active(string $page, string $current): string {
       <i class="fas fa-user-circle" style="margin-right:5px"></i><?= $admin_name ?>
     </span>
   </header>
-
   <div class="admin-container">
     <aside class="sidebar" role="navigation" aria-label="Sidebar">
       <div class="sidebar-header">
@@ -228,5 +223,4 @@ function nav_active(string $page, string $current): string {
       </nav>
     </aside>
   </div>
-
   <div class="main-content">

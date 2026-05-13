@@ -296,46 +296,46 @@ $page_title = "Dashboard";
           </a>
         </li>
         <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>blog-manager.php">
+          <a class="nav-desktop-link" href="<?= $admin_url
+          ?>blog-manager">
             <i class="fa-solid fa-book" aria-hidden="true"></i>blog-manager
           </a>
         </li>
         <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>pages/index.php">
+          <a class="nav-desktop-link" href="<?= $admin_url
+          ?>pages/index">
             <i class="fa-solid fa-location-dot" aria-hidden="true"></i>Pages
             Builder
           </a>
         </li>
         <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>modal-manager.php">
+          <a class="nav-desktop-link" href="<?= $admin_url
+          ?>modal-manager">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>CMPT MANAGER
           </a>
         </li>
         <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>setting.php">
+          <a class="nav-desktop-link" href="<?= $admin_url
+          ?>setting">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>Setting
           </a>
         </li>
         <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>database-manager.php">
+          <a class="nav-desktop-link" href="<?= $admin_url
+          ?>database-manager">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>Database
             Manager
           </a>
         </li>
         <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>newsletter.php">
+          <a class="nav-desktop-link" href="<?= $admin_url
+          ?>newsletter">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>Newsletter
           </a>
         </li>
         <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>logout.php">
+          <a class="nav-desktop-link" href="<?= $admin_url
+          ?>logout">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>Logout
           </a>
         </li>
@@ -393,52 +393,52 @@ $page_title = "Dashboard";
             
           </ul>
         </li>
-         <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="#">
+         <li class="nav-item">
+          <a class="nav-link" href="/admin/">
             <i class="fa-solid fa-newspaper" aria-hidden="true"></i>Dashboard
           </a>
         </li>
-        <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>blog-manager.php">
+        <li class="nav-item">
+          <a class="nav-link" href="<?= $admin_url
+          ?>blog-manager">
             <i class="fa-solid fa-book" aria-hidden="true"></i>blog-manager
           </a>
         </li>
-        <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>pages/index.php">
+        <li class="nav-item">
+          <a class="nav-link" href="<?= $admin_url
+          ?>pages/index">
             <i class="fa-solid fa-location-dot" aria-hidden="true"></i>Pages
             Builder
           </a>
         </li>
-        <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>modal-manager.php">
+        <li class="nav-item">
+          <a class="nav-link" href="<?= $admin_url
+          ?>modal-manager">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>CMPT MANAGER
           </a>
         </li>
-        <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>setting.php">
+        <li class="nav-item">
+          <a class="nav-link" href="<?= $admin_url
+          ?>setting">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>Setting
           </a>
         </li>
-        <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>database-manager.php">
+        <li class="nav-item">
+          <a class="nav-link" href="<?= $admin_url
+          ?>database-manager">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>Database
             Manager
           </a>
         </li>
-        <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>newsletter.php">
+        <li class="nav-item">
+          <a class="nav-link" href="<?= $admin_url
+          ?>newsletter">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>Newsletter
           </a>
         </li>
-        <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= ADMIN_VIEW_PATH
-          ?>logout.php">
+        <li class="nav-item">
+          <a class="nav-link" href="<?= $admin_url
+          ?>logout">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>Logout
           </a>
         </li>

@@ -1,8 +1,5 @@
 <?php
-define('BYPASS_KEY', 'lexxaccess');
-// Ambil dari DB
 $pdo = $GLOBALS["pdo"] ?? null;
-
 if ($pdo) {
     $stmt = $pdo->prepare("SELECT setting_value FROM admin_setting WHERE setting_key = 'maintenance_mode'");
     $stmt->execute();
@@ -11,7 +8,6 @@ if ($pdo) {
 } else {
     define('MAINTENANCE_MODE', false); // fallback
 }
-
 if (isset($_GET['key'])) {
     if ($_GET['key'] === BYPASS_KEY) {
         setcookie('maintenance_bypass', hash('sha256', BYPASS_KEY), time() + 86400, '/', '', true, true);
@@ -22,7 +18,6 @@ if (isset($_GET['key'])) {
         exit();
     }
 }
-
 $isBypass = isset($_COOKIE['maintenance_bypass']) && 
             $_COOKIE['maintenance_bypass'] === hash('sha256', BYPASS_KEY);
 

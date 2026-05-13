@@ -19,14 +19,18 @@ register_shutdown_function(function() {
 if (!function_exists("autoload_core")) {
   function autoload_core() {
     $dir    = __DIR__;
+    // load constants
     $app    = $dir . "/config/app.php";
-    $db     = $dir . "/config/db.php";
-    $key    = $dir . "/config/key.php";
+    // load key
+    $key     = $dir . "/config/key.php";
+    // load pdo
+    $db    = $dir . "/config/db.php";
+    // load helper global
     $helper = $dir . "/lib/helper.php";
 
     if (file_exists($app)) require_once $app;
-    if (file_exists($db)) require_once $db;
     if (file_exists($key)) require_once $key;
+    if (file_exists($db)) require_once $db;
     if (file_exists($helper)) require_once $helper;
   }
 }

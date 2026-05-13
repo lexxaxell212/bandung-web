@@ -57,7 +57,7 @@ function handle_image_upload($file_key = 'image') {
     }
 
     $ext      = $allowed_mime[$mime];
-    $filename = uniqid('post_', true) . '.' . $ext; // Prefix 'post_' untuk bedakan
+    $filename = uniqid('post_', true) . '.' . $ext; // Prefix 'post_' 
     $dest     = $upload_dir . $filename;
 
     if (!move_uploaded_file($file['tmp_name'], $dest)) {
@@ -78,9 +78,8 @@ function limit_str(string $val, int $max): string {
 
 $allowed_statuses = ['active', 'inactive', 'pending'];
 
-function is_valid_url($url) {
-    return filter_var($url, FILTER_VALIDATE_URL) !== false;
-}
+// function is_valid_url($url) {
+// return filter_var($url, FILTER_VALIDATE_URL)!== false; }
 
 $form_error = '';
 
@@ -158,10 +157,9 @@ if (isset($_POST['add'])) {
         $form_error = 'Judul tidak boleh kosong.';
     }
 
-    $url_main = limit_str($_POST['url_main'] ?? '', MAX_URL_LEN);
-    if (!$form_error && !is_valid_url($url_main)) {
-        $form_error = 'URL sumber tidak valid.';
-    }
+    // $url_main = limit_str($_POST['url_main'] ?? '', MAX_URL_LEN);
+   // if (!$form_error && !is_valid_url($url_main)) {
+    //    $form_error = 'URL sumber tidak valid.'; }
 
     if (!$form_error) {
         $upload_result = handle_image_upload('image');
@@ -177,14 +175,16 @@ if (isset($_POST['add'])) {
     if (!$form_error) {
         $content = limit_str($_POST['content'] ?? '', MAX_CONTENT_LEN);
         
+        // $pdo->prepare(
+          //  'INSERT INTO allcontent_posts(category_id, title, excerpt, content, url_main, image_url, status) VALUES(?,?,?,?,?,?,?)'
         $pdo->prepare(
-            'INSERT INTO allcontent_posts(category_id, title, excerpt, content, url_main, image_url, status) VALUES(?,?,?,?,?,?,?)'
+            'INSERT INTO allcontent_posts(category_id, title, excerpt, content, image_url, status) VALUES(?,?,?,?,?,?)'
         )->execute([
             (int)$_POST['category_id'],
             $title,
             $excerpt,
             $content,
-            $url_main,
+            // $url_main,
             $image_url,
             $status,
         ]);
@@ -528,10 +528,6 @@ summary {
                         <div class="col-md-6">
                             <label class="form-label small">Judul *</label>
                             <input type="text" name="title" class="form-control" maxlength="255" placeholder="Judul post" required>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label small">URL Sumber *</label>
-                            <input type="url" name="url_main" class="form-control" maxlength="2048" placeholder="https://example.com/post" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label small">Excerpt</label>

@@ -19,24 +19,16 @@ http_response_code(500);
             justify-content: center;
             text-align: center;
         }
-        h1 { font-size: 6rem; font-weight: 800; color: #f44; margin-bottom: 0.5rem; }
-        p  { color: #888; margin-bottom: 1.5rem; }
-        a  {
-            color: #fff;
-            text-decoration: none;
-            border: 1px solid #333;
-            padding: 0.5rem 1.5rem;
-            border-radius: 999px;
-            font-size: 0.85rem;
-        }
-        a:hover { background: #1e1e1e; }
+        h1, h2 {margin:4px;padding-bottom:40px}
+        p  { }
     </style>
 </head>
 <body>
-    <div>
-        <h1>500</h1>
-        <p>Terjadi kesalahan di server.<br>Kami sedang memperbaikinya.</p>
-        
-    </div>
+<h1 style="font-size:24px;color:#ea580c;">500</h1>
+<h2 style="font-weight:300;color:#94a3b8">|</h2>
+<h1 style="font-size:14px;font-weight:400;color:#94a3b8;">ERROR</h1>
+<div style="position:fixed;bottom:20px;font-size:14px;font-weight:400;color:#94a3b8;">
+  We will back soon.
+</div>
 </body>
 </html>

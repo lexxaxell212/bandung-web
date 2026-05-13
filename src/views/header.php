@@ -1,7 +1,4 @@
 <?php
-// Maintenance check
-require_once ROOT_PATH . "maintenance.php";
-
 $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? SITE_NAME));
 
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

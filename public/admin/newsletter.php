@@ -1,7 +1,5 @@
 <?php
-$lib_path = dirname(__DIR__) . '/lib/functions.php';
-if (!file_exists($lib_path)) die('lib/functions.php missing: ' . $lib_path);
-require_once $lib_path;
+require_once dirname(__DIR__, 2) . "/bootstrap.php";
 autoload_core();
 
 if (!isset($_SESSION['admin_id'])) {
@@ -32,9 +30,8 @@ if (isset($_POST['send_newsletter'])) {
         while ($sub = $stmt->fetch()) {
             // Generate token unsubscribe untuk link di footer
             $unsubscribe_token = generateUnsubscribeToken($pdo, $sub['id']);
-            $unsub_link = "https://ayokebandung.id/unsubscribe.php?token=" . $unsubscribe_token;
+            $unsub_link = "https://ayokebandung.id/pages/unsubscribe?token=" . $unsubscribe_token;
             
-            // MODERN EMAIL TEMPLATE (Sesuai style kamu)
             $html_message = '
 <!DOCTYPE html>
 <html lang="id">
@@ -61,7 +58,7 @@ if (isset($_POST['send_newsletter'])) {
             </div>
         </div>
         <div style="background:#1e293b;padding:30px;color:#94a3b3;font-size:13px;text-align:center">
-            <p>© ' . date('Y') . ' Ayokebandung.id. Semua hak dilindungi.</p>
+            <p>' . date('Y') . ' Ayokebandung.id. </p>
             <p style="margin:15px 0">
                 <a href="' . $unsub_link . '" style="color:#60a5fa;text-decoration:underline;">Berhenti berlangganan</a>
             </p>
@@ -70,12 +67,11 @@ if (isset($_POST['send_newsletter'])) {
 </body>
 </html>';
 
-            // PAKAI FUNGSI SENTRAL (PHPMailer)
             if (kirimEmailAyo($sub['email'], $subject, $html_message)) {
                 $sent++;
             }
             $total++;
-            usleep(100000); // Jeda 0.1 detik biar SMTP gak kewalahan
+            usleep(100000);
         }
         
         // 3. Update status final
@@ -88,7 +84,7 @@ if (isset($_POST['send_newsletter'])) {
     }
 }
 
-// Statistik (Pertahankan kode lama kamu)
+// Statistik
 $total_active = $pdo->query("SELECT COUNT(*) FROM subscribers WHERE status='active'")->fetchColumn();
 $total_unsub = $pdo->query("SELECT COUNT(*) FROM subscribers WHERE status='unsubscribed'")->fetchColumn();
 $total_deleted = $pdo->query("SELECT COUNT(*) FROM subscribers WHERE status='deleted'")->fetchColumn();
@@ -123,7 +119,7 @@ if (isset($_GET['delete'])) {
 <head>
     <meta charset="UTF-8">
     <title>Newsletter Admin - Ayokebandung.id</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="<?= CSS_URL ?>fa651.all.min.css" rel="stylesheet">
     <style>
         :root{--p:#667eea;--s:#64748b;--bg:#f8fafc;--card:#fff;--sh:0 4px 20px rgba(0,0,0,.08);--radius:16px}
         body{font-family:'Inter',sans-serif;background:var(--bg);color:#1e293b;padding:20px}
@@ -146,7 +142,7 @@ if (isset($_GET['delete'])) {
     </style>
 </head>
 <body>
-    <?php include 'includes/header.php'; ?>
+    <?php require_once ADMIN_URL . 'includes/header.php'; ?>
     <div class="container">
         <?php if (isset($_SESSION['newsletter_success'])): ?>
             <div class="alert"><i class="fas fa-check-circle"></i> <?php echo $_SESSION['newsletter_success']; unset($_SESSION['newsletter_success']); ?></div>
@@ -196,6 +192,6 @@ if (isset($_GET['delete'])) {
             </div>
         </div>
     </div>
-    <?php include 'includes/footer.php'; ?>
+    <?php require_once ADMIN_URL . 'includes/footer.php'; ?>
 </body>
 </html>

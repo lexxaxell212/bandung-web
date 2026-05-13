@@ -1,8 +1,7 @@
 <?php
-$lib_path = dirname(__DIR__) . '/lib/functions.php';
-if (!file_exists($lib_path)) die('lib/functions.php missing: ' . $lib_path);
-require_once $lib_path;
+require_once dirname(__DIR__, 2) . "/bootstrap.php";
 autoload_core();
+
 if (isset($_SESSION['admin_id'])) {
     header('Location: dashboard');
     exit;
@@ -30,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'], $_POST['pa
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?= CSS_URL ?>bs533.min.css" rel="stylesheet">
   <style>
     body {
       background: #f8f9fa;

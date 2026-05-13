@@ -1,10 +1,8 @@
 <?php
-$lib_path = dirname(__DIR__) . '/lib/functions.php';
-if (!file_exists($lib_path)) die('lib/functions.php missing: ' . $lib_path);
-require_once $lib_path;
+require_once dirname(__DIR__, 2) . "/bootstrap.php";
 autoload_core();
 
-require_once 'includes/header.php';
+require_once ADMIN_URL . 'includes/header.php';
 
 $pdo = $GLOBALS["pdo"] ?? null;
 if (!$pdo) die('DB connection not available');
@@ -51,14 +49,6 @@ $saved = isset($_GET['saved']);
 </script>
 <?php endif; ?>
 
-<!-- Page Header -->
-<div class="d-flex align-items-center justify-content-between mb-4">
-    <div>
-        <h4 class="fw-semibold mb-0"><i class="fa-solid fa-sliders me-2 text-primary"></i>Settings</h4>
-        <small class="text-muted">Kelola konfigurasi sistem</small>
-    </div>
-</div>
-
 <!-- Setting Card: Site -->
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-header bg-white border-bottom py-3 px-4">
@@ -102,7 +92,4 @@ $saved = isset($_GET['saved']);
     </div>
 </div>
 
-<!-- Footer hint -->
-<p class="text-muted small"><i class="fa-regular fa-clock me-1"></i> Perubahan langsung aktif tanpa restart.</p>
-
-<?php require 'includes/footer.php'; ?>
+<?php require_once ADMIN_URL . 'includes/footer.php'; ?>

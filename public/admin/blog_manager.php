@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../bootstrap.php";
+require_once dirname(__DIR__, 2) . "/bootstrap.php";
 autoload_core();
 
 if (!isset($_SESSION['admin_id']) || empty($_SESSION['admin_id'])) {
@@ -263,8 +263,8 @@ $count_scrapped = (int)$pdo->query("SELECT COUNT(*) FROM allcontent_posts WHERE 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Blog Manager - <?= safe_html($_SESSION['admin_name'] ?? 'Admin') ?></title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="<?= CSS_URL ?>bs533.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<?= CSS_URL ?>fa651.all.min.css">
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <style>
 :root {
@@ -333,7 +333,7 @@ summary {
 }
 </style>
 </head>
-<?php include 'includes/header.php'; ?>
+<?php require_once ADMIN_URL . 'includes/header.php'; ?>
 
 <div class="container mt-4">
 
@@ -421,9 +421,9 @@ summary {
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Status</label>
                         <select name="status" class="form-select">
-                            <option value="active"   <?= ($edit_post['status'] ?? '') === 'active'   ? 'selected' : '' ?>>✅ Active</option>
-                            <option value="inactive" <?= ($edit_post['status'] ?? '') === 'inactive' ? 'selected' : '' ?>>⏸️ Inactive</option>
-                            <option value="pending"  <?= ($edit_post['status'] ?? '') === 'pending'  ? 'selected' : '' ?>>⏳ Pending</option>
+                            <option value="active"   <?= ($edit_post['status'] ?? '') === 'active'   ? 'selected' : '' ?>> Active</option>
+                            <option value="inactive" <?= ($edit_post['status'] ?? '') === 'inactive' ? 'selected' : '' ?>> Inactive</option>
+                            <option value="pending"  <?= ($edit_post['status'] ?? '') === 'pending'  ? 'selected' : '' ?>> Pending</option>
                         </select>
                     </div>
                 </div>
@@ -446,21 +446,21 @@ summary {
                 </div>
 
                 <!-- EDIT FORM - Ganti bagian image upload -->
-<div class="image-upload mb-4">
-    <label for="image" class="image-upload-label">
-        <i class="fas fa-image"></i>
-        <span>Gambar Utama Post (JPG/PNG/GIF/WEBP, maks 5MB)</span>
-    </label>
-    <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/gif,image/webp">
-    <input type="hidden" name="image_url" id="edit-image-url" value="<?= safe_html($edit_post['image_url'] ?? '') ?>">
-    <?php if ($edit_post['image_url']): ?>
-    <div class="mt-2">
-        <img src="<?= safe_html($edit_post['image_url']) ?>" style="max-height:120px;border-radius:6px;border:1px solid #dee2e6" class="img-thumbnail">
-        <small class="text-muted d-block">Gambar saat ini</small>
-    </div>
-    <?php endif; ?>
-    <div id="image-preview-edit" class="mt-2"></div>
-</div>
+              <div class="image-upload mb-4">
+                  <label for="image" class="image-upload-label">
+                      <i class="fas fa-image"></i>
+                      <span>Gambar Utama Post (JPG/PNG/GIF/WEBP, maks 5MB)</span>
+                  </label>
+                  <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/gif,image/webp">
+                  <input type="hidden" name="image_url" id="edit-image-url" value="<?= safe_html($edit_post['image_url'] ?? '') ?>">
+                  <?php if ($edit_post['image_url']): ?>
+                  <div class="mt-2">
+                      <img src="<?= safe_html($edit_post['image_url']) ?>" style="max-height:120px;border-radius:6px;border:1px solid #dee2e6" class="img-thumbnail">
+                      <small class="text-muted d-block">Gambar saat ini</small>
+                  </div>
+                  <?php endif; ?>
+                  <div id="image-preview-edit" class="mt-2"></div>
+              </div>
 
                 <div class="d-flex gap-2">
                     <button name="save" class="btn btn-primary px-4">
@@ -673,7 +673,7 @@ summary {
     <?php endif; ?>
 </div><!-- /container -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<?= JS_URL ?>bs533.bundle.min.js"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script>
 (function () {
@@ -801,4 +801,4 @@ summary {
 
 })();
 </script>
-<?php include 'includes/footer.php'; ?>
+<?php require_once ADMIN_URL . 'includes/footer.php'; ?>

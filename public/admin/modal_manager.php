@@ -1,7 +1,5 @@
 <?php
-$lib_path = dirname(__DIR__) . '/lib/functions.php';
-if (!file_exists($lib_path)) die('lib/functions.php missing: ' . $lib_path);
-require_once $lib_path;
+require_once dirname(__DIR__, 2) . "/bootstrap.php";
 autoload_core();
 
 if (!isset($_SESSION['admin_id']) || empty($_SESSION['admin_id'])) {
@@ -43,13 +41,13 @@ $categories = [
     'notifikasi' => 'Notifikasi'
 ];
 
-$upload_dir = '../assets/images/cards/';
+$upload_dir = BASE_UPLOAD_PATH;
 if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
 
-$success_msg = '';
-$error_msg = '';
+$success_msg = 'Success';
+$error_msg = 'Error';
 
-// HANDLE IMAGE UPLOAD TERLEBIH DAHULU (AJAX ONLY)
+// Ajax handle imahe
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image']) && empty($_POST['action'])) {
     $target_file = $upload_dir . time() . '_' . basename($_FILES['image']['name']);
     $ext = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -61,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image']) && empty($_
     }
     
     if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-        echo json_encode(['success' => true, 'path' => 'cards/' . basename($target_file)]);
+        echo json_encode(['success' => true, 'path' => '/' . basename($target_file)]);
     } else {
         echo json_encode(['success' => false, 'error' => 'Upload gagal']);
     }
@@ -87,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             ]);
             
             if ($result) {
-                $success_msg = 'Card baru berhasil dibuat!';
+                $success_msg = 'Berhasil dibuat!';
             } else {
                 throw new Exception('Gagal menyimpan data');
             }
@@ -109,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             ]);
             
             if ($result) {
-                $success_msg = 'Card berhasil diupdate!';
+                $success_msg = 'Berhasil diupdate!';
             } else {
                 throw new Exception('Gagal update data');
             }
@@ -120,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             
             $stmt = $pdo->prepare("UPDATE admin_items SET status='inactive' WHERE id=?");
             if ($stmt->execute([$id])) {
-                $success_msg = 'Card berhasil diarsipkan!';
+                $success_msg = 'Berhasil diarsipkan!';
             } else {
                 throw new Exception('Gagal arsipkan data');
             }
@@ -156,8 +154,8 @@ unset($item);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CMPT Manager</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="<?= CSS_URL ?>bs533.min.css" rel="stylesheet">
+    <link href="<?= CSS_URL ?>fa651.all.min.css" rel="stylesheet">
     <style>
         .upload-zone {border:3px dashed #0d6efd;border-radius:15px;padding:30px;text-align:center;cursor:pointer;transition:all 0.3s;background:#f8f9ff;}
         .upload-zone:hover,.upload-zone.dragover {border-color:#0a58ca;background:#e3f2fd;transform:scale(1.02);}
@@ -199,7 +197,7 @@ unset($item);
     </style>
 </head>
 <body class="bg-light">
-<?php include 'includes/header.php'; ?>
+<?php require_once ADMIN_URL . 'includes/header.php'; ?>
 
 <div class="container my-5">
     <div class="text-center mb-5">
@@ -387,7 +385,7 @@ unset($item);
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<?= JS_URL ?>bs533.bundle.min.js"></script>
 <script>
 let uploading = false;
 const categories = <?= json_encode($categories) ?>;
@@ -470,7 +468,7 @@ function uploadFile(file) {
     .then(data => {
         if (data.success) {
             document.getElementById('modalImage').value = data.path;
-            document.getElementById('imagePreview').src = '../assets/images/' + data.path + '?t=' + Date.now();
+            document.getElementById('imagePreview').src = BASE_UPLOAD_PATH + data.path + '?t=' + Date.now();
             document.getElementById('previewContainer').classList.remove('d-none');
             showStatus('Upload berhasil!', 'success');
         } else {
@@ -511,7 +509,7 @@ function editItem(id, title, image, excerpt, link, type, status, category) {
     document.getElementById('modalCategory').value = category;
     
     if (image && image !== 'default.jpg') {
-        document.getElementById('imagePreview').src = '../assets/images/' + image + '?t=' + Date.now();
+        document.getElementById('imagePreview').src = BASE_UPLOAD_PATH + image + '?t=' + Date.now();
         document.getElementById('previewContainer').classList.remove('d-none');
     }
     
@@ -589,6 +587,4 @@ function resetForm() {
 }
 </script>
 
-<?php include 'includes/footer.php'; ?>
-</body>
-</html>
+<?php require_once ADMIN_URL . 'includes/footer.php'; ?>

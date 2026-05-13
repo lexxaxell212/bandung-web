@@ -1,10 +1,6 @@
 <?php
-$lib_path = dirname(__DIR__) . '/lib/functions.php';
-if (!file_exists($lib_path)) {
-    die('Missing: ' . $lib_path);
-}
-require_once $lib_path;
-autoload_core(); 
+require_once dirname(__DIR__, 2) . "/bootstrap.php";
+autoload_core();
 
 if (empty($_SESSION['admin_id'])) {
     if (basename($_SERVER['PHP_SELF']) !== 'login.php') {
@@ -101,7 +97,7 @@ try {
     </style>
 </head>
 
-<?php include 'includes/header.php'; ?>
+<?php require_once ADMIN_URL . 'includes/header.php'; ?>
 
 <div>
 
@@ -143,4 +139,4 @@ try {
 
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php require_once ADMIN_URL . 'includes/footer.php'; ?>

@@ -1,7 +1,5 @@
 <?php
-$lib_path = dirname(__DIR__) . '/lib/functions.php';
-if (!file_exists($lib_path)) die('lib/functions.php missing: ' . $lib_path);
-require_once $lib_path;
+require_once dirname(__DIR__, 2) . "/bootstrap.php";
 autoload_core();
 
 if (!isset($_SESSION['admin_id'])) {
@@ -67,7 +65,7 @@ $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
 </head>
 
 <?php
-include 'includes/header.php';
+require_once ADMIN_URL . 'includes/header.php';
 ?>
 
 <div class="container mt-4 mb-5">
@@ -233,7 +231,7 @@ price DECIMAL(10,2)"
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<?= CSS_URL ?>bs533.bundle.min.js"></script>
 <script>
 document.getElementById('columnCount').addEventListener('change', function() {
     // Auto-generate column examples
@@ -253,5 +251,5 @@ document.getElementById('columnCount').addEventListener('change', function() {
 </script>
 
 <?php
-include 'includes/footer.php';
+require_once ADMIN_URL . 'includes/footer.php';
 ?>

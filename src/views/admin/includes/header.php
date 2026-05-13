@@ -269,7 +269,8 @@ $page_title = "Dashboard";
 <body>
 <nav class="navbar">
   <div class="container">
-    <a class="navbar-brand" aria-label="Admin Dashboard" href="<?= BASE_URL ?>">
+    <a class="navbar-brand" aria-label="Admin Dashboard" href="<?= BASE_URL
+    ?>/admin/">
       Dashboard
     </a>
     <div class="nav-desktop" id="navbarNav">
@@ -281,16 +282,16 @@ $page_title = "Dashboard";
             <i class="fa-solid fa-chevron-down nav-dd-chevron" aria-hidden="true"></i>
           </button>
           <div class="nav-dd-panel">
-            <a class="nav-dd-item" href="<?= ?>"><i class="fa-solid fa-landmark"></i></a>
-            <a class="nav-dd-item" href="<?= ?>"><i class="fa-solid fa-broom-ball"></i></a>
-            <a class="nav-dd-item" href="<?=  ?>"><i class="fa-solid fa-bowl-rice"></i></a>
-            <a class="nav-dd-item" href="<?=  ?>"><i class="fa-solid fa-bus"></i></a>
-            <a class="nav-dd-item" href="<?=  ?>"><i class="fa-solid fa-map-location-dot"></i></a>
-            <a class="nav-dd-item" href="<?=  ?>"><i class="fa-solid fa-hotel"></i></a>
+            <a class="nav-dd-item" href="#"><i class="fa-solid fa-landmark"></i></a>
+            <a class="nav-dd-item" href="#"><i class="fa-solid fa-broom-ball"></i></a>
+            <a class="nav-dd-item" href="#"><i class="fa-solid fa-bowl-rice"></i></a>
+            <a class="nav-dd-item" href="#"><i class="fa-solid fa-bus"></i></a>
+            <a class="nav-dd-item" href="#"><i class="fa-solid fa-map-location-dot"></i></a>
+            <a class="nav-dd-item" href="#"><i class="fa-solid fa-hotel"></i></a>
           </div>
         </li>
         <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?=  ?>">
+          <a class="nav-desktop-link" href="#">
             <i class="fa-solid fa-newspaper" aria-hidden="true"></i>Dashboard
           </a>
         </li>
@@ -388,12 +389,12 @@ $page_title = "Dashboard";
             <i class="fa-solid fa-grip"></i> Pintasan
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?=  ?>"><i class="fa-solid fa-landmark me-2"></i></a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-landmark me-2"></i></a></li>
             
           </ul>
         </li>
          <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?=  ?>">
+          <a class="nav-desktop-link" href="#">
             <i class="fa-solid fa-newspaper" aria-hidden="true"></i>Dashboard
           </a>
         </li>

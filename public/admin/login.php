@@ -3,7 +3,7 @@ require_once dirname(__DIR__, 2) . "/bootstrap.php";
 autoload_core();
 
 if (isset($_SESSION['admin_id'])) {
-    header('Location: /admin/dashboard');
+    header('Location: /admin/');
     exit;
 }
 
@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'], $_POST['pa
     if($admin && password_verify($_POST['password'], $admin['password'])) {
         $_SESSION['admin_id'] = $admin['id'];
         $_SESSION['admin_name'] = $admin['name'] ?? $admin['username'];
-        header('Location: dashboard');
+        header('Location: /admin/');
         exit;
     } else {
         $error = "Username atau password salah!";

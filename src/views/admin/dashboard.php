@@ -4,7 +4,7 @@ autoload_core();
 
 if (empty($_SESSION['admin_id'])) {
     if (basename($_SERVER['PHP_SELF']) !== 'login.php') {
-        header('Location: login');
+        header('Location: /admin/login.php');
         exit;
     }
 }
@@ -37,10 +37,6 @@ try {
 }
 ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard — Admin</title>
 <style>
         /* ── Stat cards ── */
         .stat-card {
@@ -95,12 +91,7 @@ try {
             .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
-</head>
-
-<?php require_once ADMIN_VIEW_PATH . 'includes/header.php'; ?>
-
 <div>
-
     <?php if (!empty($db_error)): ?>
         <div class="alert alert-danger d-flex align-items-center gap-2 mb-4" role="alert">
             <i class="fa fa-triangle-exclamation"></i>
@@ -138,5 +129,3 @@ try {
 
 
 </div>
-
-<?php require_once ADMIN_VIEW_PATH . 'includes/footer.php'; ?>

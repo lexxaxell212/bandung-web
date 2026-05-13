@@ -1,13 +1,10 @@
 <?php
-session_start();
+require_once dirname(__DIR__, 3) . "/bootstrap.php";
+autoload_core();
+
 if (!isset($_GET['table']) || !isset($_SESSION['admin_id'])) {
     exit('Access denied');
 }
-
-$lib_path = dirname(__DIR__) . '/lib/functions.php';
-if (!file_exists($lib_path)) die('lib/functions.php missing: ' . $lib_path);
-require_once $lib_path;
-autoload_core();
 
 $table = $_GET['table'];
 
@@ -126,8 +123,6 @@ $stmt = $pdo->query("SELECT * FROM `$table` ORDER BY id DESC LIMIT 50");
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -140,7 +135,6 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     </style>
 </head>
-<body class="bg-light">
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3><i class="fas fa-table text-primary"></i> <?php echo htmlspecialchars($table); ?></h3>
@@ -299,5 +293,3 @@ $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

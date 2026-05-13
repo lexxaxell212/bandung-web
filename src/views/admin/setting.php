@@ -1,8 +1,6 @@
 <?php
-require_once dirname(__DIR__, 2) . "/bootstrap.php";
+require_once dirname(__DIR__, 3) . "/bootstrap.php";
 autoload_core();
-
-require_once ADMIN_URL . 'includes/header.php';
 
 $pdo = $GLOBALS["pdo"] ?? null;
 if (!$pdo) die('DB connection not available');
@@ -20,7 +18,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'toggle_maintenance') {
     ");
     $stmt->execute([':val' => $newVal]);
 
-    header('Location: /admin/setting?saved=1');
+    header('Location: /admin/setting.php?saved=1');
     exit();
 }
 
@@ -91,5 +89,3 @@ $saved = isset($_GET['saved']);
 
     </div>
 </div>
-
-<?php require_once ADMIN_URL . 'includes/footer.php'; ?>

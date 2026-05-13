@@ -1,9 +1,9 @@
 <?php
-require_once dirname(__DIR__, 2) . "/bootstrap.php";
+require_once dirname(__DIR__, 3) . "/bootstrap.php";
 autoload_core();
 
 if (!isset($_SESSION['admin_id']) || empty($_SESSION['admin_id'])) {
-    header('Location: login.php');
+    header('Location: /admin/login.php');
     exit;
 }
 
@@ -148,8 +148,6 @@ foreach ($items as &$item) {
 unset($item);
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -196,9 +194,6 @@ unset($item);
         .cat-notifikasi {background-color: #0dcaf0 !important;}
     </style>
 </head>
-<body class="bg-light">
-<?php require_once ADMIN_URL . 'includes/header.php'; ?>
-
 <div class="container my-5">
     <div class="text-center mb-5">
         <h1 class="display-5 fw-bold text-primary mb-3"><i class="fas
@@ -586,5 +581,3 @@ function resetForm() {
     filterCategoryByType();
 }
 </script>
-
-<?php require_once ADMIN_URL . 'includes/footer.php'; ?>

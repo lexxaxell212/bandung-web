@@ -1,9 +1,9 @@
 <?php
-require_once dirname(__DIR__, 2) . "/bootstrap.php";
+require_once dirname(__DIR__, 3) . "/bootstrap.php";
 autoload_core();
 
 if (!isset($_SESSION['admin_id']) || empty($_SESSION['admin_id'])) {
-    header('Location: login.php');
+    header('Location: /admin/login.php');
     exit;
 }
 
@@ -333,7 +333,6 @@ summary {
 }
 </style>
 </head>
-<?php require_once ADMIN_URL . 'includes/header.php'; ?>
 
 <div class="container mt-4">
 
@@ -801,4 +800,3 @@ summary {
 
 })();
 </script>
-<?php require_once ADMIN_URL . 'includes/footer.php'; ?>

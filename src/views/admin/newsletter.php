@@ -1,9 +1,9 @@
 <?php
-require_once dirname(__DIR__, 2) . "/bootstrap.php";
+require_once dirname(__DIR__, 3) . "/bootstrap.php";
 autoload_core();
 
 if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
+    header('Location: /admin/login.php');
     exit('Redirecting...');
 }
 
@@ -114,8 +114,6 @@ if (isset($_GET['delete'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
 <head>
     <meta charset="UTF-8">
     <title>Newsletter Admin - Ayokebandung.id</title>
@@ -141,8 +139,7 @@ if (isset($_GET['delete'])) {
         .stat-num{font-size:32px;font-weight:700;color:var(--p)}
     </style>
 </head>
-<body>
-    <?php require_once ADMIN_URL . 'includes/header.php'; ?>
+
     <div class="container">
         <?php if (isset($_SESSION['newsletter_success'])): ?>
             <div class="alert"><i class="fas fa-check-circle"></i> <?php echo $_SESSION['newsletter_success']; unset($_SESSION['newsletter_success']); ?></div>
@@ -192,6 +189,4 @@ if (isset($_GET['delete'])) {
             </div>
         </div>
     </div>
-    <?php require_once ADMIN_URL . 'includes/footer.php'; ?>
-</body>
-</html>
+    

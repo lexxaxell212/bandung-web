@@ -214,11 +214,15 @@ function nav_active(string $page, string $current): string {
       </div>
       <nav class="sidebar-nav">
         <a href="<?= $admin_url ?>" class="nav-item<?= nav_active('dashboard', $current) ?>"><i class="fas fa-gauge-high"></i>Dashboard</a>
-        <a href="<?= $admin_url ?>database_manager" class="nav-item<?= nav_active('database_manager', $current) ?>"><i class="fas fa-database"></i>DB Manager</a>
+        <a href="<?= $admin_url ?>database-manager" class="nav-item<?=
+        nav_active('database-manager', $current) ?>"><i class="fas
+        fa-database"></i>DB Manager</a>
         <a href="<?= $admin_url ?>newsletter" class="nav-item<?= nav_active('newsletter', $current) ?>"><i class="fas fa-envelope"></i>Newsletter</a>
-        <a href="<?= $admin_url ?>pages" class="nav-item<?= nav_active('pages', $current) ?>"><i class="fas fa-file-lines"></i>Pages Builder</a>
-        <a href="<?= $admin_url ?>blog_manager" class="nav-item<?= nav_active('blog_manager', $current) ?>"><i class="fas fa-pen-to-square"></i>Blog Builder</a>
-        <a href="<?= $admin_url ?>modal_manager" class="nav-item<?= nav_active('modal_manager', $current) ?>"><i class="fas fa-puzzle-piece"></i>CMPT Manager</a>
+        <a href="<?= $admin_url ?>pages" class="nav-item<?=
+        nav_active('pages-builder', $current) ?>"><i class="fas
+        fa-file-lines"></i>Pages Builder</a>
+        <a href="<?= $admin_url ?>blog-manager" class="nav-item<?= nav_active('blog-manager', $current) ?>"><i class="fas fa-pen-to-square"></i>Blog Builder</a>
+        <a href="<?= $admin_url ?>modal-manager" class="nav-item<?= nav_active('modal-manager', $current) ?>"><i class="fas fa-puzzle-piece"></i>CMPT Manager</a>
         <a href="<?= $admin_url ?>setting" class="nav-item<?= nav_active('setting', $current) ?>"><i class="fas fa-gear"></i>Settings</a>
         <a href="<?= $admin_url ?>logout" class="nav-item nav-logout"><i class="fas fa-right-from-bracket"></i>Logout</a>
       </nav>

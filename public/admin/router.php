@@ -5,10 +5,10 @@ $request = preg_replace('#^admin/?#', '', $request);
 $routes = [
     ''               => ADMIN_VIEW_PATH . 'dashboard.php',
     'blog-manager'   => ADMIN_VIEW_PATH . 'blog-manager.php',
-    'pages-builder'  => ADMIN_VIEW_PATH . 'pages-builder.php',
-    'cmpt'           => ADMIN_VIEW_PATH . 'cmpt.php',
+    'pages-builder'  => ADMIN_VIEW_PATH . 'pages/index.php',
+    'modal-manager'           => ADMIN_VIEW_PATH . 'modal-manager.php',
     'setting'        => ADMIN_VIEW_PATH . 'setting.php',
-    'db-manager'     => ADMIN_VIEW_PATH . 'db-manager.php',
+    'database-manager'     => ADMIN_VIEW_PATH . 'database-manager.php',
     'newsletter'     => ADMIN_VIEW_PATH . 'newsletter.php',
 ];
 

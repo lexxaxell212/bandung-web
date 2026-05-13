@@ -6,6 +6,12 @@ RewriteRule ^config/ - [L,NC]
 RewriteRule ^api/ - [L,NC]
 RewriteRule ^errors/ - [L,NC]
 
+# Admin routing
+RewriteRule ^admin/login\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin(/.*)?$ admin/index.php [L]
+
 # Block myphpnuke & PostNuke paths
 RedirectMatch 403 ^/myphpnuke/.*$
 RedirectMatch 403 ^/modules\.php.*$

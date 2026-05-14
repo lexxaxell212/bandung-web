@@ -21,7 +21,7 @@ function generateStaticPage($slug, $html_content) {
         // Template output — header/footer di-include, PHP bisa jalan
         $content = <<<PHP
 <?php
-require_once dirname(__DIR__, 2) . '/bootstrap.php';
+require_once dirname(__DIR__, 3) . '/bootstrap.php';
 autoload_core();
 require_once SRC_PATH . 'header.php';
 ?>

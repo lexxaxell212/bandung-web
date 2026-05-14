@@ -3,6 +3,8 @@ $msg  = $msg ?? null;
 $csrf = $csrf ?? generate_csrf_token();
 ?>
 
+<div class="container py-5">
+
 <?php if ($msg): ?>
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index:9999">
     <div id="mapsToast" class="toast align-items-center text-bg-<?= $msg === 'success' ? 'success' : 'danger' ?> border-0" role="alert">
@@ -155,4 +157,6 @@ $csrf = $csrf ?? generate_csrf_token();
             </tbody>
         </table>
     </div>
+</div>
+
 </div>

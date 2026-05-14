@@ -4,6 +4,8 @@ $error_msg   = $error_msg   ?? null;
 $csrf        = generate_csrf_token();
 ?>
 
+<div class="container py-5">
+
 <?php if (isset($_GET['success']) || $success_msg): ?>
 <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
     <i class="fa-solid fa-circle-check me-2"></i><?= $success_msg ?: 'Sukses disimpan!' ?>
@@ -205,6 +207,8 @@ $csrf        = generate_csrf_token();
             </form>
         </div>
     </div>
+</div>
+
 </div>
 
 <script>

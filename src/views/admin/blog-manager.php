@@ -45,6 +45,8 @@ $count_scrapped = (int)$pdo->query("SELECT COUNT(*) FROM allcontent_posts WHERE 
 .ql-editor   { font-size:1rem; line-height:1.6; }
 </style>
 
+<div class="container py-5">
+
 <?php if ($msg): ?>
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <i class="fa-solid fa-circle-check me-2"></i><?= safe_html($msg) ?>
@@ -321,7 +323,7 @@ $count_scrapped = (int)$pdo->query("SELECT COUNT(*) FROM allcontent_posts WHERE 
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
-                            <a href="/blogs/<?= (int)$p['id'] ?>" target="_blank" class="btn btn-outline-secondary" title="Lihat">
+                            <a href="/blogs/?id=<?= (int)$p['id'] ?>" target="_blank" class="btn btn-outline-secondary" title="Lihat">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
                         </div>
@@ -335,6 +337,8 @@ $count_scrapped = (int)$pdo->query("SELECT COUNT(*) FROM allcontent_posts WHERE 
 </div>
 
 <?php endif; ?>
+
+</div>
 
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js" defer></script>
 <script>

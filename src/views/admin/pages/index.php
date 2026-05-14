@@ -28,6 +28,8 @@ if (isset($_GET['edit'])) {
 .page-list-item.active { background:rgba(13,110,253,.12)!important; border-left:3px solid #0d6efd; }
 </style>
 
+<div class="container py-5">
+
 <?php if ($msg_text): ?>
 <div class="alert alert-<?= $msg_type ?> alert-dismissible fade show mb-4" role="alert">
     <i class="fa-solid fa-<?= $msg_type === 'success' ? 'circle-check' : 'triangle-exclamation' ?> me-2"></i>
@@ -175,6 +177,8 @@ if (isset($_GET['edit'])) {
             </div>
         </form>
     </div>
+</div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>

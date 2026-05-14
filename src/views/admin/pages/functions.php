@@ -12,7 +12,7 @@ function generateUniqueSlug($pdo, $base_slug) {
 }
 
 function generateStaticPage($slug, $html_content) {
-    $pages_dir = '../../pages/';
+    $pages_dir = PUBLIC_PATH . 'pages/';
     $page_dir  = $pages_dir . $slug . '/';
 
     try {
@@ -46,7 +46,7 @@ PHP;
 }
 
 function deletePageFiles($slug) {
-    $dir = realpath('../../pages/' . $slug);
+    $dir = realpath(PUBLIC_PATH . 'pages/' . $slug);
     if (!$dir || !is_dir($dir)) return true;
     return deleteDirectory($dir);
 }

@@ -12,3 +12,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'toggl
     header('Location: /admin/setting?saved=1');
     exit;
 }
+
+// Save settings
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save_settings') {
+    validate_csrf();
+
+    $allowed_keys = [
+        'site_name', 'site_tagline', 'site_description', 'meta_keywords',
+        'og_image', 'contact_email', 'contact_wa', 'social_instagram',
+        'social_tiktok', 'social_facebook', 'twitter_handle',
+        'gtag_id', 'fb_pixel_id'
+    ];
+
+    $stmt = $pdo->prepare("
+        INSERT INTO admin_setting (setting_key, setting_value)
+        VALUES (:key, :val)
+        ON DUPLICATE KEY UPDATE setting_value = :val
+    ");
+
+    foreach ($allowed_keys as $key) {
+        if (isset($_POST[$key])) {
+            $stmt->execute([':key' => $key, ':val' => trim($_POST[$key])]);
+        }
+    }
+
+    regenerate_csrf_token();
+    header('Location: /admin/setting?saved=1');
+    exit;
+}

@@ -6,13 +6,16 @@ require_once LIB_PATH . 'mailer.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
-$nama    = trim($_POST['nama'] ?? '');
-$email   = trim($_POST['email'] ?? '');
-$pesan   = trim($_POST['pesan'] ?? '');
-$rating  = (int)($_POST['rating'] ?? 0);
+$nama     = trim($_POST['nama'] ?? '');
+$email    = trim($_POST['email'] ?? '');
+$kritik   = trim($_POST['kritik'] ?? '');
+$saran    = trim($_POST['saran'] ?? '');
+$pesan    = "Kritik:\n$kritik\n\nSaran:\n$saran";
+$rating   = (int)($_POST['rating'] ?? 0);
+$kategori = trim($_POST['kategori'] ?? '-');
 
-if (empty($nama) || empty($pesan)) {
-    echo json_encode(['success' => false, 'error' => 'Nama dan pesan wajib diisi!']);
+if (empty($nama) || empty($kritik)) {
+    echo json_encode(['success' => false, 'error' => 'Nama dan kritik wajib diisi!']);
     exit;
 }
 

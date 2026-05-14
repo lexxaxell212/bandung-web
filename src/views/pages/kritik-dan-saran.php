@@ -181,19 +181,20 @@ $page_title = "Kritik dan Saran";
               const data = await response.json();
 
               if (data.success) {
-                // Show success
-                document.getElementById('feedback-summaryDetail').innerHTML =
-                `Nama: ${sanitize(data.data.nama)}<br>` +
-                `Rating: ${sanitize(data.data.rating)}/10<br>` +
-                `Kategori: ${sanitize(data.data.kategori)}<br>` +
-                `Waktu: ${new Date().toLocaleString('id-ID')}`;
+    const nama     = sanitize(formData.get('nama') || '');
+    const rating   = sanitize(String(formData.get('rating') || ''));
+    const kategori = sanitize(formData.get('kategori') || '-');
 
-                form.classList.add('d-none');
-                successMsg.style.display = 'block';
-                successMsg.scrollIntoView({
-                  behavior: 'smooth'
-                });
-              } else {
+    document.getElementById('feedback-summaryDetail').innerHTML =
+        `Nama: ${nama}<br>` +
+        `Rating: ${rating}/10<br>` +
+        `Kategori: ${kategori}<br>` +
+        `Waktu: ${new Date().toLocaleString('id-ID')}`;
+
+    form.classList.add('d-none');
+    successMsg.style.display = 'block';
+    successMsg.scrollIntoView({ behavior: 'smooth' });
+} else {
                 throw new Error(data.message || 'Server error');
               }
             } catch (error) {

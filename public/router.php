@@ -24,6 +24,10 @@ $routes = [
 
 if (array_key_exists($uri, $routes)) {
     $view_content = $routes[$uri];
+} elseif (str_starts_with($uri, 'pages/')) {
+    $slug         = substr($uri, 6);
+    $page_file    = PUBLIC_PATH . 'pages/' . $slug . '/index.php';
+    $view_content = file_exists($page_file) ? $page_file : null;
 } else {
     $view_content = null;
 }

@@ -10,6 +10,7 @@ $routes = [
     'modal-manager'    => ADMIN_VIEW_PATH . 'modal-manager.php',
     'setting'          => ADMIN_VIEW_PATH . 'setting.php',
     'newsletter'       => ADMIN_VIEW_PATH . 'newsletter.php',
+    'maps' => ADMIN_VIEW_PATH . 'maps.php',
     'login'           => ADMIN_PATH . 'login.php',
     'logout'           => ADMIN_PATH . 'logout.php',
 ];

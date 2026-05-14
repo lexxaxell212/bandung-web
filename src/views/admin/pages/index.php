@@ -142,7 +142,7 @@ if (isset($_GET['edit'])) {
             <a class="navbar-brand fw-bold fs-2" href="#">
                 <i class="fas fa-file-code me-3"></i>Pages Builder
             </a>
-            <a href="/admin/dasboard" class="btn btn-primary btn-modern ms-2">
+            <a href="/admin/" class="btn btn-primary btn-modern ms-2">
                 <i class="fas fa-arrow-left me-1"></i>Kembali
             </a>
         </div>

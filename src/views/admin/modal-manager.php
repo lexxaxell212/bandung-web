@@ -112,11 +112,11 @@ $csrf        = generate_csrf_token();
                         </span>
                         
                         <?php if ($item['image'] !== 'default.jpg' && !empty($item['image'])): ?>
-                            <img src="../assets/images/cards/<?= htmlspecialchars($item['image']) ?>" 
-                                 class="card-img-top" 
-                                 style="height:150px; object-fit:cover;"
-                                 alt="<?= htmlspecialchars($item['title']) ?>"
-                                 onerror="this.src='../assets/images/cards/default.jpg'">
+                       <img src="<?= BASE_UPLOAD_URL . safe_html($item['image']) ?>"
+                         class="card-img-top"
+                         style="height:150px;object-fit:cover;"
+                         alt="<?= safe_html($item['title']) ?>"
+                         onerror="this.onerror=null;this.src='<?= BASE_UPLOAD_URL ?>default.jpg'">
                         <?php else: ?>
                             <div class="card-img-top bg-light d-flex align-items-center justify-content-center text-muted" style="height:150px;">
                                 <i class="fas fa-image fa-2x"></i>
@@ -234,6 +234,7 @@ $csrf        = generate_csrf_token();
 <script>
 let uploading = false;
 const categories = <?= json_encode($categories) ?>;
+const BASE_UPLOAD_URL = '<?= BASE_UPLOAD_URL ?>';
 
 // Category mapping by type
 const typeCategories = {
@@ -313,7 +314,7 @@ function uploadFile(file) {
     .then(data => {
         if (data.success) {
             document.getElementById('modalImage').value = data.path;
-            document.getElementById('imagePreview').src = BASE_UPLOAD_PATH + data.path + '?t=' + Date.now();
+            document.getElementById('imagePreview').src = BASE_UPLOAD_URL + data.path + '?t=' + Date.now();
             document.getElementById('previewContainer').classList.remove('d-none');
             showStatus('Upload berhasil!', 'success');
         } else {
@@ -354,7 +355,7 @@ function editItem(id, title, image, excerpt, link, type, status, category) {
     document.getElementById('modalCategory').value = category;
     
     if (image && image !== 'default.jpg') {
-        document.getElementById('imagePreview').src = BASE_UPLOAD_PATH + image + '?t=' + Date.now();
+        document.getElementById('imagePreview').src = BASE_UPLOAD_URL + image + '?t=' + Date.now();
         document.getElementById('previewContainer').classList.remove('d-none');
     }
     

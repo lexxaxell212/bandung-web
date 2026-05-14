@@ -15,7 +15,15 @@ function generateStaticPage($slug, $html_content) {
     $pages_dir = PUBLIC_PATH . 'pages/';
     $page_dir  = $pages_dir . $slug . '/';
     
-    $html_content = preg_replace('/<\?(?:php|=)?.*?\?>/is', '', $html_content);
+            // Strip PHP tags
+        $html_content = preg_replace('/<\?(?:php|=)?.*?\?>/is', '', $html_content);
+        
+        // Strip script tags
+        $html_content = preg_replace('/<script\b[^>]*>.*?<\/script>/is', '', $html_content);
+        
+        // Strip event handlers (onload, onerror, onclick, dll)
+        $html_content = preg_replace('/\s+on\w+\s*=\s*["\'][^"\']*["\']|on\w+\s*=\s*\S+/i', '', $html_content);
+    
 
     try {
         if (!is_dir($page_dir)) mkdir($page_dir, 0755, true);

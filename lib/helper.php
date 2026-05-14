@@ -85,7 +85,7 @@ function fallback_card($title = "Konten")
                     <h5 class="text-muted mb-1">' .
     htmlspecialchars($title) .
     '</h5>
-                    <p class="text-muted small mb-0">Sedang dalam perbaikan.</p>
+                    <p class="text-muted small mb-0">Segera hadir.</p>
                 </div>
             </div>
         </div>

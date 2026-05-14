@@ -1,19 +1,4 @@
 <?php
-$pdo = $GLOBALS["pdo"] ?? null;
-if (!$pdo) die('DB connection not available');
-
-if (isset($_POST['action']) && $_POST['action'] === 'toggle_maintenance') {
-    $current = $pdo->query("SELECT setting_value FROM admin_setting WHERE setting_key = 'maintenance_mode'")->fetchColumn();
-    $newVal  = $current === '1' ? '0' : '1';
-    $pdo->prepare("
-        INSERT INTO admin_setting (setting_key, setting_value) VALUES ('maintenance_mode', :val)
-        ON DUPLICATE KEY UPDATE setting_value = :val
-    ")->execute([':val' => $newVal]);
-
-    header('Location: /admin/setting?saved=1');
-    exit;
-}
-
 $maintenance = $pdo->query("SELECT setting_value FROM admin_setting WHERE setting_key = 'maintenance_mode'")->fetchColumn();
 $saved       = isset($_GET['saved']);
 ?>
@@ -59,6 +44,7 @@ $saved       = isset($_GET['saved']);
                 <small class="text-muted">Saat aktif, pengunjung akan melihat halaman maintenance.</small>
             </div>
             <form method="POST" action="/admin/setting" class="ms-4 flex-shrink-0">
+                <input type="hidden" name="csrf_token" value="<?= generate_csrf_token() ?>">
                 <input type="hidden" name="action" value="toggle_maintenance">
                 <div class="form-check form-switch m-0">
                     <input class="form-check-input" type="checkbox" role="switch"

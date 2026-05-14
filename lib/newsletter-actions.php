@@ -22,32 +22,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_newsletter'])) {
     $message = trim($_POST['message'] ?? '');
 
     if ($subject && $message) {
-        set_time_limit(0);
+    set_time_limit(0);
+    session_write_close(); 
 
-        $pdo->prepare("INSERT INTO newsletters (subject, message, total_recipients, status) VALUES (?, ?, 0, 'draft')")
-            ->execute([$subject, $message]);
-        $newsletter_id = $pdo->lastInsertId();
+    $pdo->prepare("INSERT INTO newsletters (subject, message, total_recipients, status) VALUES (?, ?, 0, 'draft')")
+        ->execute([$subject, $message]);
+    $newsletter_id = $pdo->lastInsertId();
 
-        $subs = $pdo->query('SELECT id, email FROM subscribers WHERE status = "active"')->fetchAll();
-        $sent = 0;
+    $subs = $pdo->query('SELECT id, email FROM subscribers WHERE status = "active"')->fetchAll();
+    $sent = 0;
 
-        foreach ($subs as $sub) {
-            $token    = generateUnsubscribeToken($sub['id']);
-            $unsub    = "https://ayokebandung.id/pages/unsubscribe?token=" . $token;
-            $html     = newsletter_template($subject, $message, $unsub);
-            if (kirimEmailAyo($sub['email'], $subject, $html)) $sent++;
-            usleep(100000);
-        }
-
-        $total = count($subs);
-        $pdo->prepare("UPDATE newsletters SET total_recipients=?, sent_recipients=?, status='sent', sent_at=NOW() WHERE id=?")
-            ->execute([$total, $sent, $newsletter_id]);
-
-        regenerate_csrf_token();
-        $_SESSION['nl_success'] = "Newsletter terkirim ke <strong>$sent/$total</strong> orang!";
-        header('Location: /admin/newsletter#history');
-        exit;
+    foreach ($subs as $sub) {
+        $token = generateUnsubscribeToken($sub['id']);
+        $unsub = "https://ayokebandung.id/pages/unsubscribe?token=" . $token;
+        $html  = newsletter_template($subject, $message, $unsub);
+        if (kirimEmailAyo($sub['email'], $subject, $html)) $sent++;
+        usleep(100000);
     }
+
+    $total = count($subs);
+    $pdo->prepare("UPDATE newsletters SET total_recipients=?, sent_recipients=?, status='sent', sent_at=NOW() WHERE id=?")
+        ->execute([$total, $sent, $newsletter_id]);
+
+    // Buka session lagi untuk flash message
+    session_start([
+        "cookie_httponly" => true,
+        "cookie_secure"   => isset($_SERVER["HTTPS"]),
+        "cookie_samesite" => "Strict",
+    ]);
+    $_SESSION['nl_success'] = "Newsletter terkirim ke <strong>$sent/$total</strong> orang!";
+    header('Location: /admin/newsletter');
+    exit;
+  }
 }
 
 function newsletter_template(string $subject, string $message, string $unsub): string {

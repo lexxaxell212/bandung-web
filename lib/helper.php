@@ -1,4 +1,19 @@
 <?php
+// site setting
+function load_site_settings(): array {
+    $pdo = $GLOBALS['pdo'] ?? null;
+    if (!$pdo) return [];
+    
+    try {
+        $settings = $pdo->query("SELECT setting_key, setting_value FROM admin_setting")
+                        ->fetchAll(PDO::FETCH_KEY_PAIR);
+        $GLOBALS['site_settings'] = $settings;
+        return $settings;
+    } catch (Exception $e) {
+        return [];
+    }
+}
+
 // Cookies
 if (session_status() === PHP_SESSION_NONE) {
     session_start([

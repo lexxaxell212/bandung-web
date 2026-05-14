@@ -1,5 +1,5 @@
 <?php
-$page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? SITE_NAME));
+// $page_title = htmlspecialchars($_POST["title"] ?? ($page_title ?? SITE_NAME));
 
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 function isActive(string $path): string {
@@ -20,18 +20,16 @@ $isPintasanActive = (bool) array_filter(
     fn($p) => str_starts_with($currentPath, $p)
 );
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= $page_title ?></title>
-
-  <meta name="description" content="Eksplorasi Wisata, Kuliner, dan Budaya Bandung Terlengkap.">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="<?= BASE_URL ?>">
-  <link rel="icon" href="<?= IMG_URL ?>favicon.ico" type="image/x-icon">
   
+  <!-- assets -->
   <link rel="preload" as="font" href="<?= FONTS_URL ?>inter-v20-latin-regular.woff2" type="font/woff2" crossorigin>
   <link rel="preload" as="font" href="<?= FONTS_URL ?>inter-v20-latin-700.woff2" type="font/woff2" crossorigin>
   <link rel="preload" as="font" href="<?= FONTS_URL ?>inter-v20-latin-900.woff2" type="font/woff2" crossorigin>
@@ -72,6 +70,77 @@ $isPintasanActive = (bool) array_filter(
   <script src="<?= JS_URL ?>navbar.js" defer></script>
   <script src="<?= JS_URL ?>weather.js" defer></script>
   <script src="<?= JS_URL ?>newsletter-form.js" defer></script>
+  
+  
+  <?php 
+  $s = $GLOBALS['site_settings'] ?? []; 
+  ?>
+  
+  <title><?= $page_title ?></title>
+  <meta name="description" content="<?= safe_html($s['site_description'] ?? 'Eksplorasi Wisata, Kuliner, dan Budaya Bandung Terlengkap.') ?>">
+  <meta property="og:description" content="<?= safe_html($s['site_tagline'] ?? '') ?>">
+  <link rel="icon" href="<?= !empty($s['favicon_url']) ? safe_html($s['favicon_url']) : IMG_URL . 'favicon.ico' ?>" type="image/x-icon">
+  
+    <!-- Meta Keywords -->
+  <?php if (!empty($s['meta_keywords'])): ?>
+  <meta name="keywords" content="<?= safe_html($s['meta_keywords']) ?>">
+  <?php endif; ?>
+  
+  <!-- OG Image -->
+  <?php if (!empty($s['og_image'])): ?>
+  <meta property="og:image" content="<?= safe_html($s['og_image']) ?>">
+  <?php endif; ?>
+  
+  <!-- Twitter -->
+  <?php if (!empty($s['twitter_handle'])): ?>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="<?= safe_html($s['twitter_handle']) ?>">
+  <?php if (!empty($s['og_image'])): ?>
+  <meta name="twitter:image" content="<?= safe_html($s['og_image']) ?>">
+  <?php endif; ?>
+  <?php endif; ?>
+  
+  <!-- Google Tag -->
+  <?php if (!empty($s['gtag_id'])): ?>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<?= safe_html($s['gtag_id']) ?>"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '<?= safe_html($s['gtag_id']) ?>');
+  </script>
+  <?php endif; ?>
+  
+  <!-- Facebook Pixel -->
+  <?php if (!empty($s['fb_pixel_id'])): ?>
+  <script>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.getElementsByTagName.insertBefore(t,s);}
+      (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '<?= safe_html($s['fb_pixel_id']) ?>');
+      fbq('track', 'PageView');
+  </script>
+  <?php endif; ?>
+  
+  <!-- Schema.org Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "<?= safe_html($s['site_name'] ?? SITE_NAME) ?>",
+    "url": "<?= BASE_URL ?>",
+    "email": "<?= safe_html($s['contact_email'] ?? '') ?>",
+    "telephone": "<?= safe_html($s['contact_wa'] ?? '') ?>",
+    "sameAs": [
+        "<?= safe_html($s['social_instagram'] ?? '') ?>",
+        "<?= safe_html($s['social_facebook'] ?? '') ?>",
+        "<?= safe_html($s['social_tiktok'] ?? '') ?>"
+      ]
+  }
+  </script>
+  
 </head>
 <body>
 <nav class="navbar">

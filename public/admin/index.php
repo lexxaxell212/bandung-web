@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__DIR__, 2) . "/bootstrap.php";
 autoload_core();
+load_site_settings();
 
 require_once ROOT_PATH . "maintenance.php";
 

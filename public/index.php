@@ -3,6 +3,7 @@
 require_once __DIR__ . "/../bootstrap.php";
 ////========/////////========////
 autoload_core();
+load_site_settings();
 ////============>>>>
 ////=========>>>>
 ////======>>>>

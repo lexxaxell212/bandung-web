@@ -14,6 +14,8 @@ function generateUniqueSlug($pdo, $base_slug) {
 function generateStaticPage($slug, $html_content) {
     $pages_dir = PUBLIC_PATH . 'pages/';
     $page_dir  = $pages_dir . $slug . '/';
+    
+    $html_content = preg_replace('/<\?(?:php|=)?.*?\?>/is', '', $html_content);
 
     try {
         if (!is_dir($page_dir)) mkdir($page_dir, 0755, true);

@@ -20,10 +20,12 @@ function record_pageview(PDO $pdo): void {
 
 function get_analytics_summary(PDO $pdo): array {
     return [
-        'today'   => $pdo->query("SELECT COUNT(*) FROM analytics WHERE DATE(visited_at) = CURDATE()")->fetchColumn(),
-        'week'    => $pdo->query("SELECT COUNT(*) FROM analytics WHERE visited_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)")->fetchColumn(),
-        'month'   => $pdo->query("SELECT COUNT(*) FROM analytics WHERE visited_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)")->fetchColumn(),
-        'total'   => $pdo->query("SELECT COUNT(*) FROM analytics")->fetchColumn(),
+        'today'         => $pdo->query("SELECT COUNT(*) FROM analytics WHERE DATE(visited_at) = CURDATE()")->fetchColumn(),
+        'unique_today'  => $pdo->query("SELECT COUNT(DISTINCT ip) FROM analytics WHERE DATE(visited_at) = CURDATE()")->fetchColumn(),
+        'week'          => $pdo->query("SELECT COUNT(*) FROM analytics WHERE visited_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)")->fetchColumn(),
+        'unique_week'   => $pdo->query("SELECT COUNT(DISTINCT ip) FROM analytics WHERE visited_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)")->fetchColumn(),
+        'month'         => $pdo->query("SELECT COUNT(*) FROM analytics WHERE visited_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)")->fetchColumn(),
+        'total'         => $pdo->query("SELECT COUNT(*) FROM analytics")->fetchColumn(),
     ];
 }
 

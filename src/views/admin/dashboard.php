@@ -29,10 +29,28 @@ $csrf = generate_csrf_token();
                     <small class="text-muted">Hari ini</small>
                 </div>
                 <div class="fs-3 fw-bold"><?= number_format($analytics['today'] ?? 0) ?></div>
-                <div class="text-muted small">Pengunjung</div>
+                <div class="text-muted small">Views</div>
                 <div class="text-muted small mt-1">
-                    <i class="fa-solid fa-chart-line me-1 text-success"></i>
-                    <?= number_format($analytics['week'] ?? 0) ?> minggu ini
+                    <i class="fa-solid fa-user me-1 text-primary"></i>
+                    <?= number_format($analytics['unique_today'] ?? 0) ?> unique visitor
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="bg-primary bg-opacity-10 text-primary rounded p-2 lh-1">
+                        <i class="fa-solid fa-chart-line fa-sm"></i>
+                    </span>
+                    <small class="text-muted">7 Hari</small>
+                </div>
+                <div class="fs-3 fw-bold"><?= number_format($analytics['week'] ?? 0) ?></div>
+                <div class="text-muted small">Views</div>
+                <div class="text-muted small mt-1">
+                    <i class="fa-solid fa-user me-1 text-primary"></i>
+                    <?= number_format($analytics['unique_week'] ?? 0) ?> unique visitor
                 </div>
             </div>
         </div>
@@ -67,26 +85,8 @@ $csrf = generate_csrf_token();
                 <div class="fs-3 fw-bold"><?= number_format($total_posts) ?></div>
                 <div class="text-muted small">Blog Posts</div>
                 <div class="text-muted small mt-1">
-                    <i class="fa-solid fa-circle-check me-1 text-success"></i>
-                    Active
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-6 col-lg-3">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="bg-info bg-opacity-10 text-info rounded p-2 lh-1">
-                        <i class="fa-solid fa-file fa-sm"></i>
-                    </span>
-                    <small class="text-muted">Total</small>
-                </div>
-                <div class="fs-3 fw-bold"><?= number_format($total_pages) ?></div>
-                <div class="text-muted small">Pages</div>
-                <div class="text-muted small mt-1">
-                    <i class="fa-solid fa-hammer me-1 text-info"></i>
-                    Pages Builder
+                    <i class="fa-solid fa-file me-1 text-info"></i>
+                    <?= number_format($total_pages) ?> pages
                 </div>
             </div>
         </div>

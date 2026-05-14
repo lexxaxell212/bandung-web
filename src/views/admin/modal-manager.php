@@ -1,146 +1,9 @@
 <?php
-
-$pdo = $GLOBALS['pdo'] ?? null;
-if (!$pdo) die('Database gagal!');
-
-$categories = [
-    // Kategori Card
-    'alam' => 'Wisata Alam',
-    'wisata_kuliner' => 'Wisata Kuliner',
-    'fashion' => 'Wisata Fashion',
-    'wisata_budaya' => 'Wisata Budaya',
-    'family' => 'Wisata Family',
-    'kuliner' => 'Kuliner',
-    'page' => 'Artikel',
-    'trending' => 'Informasi',
-    'blog' => 'Blog',
-    'event' => 'Event',
-    'layanan' => 'Layanan',
-    'maps' => 'Maps',
-    'hotel' => 'Penginapan/hotel',
-    
-    // Kategori Modal
-    'pusat_kota' => 'Pusat Kota',
-    'bandung_utara' => 'Bandung Utara',
-    'riau' => 'Riau',
-    'dago' => 'Dago',
-    'pasteur' => 'Pasteur',
-    'cihampelas' => 'Cihampelas',
-    
-    // Kategori Toast
-    'consent' => 'Consent',
-    
-    // Kategori Popup
-    'notifikasi' => 'Notifikasi'
-];
-
-$upload_dir = BASE_UPLOAD_PATH;
-if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
-
-$success_msg = 'Success';
-$error_msg = 'Error';
-
-// Ajax handle imahe
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image']) && empty($_POST['action'])) {
-    $target_file = $upload_dir . time() . '_' . basename($_FILES['image']['name']);
-    $ext = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    
-    $allowed_ext = ['jpg','jpeg','png','gif','webp'];
-    if (!in_array($ext, $allowed_ext) || $_FILES['image']['size'] > 5000000) {
-        echo json_encode(['success' => false, 'error' => 'Format/size salah! Max 5MB, JPG/PNG/GIF/WebP']);
-        exit;
-    }
-    
-    if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-        echo json_encode(['success' => true, 'path' => '/' . basename($target_file)]);
-    } else {
-        echo json_encode(['success' => false, 'error' => 'Upload gagal']);
-    }
-    exit;
-}
-
-// HANDLE FORM DATA (CREATE/UPDATE/DELETE)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    $action = $_POST['action'];
-    try {
-        if ($action === 'create') {
-            $title = trim($_POST['title'] ?? '');
-            if (empty($title)) throw new Exception('Judul wajib diisi!');
-            
-            $stmt = $pdo->prepare("INSERT INTO admin_items (title, image, excerpt, button_link, type, category, status) VALUES (?, ?, ?, ?, ?, ?, 'active')");
-            $result = $stmt->execute([ 
-                $title, 
-                $_POST['image'] ?? 'default.jpg', 
-                trim($_POST['excerpt'] ?? ''), 
-                trim($_POST['button_link'] ?? '#'), 
-                $_POST['type'] ?? 'card',
-                $_POST['category'] ?? 'general'
-            ]);
-            
-            if ($result) {
-                $success_msg = 'Berhasil dibuat!';
-            } else {
-                throw new Exception('Gagal menyimpan data');
-            }
-            
-        } elseif ($action === 'update') {
-            $id = (int)$_POST['id'];
-            if ($id <= 0) throw new Exception('ID tidak valid!');
-            
-            $stmt = $pdo->prepare("UPDATE admin_items SET title=?, image=?, excerpt=?, button_link=?, type=?, category=?, status=? WHERE id=?");
-            $result = $stmt->execute([ 
-                trim($_POST['title'] ?? ''), 
-                $_POST['image'] ?? 'default.jpg', 
-                trim($_POST['excerpt'] ?? ''), 
-                trim($_POST['button_link'] ?? '#'), 
-                $_POST['type'] ?? 'card',
-                $_POST['category'] ?? 'general',
-                $_POST['status'] ?? 'active', 
-                $id 
-            ]);
-            
-            if ($result) {
-                $success_msg = 'Berhasil diupdate!';
-            } else {
-                throw new Exception('Gagal update data');
-            }
-            
-        } elseif ($action === 'delete') {
-            $id = (int)$_POST['id'];
-            if ($id <= 0) throw new Exception('ID tidak valid!');
-            
-            $stmt = $pdo->prepare("UPDATE admin_items SET status='inactive' WHERE id=?");
-            if ($stmt->execute([$id])) {
-                $success_msg = 'Berhasil diarsipkan!';
-            } else {
-                throw new Exception('Gagal arsipkan data');
-            }
-        }
-        
-        // Redirect untuk clear POST data
-        header("Location: " . $_SERVER['PHP_SELF'] . "?success=1");
-        exit;
-        
-    } catch (Exception $e) {
-        $error_msg = $e->getMessage();
-    }
-}
-
-// LOAD DATA
-$stmt = $pdo->query("SELECT * FROM admin_items WHERE status = 'active' ORDER BY id DESC");
-$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-foreach ($items as &$item) {
-    $item['title'] = $item['title'] ?? 'Tanpa Judul';
-    $item['image'] = $item['image'] ?? 'default.jpg';
-    $item['excerpt'] = $item['excerpt'] ?? '';
-    $item['button_link'] = $item['button_link'] ?? '#';
-    $item['type'] = $item['type'] ?? 'card';
-    $item['category'] = $item['category'] ?? 'general';
-}
-unset($item);
+$success_msg = $success_msg ?? null;
+$error_msg   = $error_msg   ?? null;
+$msg         = isset($_GET['success']) ? 'Data berhasil disimpan!' : null;
+$csrf        = generate_csrf_token();
 ?>
-
 <style>
         .upload-zone {border:3px dashed #0d6efd;border-radius:15px;padding:30px;text-align:center;cursor:pointer;transition:all 0.3s;background:#f8f9ff;}
         .upload-zone:hover,.upload-zone.dragover {border-color:#0a58ca;background:#e3f2fd;transform:scale(1.02);}
@@ -180,6 +43,7 @@ unset($item);
         .cat-consent {background-color: #ffc107 !important; color: #000 !important;}
         .cat-notifikasi {background-color: #0dcaf0 !important;}
     </style>
+<div class="container">
 <div class="container py-5">
     <div class="text-center mb-5">
         <h1 class="display-5 fw-bold text-primary mb-3"><i class="fas
@@ -270,7 +134,8 @@ unset($item);
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <form method="POST" class="flex-fill ms-1 d-inline" style="margin:0;" onsubmit="return confirm('Arsipkan card ini?')">
-                                    <input type="hidden" name="action" value="delete">
+                             <input type="hidden" name="csrf_token" value="<?= generate_csrf_token() ?>">  
+                            <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?= $item['id'] ?>">
                                     <button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-archive"></i></button>
                                 </form>
@@ -283,7 +148,6 @@ unset($item);
         </div>
     <?php endif; ?>
 </div>
-
 <!-- MODAL -->
 <div class="modal fade" id="itemModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -294,6 +158,7 @@ unset($item);
             </div>
             <form method="POST" id="cardForm" enctype="multipart/form-data">
                 <div class="modal-body">
+                    <input type="hidden" name="csrf_token" value="<?= generate_csrf_token() ?>">
                     <input type="hidden" name="action" id="modalAction" value="create">
                     <input type="hidden" name="id" id="modalId">
                     
@@ -364,7 +229,7 @@ unset($item);
         </div>
     </div>
 </div>
-
+</div>
 
 <script>
 let uploading = false;

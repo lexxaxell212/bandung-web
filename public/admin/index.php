@@ -15,6 +15,7 @@ if (!in_array($request, $public_routes) && empty($_SESSION['admin_id'])) {
 
 $action_handlers = [
     'blog-manager' => LIB_PATH . 'blog-actions.php',
+    'newsletter'   => LIB_PATH . 'newsletter-actions.php',
     // 'newsletter'  => LIB_PATH . 'newsletter-actions.php',
 ];
 

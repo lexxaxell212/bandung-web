@@ -48,63 +48,59 @@ $current = preg_replace('#^admin/?#', '', $request_path);
   <div class="container">
     <a class="navbar-brand" aria-label="Admin Dashboard" href="<?= $admin_url
     ?>">
-      Dashboard
+      flattyDash
     </a>
     <div class="nav-desktop" id="navbarNav">
       <ul class="nav-desktop-list">
         <li class="nav-desktop-item nav-desktop-dropdown">
           <button class="nav-desktop-link nav-dd-trigger" aria-expanded="false">
-            <i class="fa-regular fa-grip" aria-hidden="true"></i>
-            Pintasan
-            <i class="fa-regular fa-chevron-down nav-dd-chevron" aria-hidden="true"></i>
+            <i class="fa-solid fa-grip" aria-hidden="true"></i>
+            Profil
+            <i class="fa-solid fa-chevron-down nav-dd-chevron" aria-hidden="true"></i>
           </button>
           <div class="nav-dd-panel">
-            <a class="nav-dd-item" href="#"><i class="fa-regular fa-landmark"></i></a>
-            <a class="nav-dd-item" href="#"><i class="fa-regular fa-broom-ball"></i></a>
-            <a class="nav-dd-item" href="#"><i class="fa-regular fa-bowl-rice"></i></a>
-            <a class="nav-dd-item" href="#"><i class="fa-regular fa-bus"></i></a>
-            <a class="nav-dd-item" href="#"><i class="fa-regular fa-map-location-dot"></i></a>
-            <a class="nav-dd-item" href="#"><i class="fa-regular fa-hotel"></i></a>
+            <a class="nav-dd-item" href="#"><i class="fa-solid fa-user-tie"></i>
+                <strong><?= $admin_name?></strong>
+            </a>
+            <a class="nav-dd-item" href="<?= $admin_url
+          ?>logout">
+              <small>
+                <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>Logout
+                </small>
+              </a>
           </div>
         </li>
         <li class="nav-desktop-item">
           <a class="nav-desktop-link" href="<?= $admin_url
           ?>blog-manager">
-            <i class="fa-regular fa-book" aria-hidden="true"></i>blog-manager
+            <i class="fa-solid fa-newspaper" aria-hidden="true"></i>blog-manager
           </a>
         </li>
         <li class="nav-desktop-item">
           <a class="nav-desktop-link" href="<?= $admin_url
           ?>pages">
-            <i class="fa-regular fa-file-lines" aria-hidden="true"></i>Pages
+            <i class="fa-solid fa-file" aria-hidden="true"></i>Pages
             Builder
           </a>
         </li>
         <li class="nav-desktop-item">
           <a class="nav-desktop-link" href="<?= $admin_url
           ?>modal-manager">
-            <i class="fa-regular fa-bell" aria-hidden="true"></i>CMPT MANAGER
+            <i class="fa-solid fa-layer-group" aria-hidden="true"></i>CMPT MANAGER
           </a>
         </li>
         <li class="nav-desktop-item">
           <a class="nav-desktop-link" href="<?= $admin_url
           ?>newsletter">
-            <i class="fa-regular fa-envelope" aria-hidden="true"></i>Newsletter
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>Newsletter
           </a>
         </li>
         <li class="nav-desktop-item">
           <a class="nav-desktop-link" href="<?= $admin_url
           ?>setting">
-            <i class="fa-regular fa-gear" aria-hidden="true"></i>Setting
+            <i class="fa-solid fa-gear" aria-hidden="true"></i>Setting
           </a>
         </li>
-        <li class="nav-desktop-item">
-          <a class="nav-desktop-link" href="<?= $admin_url
-          ?>logout">
-            <i class="fa-regular fa-right-from-bracket" aria-hidden="true"></i>Logout
-          </a>
-        </li>
-
       </ul>
     </div>
     <div class="navbar-actions">
@@ -151,55 +147,53 @@ $current = preg_replace('#^admin/?#', '', $request_path);
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle mb-2" href="#" role="button" data-bs-toggle="dropdown">
-            <i class="fa-regular fa-grip"></i> Pintasan
+            <i class="fa-solid fa-grip"></i> Profil
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-landmark me-2"></i></a></li>
-            
+            <li>
+               <a class="dropdown-item" href="#"><i class="fa-solid fa-user-tie"></i>
+                <strong><?= $admin_name?></strong>
+            </a>
+            <a class="dropdown-item" href="<?= $admin_url ?>logout">
+              <small>
+                <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>Logout
+                </small>
+              </a>
+            </a>
+            </li>
           </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?= $admin_url
           ?>blog-manager">
-            <i class="fa-regular fa-book" aria-hidden="true"></i>blog-manager
+            <i class="fa-solid fa-newspaper" aria-hidden="true"></i>blog-manager
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?= $admin_url
           ?>pages">
-            <i class="fa-regular fa-file-lines" aria-hidden="true"></i>Pages
+            <i class="fa-solid fa-file" aria-hidden="true"></i>Pages
             Builder
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?= $admin_url
           ?>modal-manager">
-            <i class="fa-regular fa-bell" aria-hidden="true"></i>CMPT MANAGER
+            <i class="fa-solid fa-layer-group" aria-hidden="true"></i>CMPT MANAGER
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?= $admin_url
           ?>newsletter">
-            <i class="fa-regular fa-envelope" aria-hidden="true"></i>Newsletter
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>Newsletter
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?= $admin_url
           ?>setting">
-            <i class="fa-regular fa-gear" aria-hidden="true"></i>Setting
+            <i class="fa-solid fa-gear" aria-hidden="true"></i>Setting
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?= $admin_url
-          ?>logout">
-            <i class="fa-regular fa-right-from-bracket" aria-hidden="true"></i>Logout
-          </a>
-        </li>
-          <div>
-          <small>
-             Logged as, <strong><?= $admin_name?></strong>
-          </small>
-          </div>
       </ul>
     </div>
 <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">↑</button>

@@ -129,7 +129,7 @@ $csrf = generate_csrf_token();
                         <small class="text-muted me-1">#<?= $i + 1 ?></small>
                         <span class="small"><?= safe_html($tp['page']) ?></span>
                     </div>
-                    <span class="badge bg-primary bg-opacity-10 text-primary"><?= number_format($tp['total']) ?></span>
+                    <span class="badge bg-white bg-opacity-10 text-primary"><?= number_format($tp['total']) ?></span>
                 </div>
                 <?php endforeach; ?>
                 <?php if (empty($top_pages)): ?>

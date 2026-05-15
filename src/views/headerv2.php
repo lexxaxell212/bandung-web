@@ -119,6 +119,196 @@ $isPintasanActive = (bool) array_filter(
   
 </head>
 <body>
+<style>
+.nav-login-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 10px;
+  background: rgba(37, 99, 176, 0.09);
+  color: var(--blue-900);
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+.nav-login-btn:hover {
+  background: rgba(37, 99, 176, 0.16);
+  color: var(--blue-700);
+  transform: translateY(-1px);
+}
+.nav-login-btn--full {
+  width: 100%;
+  justify-content: center;
+  padding: 11px 14px;
+  margin-top: 4px;
+}
+
+.nav-user-wrap {
+  position: relative;
+}
+.nav-user-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.nav-user-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 0 3px rgba(37, 99, 176, 0.15);
+  border-radius: 50%;
+}
+.nav-user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 2px solid var(--glass-border);
+}
+.nav-user-avatar-lg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 2px solid var(--glass-border);
+  flex-shrink: 0;
+}
+
+.nav-user-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  min-width: 220px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px) scale(0.98);
+  transform-origin: top right;
+  z-index: 1080;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+.nav-user-wrap.dd-open .nav-user-panel,
+.nav-user-wrap:hover .nav-user-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0s linear 0s;
+}
+[data-dark] .nav-user-panel {
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.50),
+    0 4px 16px rgba(0, 0, 0, 0.30);
+}
+
+.nav-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 10px;
+}
+.nav-user-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+.nav-user-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--blue-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nav-user-email {
+  font-size: 11.5px;
+  color: var(--blue-900);
+  opacity: 0.55;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-user-divider {
+  height: 1px;
+  background: var(--glass-border);
+  margin: 6px 4px;
+}
+
+.nav-user-logout {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #e53e3e;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+  width: 100%;
+}
+.nav-user-logout:hover {
+  background: rgba(229, 62, 62, 0.08);
+  transform: translateX(2px);
+  color: #e53e3e;
+}
+.nav-user-logout i {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.mobile-user-section {
+  border-top: 1px solid var(--glass-border);
+  margin-top: 8px;
+  padding-top: 10px;
+  padding-bottom: 4px;
+}
+.mobile-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 991px) {
+  .nav-user-wrap,
+  .nav-login-btn:not(.nav-login-btn--full) {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) {
+  .mobile-user-section {
+    display: none !important;
+  }
+}
+</style>
 <nav class="navbar">
   <div class="container">
     <a class="navbar-brand" aria-label="Halaman awal" href="<?= BASE_URL ?>">
@@ -296,6 +486,22 @@ $isPintasanActive = (bool) array_filter(
     <?php endif; ?>
   </div>
 </div>
+<script>
+(function () {
+  const wrap = document.getElementById('userDropdownWrap');
+  const trigger = document.getElementById('userDropdownTrigger');
+  if (!wrap || !trigger) return;
+
+  trigger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    wrap.classList.toggle('dd-open');
+  });
+
+  document.addEventListener('click', function () {
+    wrap.classList.remove('dd-open');
+  });
+})();
+</script>
 
 <div id="live-search-wrapper" role="search" aria-label="Pencarian situs">
   <div class="ls-inner container">

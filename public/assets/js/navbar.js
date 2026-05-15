@@ -265,17 +265,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-(function () {
-  const wrap = document.getElementById('userDropdownWrap');
-  const trigger = document.getElementById('userDropdownTrigger');
-  if (!wrap || !trigger) return;
+// (function () {
+  //const wrap = document.getElementById('userDropdownWrap');
+ // const trigger = document.getElementById('userDropdownTrigger');
+//  if (!wrap || !trigger) return;
 
-  trigger.addEventListener('click', function (e) {
-    e.stopPropagation();
-    wrap.classList.toggle('dd-open');
-  });
+ // trigger.addEventListener('click', function (e) {
+//    e.stopPropagation();
+//    wrap.classList.toggle('dd-open');
+ // });
 
-  document.addEventListener('click', function () {
-    wrap.classList.remove('dd-open');
-  });
-})();
+//  document.addEventListener('click', function () {
+ //   wrap.classList.remove('dd-open');
+ // });
+//})();

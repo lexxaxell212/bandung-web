@@ -694,7 +694,7 @@ body::before {
     transform: translateX(3px);
   }
 }
-/* Add google button login */
+/* Add google button
 .nav-login-btn {
   display: flex;
   align-items: center;
@@ -883,6 +883,7 @@ body::before {
     display: none !important;
   }
 }
+*/
 .search-btn, .dm-btn {
   position: relative;
   width: 40px;

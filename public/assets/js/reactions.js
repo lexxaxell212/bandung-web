@@ -8,7 +8,7 @@
         btn.addEventListener('click', function() {
             Swal.fire({
                 icon: 'info',
-                title: 'Login dulu ya~',
+                title: 'Login dulu ya',
                 text: 'Yuk masuk pakai Google buat kasih ❤️',
                 confirmButtonText: 'Masuk',
                 showCancelButton: true,
@@ -45,3 +45,15 @@
         });
     });
 })();
+
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Link disalin!',
+            text: 'Paste di Instagram kamu ya',
+            timer: 2000,
+            showConfirmButton: false
+        });
+    });
+}

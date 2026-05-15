@@ -139,13 +139,35 @@ $categories = safe_get_categories($pdo);
             }
             ?>
             <div class="d-flex align-items-center gap-2 mb-4">
-               <button 
-                  id="btn-reaction"
-                  class="btn btn-sm <?= $user_liked ? 'btn-danger' : 'btn-outline-danger' ?>"
-                  data-id="<?= $id ?>">
-                  <i class="fas fa-heart me-1"></i>
-                  <span id="reaction-count"><?= $reaction_count ?></span>
-              </button>
+                <!-- Reaction -->
+                <button 
+                    id="btn-reaction"
+                    class="btn btn-sm <?= $user_liked ? 'btn-danger' : 'btn-outline-danger' ?>"
+                    data-id="<?= $id ?>">
+                    <i class="fas fa-heart me-1"></i>
+                    <span id="reaction-count"><?= $reaction_count ?></span>
+                </button>
+            
+                <!-- Share -->
+                <?php $share_url = urlencode(BASE_URL . 'blogs/?id=' . $id); ?>
+                <?php $share_title = urlencode($post['title'] ?? ''); ?>
+                
+                <a href="https://wa.me/?text=<?= $share_title ?>%20<?= $share_url ?>"
+                   target="_blank" rel="noopener"
+                   class="btn btn-sm btn-outline-success">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>"
+                   target="_blank" rel="noopener"
+                   class="btn btn-sm btn-outline-primary">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            
+                <button onclick="copyLink()"
+                   class="btn btn-sm btn-outline-secondary">
+                    <i class="fab fa-instagram"></i>
+                </button>
             </div>
             
             <a href="/blogs/<?= $cat_id > 0 ? "?cat=" . $cat_id : "" ?>"

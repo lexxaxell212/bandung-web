@@ -49,7 +49,7 @@ function handle_image_upload($file_key = 'image') {
     $dest     = $upload_dir . $filename;
 
     if (!move_uploaded_file($file['tmp_name'], $dest)) return ['error' => 'Gagal menyimpan file.'];
-    return 'uploads/' . $filename;
+    return $filename;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

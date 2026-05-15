@@ -264,3 +264,18 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("dmToggle")?.classList.add("dark");
     }
 });
+
+(function () {
+  const wrap = document.getElementById('userDropdownWrap');
+  const trigger = document.getElementById('userDropdownTrigger');
+  if (!wrap || !trigger) return;
+
+  trigger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    wrap.classList.toggle('dd-open');
+  });
+
+  document.addEventListener('click', function () {
+    wrap.classList.remove('dd-open');
+  });
+})();

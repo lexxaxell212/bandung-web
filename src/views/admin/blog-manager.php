@@ -342,52 +342,97 @@ $count_scrapped = (int)$pdo->query("SELECT COUNT(*) FROM allcontent_posts WHERE 
 
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js" defer></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+
     const TOOLBAR = [
-        [{ 'header': [1,2,3,false] }],
-        ['bold','italic','underline','strike'],
-        [{ 'list': 'ordered' },{ 'list': 'bullet' }],
-        ['link','image','blockquote'],
-        [{ 'color': [] },{ 'background': [] }],
+        [{ 'header': [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        ['link', 'image', 'blockquote'],
+        [{ 'color': [] }, { 'background': [] }],
         [{ 'align': [] }],
         ['clean']
     ];
 
-    let quillEdit = null;
-    let quillAdd  = null;
+    // Custom image handler - upload ke server, bukan base64
+    function imageHandler(quillInstance) {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/jpeg,image/png,image/gif,image/webp');
+        input.click();
 
-    // Edit Quill
-    if (document.getElementById('quill-editor')) {
-        quillEdit = new Quill('#quill-editor', { theme:'snow', modules:{ toolbar:TOOLBAR }, placeholder:'Mulai menulis...' });
-        const dataEl = document.getElementById('edit-content-data');
-        if (dataEl) {
-            quillEdit.root.innerHTML = dataEl.getAttribute('data-content') || '';
-            document.getElementById('quill-content').value = quillEdit.root.innerHTML;
+        input.onchange = async () => {
+            const file = input.files[0];
+            if (!file) return;
+
+            const csrf = document.querySelector('input[name="csrf_token"]')?.value ?? '';
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('csrf_token', csrf);
+
+            try {
+                const res  = await fetch('/api/upload-image.php', {
+                    method: 'POST',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.url) {
+                    const range = quillInstance.getSelection(true);
+                    quillInstance.insertEmbed(range.index, 'image', data.url);
+                    quillInstance.setSelection(range.index + 1);
+                } else {
+                    alert('Upload gagal: ' + (data.error ?? 'Unknown error'));
+                }
+            } catch (e) {
+                alert('Upload gagal, coba lagi.');
+            }
+        };
+    }
+
+    function initQuill(editorId, contentId, existingContent = null) {
+        const editorEl = document.getElementById(editorId);
+        if (!editorEl) return null;
+
+        const quill = new Quill('#' + editorId, {
+            theme: 'snow',
+            modules: {
+                toolbar: {
+                    container: TOOLBAR,
+                    handlers: { image: () => imageHandler(quill) }
+                }
+            },
+            placeholder: 'Mulai menulis...'
+        });
+
+        if (existingContent) {
+            quill.root.innerHTML = existingContent;
         }
-        quillEdit.on('text-change', () => {
-            document.getElementById('quill-content').value = quillEdit.root.innerHTML;
+
+        quill.on('text-change', () => {
+            document.getElementById(contentId).value = quill.root.innerHTML;
         });
+
+        return quill;
     }
 
-    // Add Quill
-    if (document.getElementById('quill-add-editor')) {
-        quillAdd = new Quill('#quill-add-editor', { theme:'snow', modules:{ toolbar:TOOLBAR }, placeholder:'Mulai menulis...' });
-        quillAdd.on('text-change', () => {
-            document.getElementById('quill-add-content').value = quillAdd.root.innerHTML;
-        });
-    }
+    // Init Quill edit
+    const dataEl     = document.getElementById('edit-content-data');
+    const existingContent = dataEl ? dataEl.getAttribute('data-content') : null;
+    const quillEdit  = initQuill('quill-editor', 'quill-content', existingContent);
+
+    // Init Quill add
+    const quillAdd   = initQuill('quill-add-editor', 'quill-add-content');
 
     // Sync sebelum submit
     document.querySelectorAll('form').forEach(form => {
         form.addEventListener('submit', () => {
-            if (quillEdit) document.getElementById('quill-content').value = quillEdit.root.innerHTML;
-            if (quillAdd && document.getElementById('quill-add-content')) {
-                document.getElementById('quill-add-content').value = quillAdd.root.innerHTML;
-            }
+            if (quillEdit) document.getElementById('quill-content').value     = quillEdit.root.innerHTML;
+            if (quillAdd)  document.getElementById('quill-add-content').value = quillAdd.root.innerHTML;
         });
     });
 
-    // Preview gambar
+    // Preview gambar thumbnail
     function previewImage(input, previewId, hiddenId) {
         const preview = document.getElementById(previewId);
         const hidden  = document.getElementById(hiddenId);
@@ -395,11 +440,22 @@ document.addEventListener('DOMContentLoaded', function() {
         preview.innerHTML = '';
         if (hidden) hidden.value = '';
         if (!input.files || !input.files[0]) return;
-        const file = input.files[0];
-        const allowed = ['image/jpeg','image/png','image/gif','image/webp'];
-        if (!allowed.includes(file.type)) { preview.innerHTML = '<small class="text-danger">Tipe tidak diizinkan.</small>'; input.value = ''; return; }
-        if (file.size > 5*1024*1024) { preview.innerHTML = '<small class="text-danger">Maks 5MB.</small>'; input.value = ''; return; }
-        const reader = new FileReader();
+
+        const file    = input.files[0];
+        const allowed = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+        if (!allowed.includes(file.type)) {
+            preview.innerHTML = '<small class="text-danger">Tipe tidak diizinkan.</small>';
+            input.value = '';
+            return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+            preview.innerHTML = '<small class="text-danger">Maks 5MB.</small>';
+            input.value = '';
+            return;
+        }
+
+        const reader  = new FileReader();
         reader.onload = e => {
             preview.innerHTML = `<img src="${e.target.result}" style="max-height:120px;border-radius:6px" class="img-thumbnail mt-1">`;
             if (hidden) hidden.value = 'uploaded';
@@ -410,6 +466,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const imgEdit = document.getElementById('image');
     const imgAdd  = document.getElementById('add-image');
     if (imgEdit) imgEdit.addEventListener('change', () => previewImage(imgEdit, 'image-preview-edit', 'edit-image-url'));
-    if (imgAdd)  imgAdd.addEventListener('change',  () => previewImage(imgAdd, 'image-preview-add', 'add-image-url'));
+    if (imgAdd)  imgAdd.addEventListener('change',  () => previewImage(imgAdd,  'image-preview-add',  'add-image-url'));
+
 });
 </script>

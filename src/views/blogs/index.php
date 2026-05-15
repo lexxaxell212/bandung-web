@@ -142,7 +142,7 @@ $categories = safe_get_categories($pdo);
                 <!-- Reaction -->
                 <button 
                     id="btn-reaction"
-                    class="btn btn-sm <?= $user_liked ? 'btn-danger' :
+                    class="btn btn-sm <?= $user_liked ? 'btn-primary' :
                     'btn-outline-primary' ?>"
                     data-id="<?= $id ?>">
                     <i class="fas fa-heart me-1"></i>

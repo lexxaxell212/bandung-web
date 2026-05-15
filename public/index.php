@@ -18,7 +18,7 @@ require_once PUBLIC_PATH . "router.php";
 ////// =============================== //////
 $page_title = $page_title ?? SITE_NAME;
 if (isset($view_content) && file_exists ($view_content)) {
-    require_once SRC_PATH . "header.php";
+    require_once SRC_PATH . "headerv2.php";
     require_once $view_content;
     require_once SRC_PATH . "footer.php";
 } else {

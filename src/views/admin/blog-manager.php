@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function () {
             formData.append('csrf_token', csrf);
 
             try {
-                const res  = await fetch('/api/upload-image.php', {
+                const res  = await fetch('/api/api-upload-image.php', {
                     method: 'POST',
                     headers: { 'X-Requested-With': 'XMLHttpRequest' },
                     body: formData

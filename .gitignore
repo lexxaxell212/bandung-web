@@ -2,6 +2,7 @@
 .env
 vendor/
 config/key.php
+config/oauth.php
 
 # Log
 *.log

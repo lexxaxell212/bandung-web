@@ -48,5 +48,6 @@ if (!$user) {
 }
 
 $_SESSION['user'] = $user;
+session_write_close();
 header('Location: /');
 exit;

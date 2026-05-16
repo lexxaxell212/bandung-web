@@ -1,7 +1,7 @@
 (function () {
   const BASE    = CONFIG.baseUrl;
   const CSRF    = CONFIG.csrfToken;
-  const API     = BASE + '/api/map/api-user-profile.php';
+  const API     = BASE + '/api/api-user-profile.php';
 
   let data      = null;
   let activeTab = 'photos';

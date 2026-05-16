@@ -133,13 +133,17 @@ $cats_json  = json_encode($categories);
             <button class="btn btn-outline-danger btn-sm" id="btnResetTrip" title="Reset">
               <i class="fa-solid fa-trash"></i>
             </button>
+            
           </div>
 
           <!-- Save form (login only) -->
           <?php if ($is_logged): ?>
           <div id="saveForm" class="mt-3" style="display:none">
-            <input type="text" id="tripTitle" class="form-control form-control-sm" placeholder="Nama trip (opsional)" value="Trip Bandungku">
-          </div>
+              <input type="text" id="tripTitle" class="form-control form-control-sm mb-2" placeholder="Nama trip (opsional)" value="Trip Bandungku">
+              <button class="btn btn-success btn-sm w-100" id="btnConfirmSave">
+                <i class="fa-solid fa-floppy-disk me-1"></i>Simpan Sekarang
+              </button>
+            </div>
           <?php endif; ?>
 
         </div>

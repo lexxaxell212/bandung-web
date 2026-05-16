@@ -265,8 +265,30 @@
     }
 
     window.loadTrip = async function(id) {
-      // TODO: load trip detail & render ke planner
-      Swal.fire({ toast:true, position:'top-end', icon:'info', title:'Memuat trip...', showConfirmButton:false, timer:1500 });
+      const res  = await fetch(`${API_TRIP}?id=${id}`, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+      const json = await res.json();
+      if (!json.success) { Swal.fire('Gagal', json.message, 'error'); return; }
+
+      const trip = json.data;
+      startPoint = { name: trip.start_point_name, lat: parseFloat(trip.start_lat), lng: parseFloat(trip.start_lng) };
+      document.getElementById('startName').textContent = startPoint.name;
+      document.getElementById('startSelected').style.display = '';
+
+      routes = trip.items.map(item => ({
+        poi_id             : item.poi_id,
+        name               : item.poi_name,
+        lat                : parseFloat(item.latitude),
+        lng                : parseFloat(item.longitude),
+        distance_from_prev : item.distance_from_prev,
+        note               : item.note || ''
+      }));
+
+      updatePlannerUI();
+      if (routes.length) {
+        const points = [[startPoint.lat, startPoint.lng], ...routes.map(r => [r.lat, r.lng])];
+        updateRouteOnMap(points);
+      }
+      Swal.fire({ toast:true, position:'top-end', icon:'success', title:`Trip "${trip.title}" dimuat!`, showConfirmButton:false, timer:2000 });
     };
 
     // Konfirmasi save
@@ -274,6 +296,7 @@
       if (e.key !== 'Enter') return;
       await doSaveTrip();
     });
+    document.getElementById('btnConfirmSave').addEventListener('click', doSaveTrip);
 
     async function doSaveTrip() {
       const title = document.getElementById('tripTitle').value.trim() || 'Trip Bandungku';
@@ -287,13 +310,13 @@
       fd.append('items',            JSON.stringify(routes.map((r,i) => ({
         poi_id: r.poi_id, order_index: i+1, distance_from_prev: r.distance_from_prev || 0, note: r.note
       }))));
-
       try {
         const res  = await fetch(API_TRIP, { method:'POST', headers:{'X-Requested-With':'XMLHttpRequest'}, body: fd });
         const data = await res.json();
         if (data.success) {
           Swal.fire({ toast:true, position:'top-end', icon:'success', title:'Trip disimpan!', showConfirmButton:false, timer:2000 });
           document.getElementById('saveForm').style.display = 'none';
+          loadSavedTrips();
         } else {
           Swal.fire('Gagal', data.message, 'error');
         }

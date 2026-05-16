@@ -12,5 +12,6 @@ $params = http_build_query([
     'access_type'   => 'online',
 ]);
 
+$_SESSION['redirect_after_login'] = $_SERVER['HTTP_REFERER'] ?? '/';
 header('Location: https://accounts.google.com/o/oauth2/v2/auth?' . $params);
 exit;

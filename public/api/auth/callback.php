@@ -48,6 +48,8 @@ if (!$user) {
 }
 
 $_SESSION['user'] = $user;
+$redirect = $_SESSION['redirect_after_login'] ?? '/';
+unset($_SESSION['redirect_after_login']);
 session_write_close();
-header('Location: /');
+header('Location: ' . $redirect);
 exit;

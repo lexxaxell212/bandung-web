@@ -188,38 +188,51 @@
   }
 
   // ── GENERATE ROUTE ───────────────────────────────────────
-  document.getElementById('btnGenerateRoute').addEventListener('click', () => {
+  document.getElementById('btnGenerateRoute').addEventListener('click', async () => {
     if (!startPoint || routes.length === 0) return;
 
     const points = [
-      [startPoint.lat, startPoint.lng],
-      ...routes.map(r => [r.lat, r.lng])
+        [startPoint.lat, startPoint.lng],
+        ...routes.map(r => [r.lat, r.lng])
     ];
 
-    // Hitung jarak antar titik (Haversine)
-    function haversine(a, b) {
-      const R = 6371;
-      const dLat = (b[0]-a[0]) * Math.PI/180;
-      const dLng = (b[1]-a[1]) * Math.PI/180;
-      const x = Math.sin(dLat/2)**2 + Math.cos(a[0]*Math.PI/180)*Math.cos(b[0]*Math.PI/180)*Math.sin(dLng/2)**2;
-      return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1-x));
+    const fd = new FormData();
+    fd.append('coordinates', JSON.stringify(points));
+
+    const btn = document.getElementById('btnGenerateRoute');
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i>Generating...';
+    btn.disabled  = true;
+
+    try {
+        const res  = await fetch(`${BASE}/api/map/api-route.php`, {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            body: fd
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            updateRouteOnMap(data.polyline);
+            // Update jarak dari ORS (lebih akurat dari Haversine)
+            document.getElementById('totalDist').textContent = data.distance;
+            document.getElementById('totalStops').textContent = `· ${routes.length} lokasi · ~${data.duration} menit`;
+            document.getElementById('distanceInfo').style.display = '';
+            Swal.fire({ toast:true, position:'top-end', icon:'success', title:'Rute berhasil digenerate!', showConfirmButton:false, timer:2000 });
+        } else {
+            Swal.fire('Gagal', data.message, 'error');
+        }
+    } catch(e) {
+        Swal.fire('Error', 'Tidak bisa generate rute', 'error');
+    } finally {
+        btn.innerHTML = '<i class="fa-solid fa-route me-1"></i>Generate Rute';
+        btn.disabled  = false;
     }
-
-    routes = routes.map((r, i) => ({
-      ...r,
-      distance_from_prev: haversine(points[i], points[i+1]).toFixed(2)
-    }));
-
-    updatePlannerUI();
-    updateRouteOnMap(points);
-
-    Swal.fire({ toast:true, position:'top-end', icon:'success', title:'Rute berhasil digenerate!', showConfirmButton:false, timer:2000 });
   });
 
   function updateRouteOnMap(points) {
     if (routeLine) map.removeLayer(routeLine);
     if (!points || points.length < 2) return;
-    routeLine = L.polyline(points, { color: '#6366f1', weight: 3, opacity: .8, dashArray: '8 4' }).addTo(map);
+    routeLine = L.polyline(points, { color: '#6366f1', weight: 4, opacity: .85 }).addTo(map);
     map.fitBounds(routeLine.getBounds(), { padding: [40, 40] });
   }
 

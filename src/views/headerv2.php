@@ -345,8 +345,16 @@ $isPintasanActive = (bool) array_filter(
           </a>
         </li>
         <li class="nav-desktop-item">
-          <a class="nav-desktop-link <?= isActive('/pages/panduan-maps') ?>" href="<?= PAGES_URL ?>panduan-maps">
-            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>Panduan Maps
+          <a class="nav-desktop-link <?= isActive('/pages/map') ?>" href="<?=
+          PAGES_URL ?>map">
+            <i class="fa-solid fa-suitcase-rolling" aria-hidden="true"></i>Trip
+            Planner
+          </a>
+        </li>
+        <li class="nav-desktop-item">
+          <a class="nav-desktop-link <?= isActive('/pages/gallery') ?>" href="<?=
+          PAGES_URL ?>gallery">
+            <i class="fa-solid fa-images" aria-hidden="true"></i>Gallery
           </a>
         </li>
         <li class="nav-desktop-item">
@@ -460,7 +468,12 @@ $isPintasanActive = (bool) array_filter(
     </li>
     <li class="nav-item"><a class="nav-link <?= isActive('/pages/informasi-terkini') ?>" href="<?= PAGES_URL ?>informasi-terkini"><i class="fa-solid fa-newspaper"></i>Informasi Terkini</a></li>
     <li class="nav-item"><a class="nav-link <?= isActive('/blogs') ?>" href="<?= BLOGS_URL ?>"><i class="fa-solid fa-book"></i>Blogs</a></li>
-    <li class="nav-item"><a class="nav-link <?= isActive('/pages/panduan-maps') ?>" href="<?= PAGES_URL ?>panduan-maps"><i class="fa-solid fa-location-dot"></i>Panduan Maps</a></li>
+    <li class="nav-item"><a class="nav-link <?= isActive('/pages/map') ?>"
+    href="<?= PAGES_URL ?>map"><i class="fa-solid
+    fa-suitcase-rolling"></i>Trip Planner</a></li>
+    <li class="nav-item"><a class="nav-link <?= isActive('/pages/gallery') ?>"
+      href="<?= PAGES_URL ?>gallery"><i class="fa-solid
+      fa-images"></i>Gallery</a></li>
     <li class="nav-item"><a class="nav-link <?= isActive('/pages/kritik-dan-saran') ?>" href="<?= PAGES_URL ?>kritik-dan-saran"><i class="fa-solid fa-envelope"></i>Kritik dan Saran</a></li>
     <div class="weather" id="w"><small>Cek cuaca...</small></div>
   </ul>

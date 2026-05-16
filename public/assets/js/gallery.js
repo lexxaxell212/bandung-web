@@ -108,13 +108,40 @@
     loadGallery(1, e.target.dataset.poi || '');
   });
 
-  // Search filter poi
-  document.getElementById('searchPoiFilter').addEventListener('input', function() {
-    const q = this.value.toLowerCase();
-    document.querySelectorAll('.poi-filter[data-poi]').forEach(btn => {
-      if (!btn.dataset.poi) return;
-      btn.style.display = btn.textContent.toLowerCase().includes(q) ? '' : 'none';
+  // search poi filter
+   document.getElementById('searchPoiFilter').addEventListener('input', function() {
+    const q   = this.value.trim().toLowerCase();
+    const box = document.getElementById('searchPoiFilterResults');
+    box.innerHTML = '';
+  
+    if (!q) { box.style.display = 'none'; loadGallery(1, ''); return; }
+  
+    const matches = POIS.filter(p => p.name.toLowerCase().includes(q)).slice(0, 6);
+    box.style.display = '';
+  
+    if (!matches.length) {
+      box.innerHTML = '<div class="list-group-item small text-muted">Tidak ditemukan</div>';
+      return;
+    }
+  
+    matches.forEach(p => {
+      const el = document.createElement('button');
+      el.type      = 'button';
+      el.className = 'list-group-item list-group-item-action small';
+      el.innerHTML = `<i class="fa-solid ${p.category_icon} me-2 text-primary"></i>${p.name}`;
+      el.addEventListener('click', () => {
+        document.getElementById('searchPoiFilter').value = p.name;
+        box.style.display = 'none';
+        loadGallery(1, p.id);
+      });
+      box.appendChild(el);
     });
+  });
+  
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#searchPoiFilter') && !e.target.closest('#searchPoiFilterResults')) {
+      document.getElementById('searchPoiFilterResults').style.display = 'none';
+    }
   });
 
   // ── LIGHTBOX ─────────────────────────────────────────────

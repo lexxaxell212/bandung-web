@@ -36,20 +36,23 @@ $user_id_js = $is_logged ? (int)$_SESSION['user']['id'] : 0;
     <?php endif; ?>
   </div>
 
-  <!-- Filter POI -->
+   <!-- Filter POI -->
   <div class="card border-0 shadow-sm mb-4">
     <div class="card-body py-3 px-4 d-flex gap-2 flex-wrap align-items-center">
       <span class="small text-muted me-1"><i class="fa-solid fa-filter me-1"></i>Filter:</span>
       <button class="btn btn-primary btn-sm poi-filter active" data-poi="">Semua Tempat</button>
-     <div class="position-relative ms-auto" style="max-width:220px">
+      <div class="ms-auto" style="max-width:220px">
         <div class="input-group input-group-sm">
           <input type="text" id="searchPoiFilter" class="form-control" placeholder="Cari tempat...">
           <span class="input-group-text"><i class="fa-solid fa-search"></i></span>
         </div>
-        <div id="searchPoiFilterResults" class="list-group shadow"
-        style="position:absolute;top:100%;left:0;right:0;z-index:1555;max-height:200px;overflow-y:auto;display:none"></div>
       </div>
     </div>
+  </div>
+  <!-- Dropdown di luar card -->
+  <div class="position-relative">
+    <div id="searchPoiFilterResults" class="list-group shadow"
+         style="position:absolute;top:0;right:0;width:220px;z-index:1555;max-height:200px;overflow-y:auto;display:none"></div>
   </div>
 
   <!-- POI Pills (dinamis via JS) -->

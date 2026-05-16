@@ -36,7 +36,10 @@
       grid.innerHTML = json.data.map(p => `
         <div class="col-6 col-md-4 col-lg-3">
           <div class="card border-0 shadow-sm h-100 overflow-hidden">
-            <div class="position-relative" style="padding-top:75%;cursor:pointer" onclick="openLightbox('${BASE}/uploads/${p.photo_path}','${p.poi_name}','${p.uploader_name}','${p.caption || ''}','${p.created_at}')">
+            <div class="position-relative"
+            style="padding-top:75%;cursor:pointer"
+            onclick="openLightbox('${BASE}/uploads/${p.photo_path}','${p.poi_name}','${p.uploader_name}','${p.caption
+            || ''}','${p.created_at}','${p.id}', '${p.user_id}')">
               <img src="${BASE}/uploads/${p.photo_path}" 
                    class="position-absolute top-0 start-0 w-100 h-100"
                    style="object-fit:cover;transition:.2s"
@@ -115,7 +118,7 @@
   });
 
   // ── LIGHTBOX ─────────────────────────────────────────────
-  window.openLightbox = function(src, poi, uploader, credit, date) {
+  window.openLightbox = function(src, poi, uploader, credit, date, photo_id, owner_id) {
     document.getElementById('lightboxImg').src = src;
     document.getElementById('lightboxInfo').innerHTML = `
       <div class="fw-semibold">${poi}</div>
@@ -124,10 +127,36 @@
         ${credit ? `· <i class="fa-solid fa-link me-1"></i>${credit}` : ''}
         · ${formatDate(date)}
       </div>
-      <a href="${src}" target="_blank" class="btn btn-outline-light btn-sm mt-2">
-        <i class="fa-solid fa-expand me-1"></i>Lihat HD
-      </a>`;
+      <div class="d-flex gap-2 justify-content-center mt-2">
+        <a href="${src}" target="_blank" class="btn btn-outline-light btn-sm">
+          <i class="fa-solid fa-expand me-1"></i>Lihat HD
+        </a>
+        ${owner_id === MY_ID ? `
+        <button class="btn btn-danger btn-sm" onclick="deletePhoto(${photo_id})">
+          <i class="fa-solid fa-trash me-1"></i>Hapus
+        </button>` : ''}
+      </div>`;
     new bootstrap.Modal(document.getElementById('lightboxModal')).show();
+};
+
+  window.deletePhoto = async function(photo_id) {
+    const conf = await Swal.fire({ title:'Hapus foto?', icon:'warning', showCancelButton:true, confirmButtonColor:'#dc3545', confirmButtonText:'Hapus', cancelButtonText:'Batal' });
+    if (!conf.isConfirmed) return;
+
+    const fd = new FormData();
+    fd.append('action',     'delete');
+    fd.append('csrf_token', CONFIG.csrfToken);
+    fd.append('photo_id',   photo_id);
+
+    const res  = await fetch(API_GAL, { method:'POST', headers:{'X-Requested-With':'XMLHttpRequest'}, body: fd });
+    const data = await res.json();
+    if (data.success) {
+        bootstrap.Modal.getInstance(document.getElementById('lightboxModal')).hide();
+        Swal.fire({ toast:true, position:'top-end', icon:'success', title:'Foto dihapus!', showConfirmButton:false, timer:2000 });
+        loadGallery(currentPage, currentPoi);
+    } else {
+        Swal.fire('Gagal', data.message, 'error');
+    }
   };
 
   // ── UPLOAD ───────────────────────────────────────────────

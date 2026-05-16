@@ -28,7 +28,7 @@ if ($method === 'GET') {
         $total = (int)$countStmt->fetchColumn();
 
         $stmt = $pdo->prepare("
-            SELECT ph.id, ph.poi_id, ph.photo_path, ph.caption, ph.created_at,
+            SELECT ph.id, ph.poi_id, ph.user_id, ph.photo_path, ph.caption, ph.created_at,
                    u.name AS uploader_name, u.avatar AS uploader_avatar,
                    p.name AS poi_name, p.slug AS poi_slug
             FROM poi_photos ph

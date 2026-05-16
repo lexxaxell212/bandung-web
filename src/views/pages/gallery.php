@@ -2,8 +2,9 @@
 require_once LIB_PATH . 'poi-actions.php';
 $page_title = 'Galeri Foto — ' . SITE_NAME;
 $pois       = get_all_poi(true);
-$is_logged  = isset($_SESSION['user']);
+$is_logged  = isset($_SESSION['user']['id']);
 $pois_json  = json_encode($pois);
+$user_id_js = $is_logged ? (int)$_SESSION['user']['id'] : 0;
 ?>
 
 <script>
@@ -12,6 +13,7 @@ $pois_json  = json_encode($pois);
   const IS_LOGGED = <?= $is_logged ? 'true' : 'false' ?>;
   const POIS      = <?= $pois_json ?>;
   const API_GAL   = BASE + '/api/map/api-gallery.php';
+  const MY_ID = <?= $user_id_js ?? 0 ?>;
 </script>
 <script src="<?= JS_URL ?>gallery.js" defer></script>
 

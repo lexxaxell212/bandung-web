@@ -20,6 +20,7 @@ $routes = [
     'pages/kenapa-harus-bandung' => SRC_PATH . 'pages/kenapa-harus-bandung.php',
     'pages/informasi-terkini'    => SRC_PATH . 'pages/informasi-terkini.php',
     'blogs'                      => SRC_PATH . 'blogs/index.php',
+    'pages/profile' => SRC_PATH . 'pages/user-profile.php',
     
 ];
 

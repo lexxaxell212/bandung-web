@@ -412,6 +412,7 @@ $isPintasanActive = (bool) array_filter(
             referrerpolicy="no-referrer">
         </button>
         <div class="nav-user-panel" id="userDropdownPanel">
+          <a href="/pages/profile">
           <div class="nav-user-info">
             <img
               src="<?= htmlspecialchars($_SESSION['user']['avatar']) ?>"
@@ -423,6 +424,7 @@ $isPintasanActive = (bool) array_filter(
               <div class="nav-user-email"><?= htmlspecialchars($_SESSION['user']['email']) ?></div>
             </div>
           </div>
+          </a>
           <div class="nav-user-divider"></div>
           <a href="/api/auth/logout.php" class="nav-user-logout">
             <i class="fa-solid fa-right-from-bracket"></i> Keluar
@@ -481,6 +483,7 @@ $isPintasanActive = (bool) array_filter(
   <!-- Mobile: User Section -->
   <div class="mobile-user-section">
     <?php if (isset($_SESSION['user'])): ?>
+    <a href="/pages/profile">
     <div class="mobile-user-info">
       <img
         src="<?= htmlspecialchars($_SESSION['user']['avatar']) ?>"
@@ -492,6 +495,7 @@ $isPintasanActive = (bool) array_filter(
         <div class="nav-user-email"><?= htmlspecialchars($_SESSION['user']['email']) ?></div>
       </div>
     </div>
+    </a>
     <a href="/api/auth/logout.php" class="nav-user-logout">
       <i class="fa-solid fa-right-from-bracket"></i> Keluar
     </a>

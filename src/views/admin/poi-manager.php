@@ -1,14 +1,8 @@
 <?php
-$pdo = $GLOBALS['pdo'];
-
-$categories = $pdo->query("SELECT * FROM poi_categories ORDER BY id")->fetchAll();
-$total      = (int)$pdo->query("SELECT COUNT(*) FROM poi")->fetchColumn();
-$pois       = $pdo->query("
-    SELECT p.*, c.name AS category_name, c.icon AS category_icon
-    FROM poi p
-    JOIN poi_categories c ON c.id = p.category_id
-    ORDER BY p.created_at DESC
-")->fetchAll();
+require_once LIB_PATH . 'poi-actions.php';
+$categories = get_poi_categories();
+$pois       = get_all_poi();
+$total      = count($pois);
 ?>
 
 <div class="container py-5">
@@ -57,13 +51,9 @@ $pois       = $pdo->query("
                 <div class="card-body px-4 py-3">
                     <div class="d-flex align-items-start justify-content-between">
                         <div class="d-flex align-items-start gap-3">
-                            <?php if ($p['cover_image']): ?>
-                            <img src="<?= safe_html($p['cover_image']) ?>" class="rounded" width="56" height="56" style="object-fit:cover">
-                            <?php else: ?>
-                            <div class="rounded bg-light d-flex align-items-center justify-content-center" style="width:56px;height:56px">
+                            <div class="rounded bg-light d-flex align-items-center justify-content-center flex-shrink-0" style="width:48px;height:48px">
                                 <i class="fa-solid <?= safe_html($p['category_icon']) ?> text-muted"></i>
                             </div>
-                            <?php endif; ?>
                             <div>
                                 <div class="fw-semibold"><?= safe_html($p['name']) ?></div>
                                 <div class="small text-muted mb-1">
@@ -76,13 +66,13 @@ $pois       = $pdo->query("
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="badge <?= $p['is_active'] ? 'bg-success' : 'bg-secondary' ?>">
+                        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                            <button class="btn btn-sm <?= $p['is_active'] ? 'btn-success' : 'btn-outline-secondary' ?> btn-toggle-poi"
+                                    data-id="<?= $p['id'] ?>" data-name="<?= safe_html($p['name']) ?>">
                                 <?= $p['is_active'] ? 'Aktif' : 'Nonaktif' ?>
-                            </span>
+                            </button>
                             <button class="btn btn-sm btn-outline-danger btn-hapus-poi"
-                                    data-id="<?= $p['id'] ?>"
-                                    data-name="<?= safe_html($p['name']) ?>">
+                                    data-id="<?= $p['id'] ?>" data-name="<?= safe_html($p['name']) ?>">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </div>
@@ -96,7 +86,7 @@ $pois       = $pdo->query("
 
 </div>
 
-<!-- ── Modal Tambah POI ───────────────────────────────────── -->
+<!-- Modal Tambah POI -->
 <div class="modal fade" id="modalTambahPoi" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content border-0 shadow">
@@ -144,11 +134,11 @@ $pois       = $pdo->query("
                     </div>
                     <div class="col-md-3">
                         <label class="form-label small fw-semibold">Latitude</label>
-                        <input type="text" id="poiLat" class="form-control" placeholder="-6.9xxx" readonly>
+                        <input type="text" id="poiLat" class="form-control" readonly placeholder="-6.9xxx">
                     </div>
                     <div class="col-md-3">
                         <label class="form-label small fw-semibold">Longitude</label>
-                        <input type="text" id="poiLng" class="form-control" placeholder="107.6xxx" readonly>
+                        <input type="text" id="poiLng" class="form-control" readonly placeholder="107.6xxx">
                     </div>
                     <div class="col-12">
                         <label class="form-label small fw-semibold">Alamat</label>
@@ -177,25 +167,24 @@ $pois       = $pdo->query("
     </div>
 </div>
 
-<!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function () {
-    const CSRF   = CONFIG.csrfToken;
-    const BASE   = CONFIG.baseUrl;
-    let miniMap  = null;
-    let miniMark = null;
+    const CSRF  = CONFIG.csrfToken;
+    const BASE  = CONFIG.baseUrl;
+    const API   = BASE + '/api/map/api-admin-poi.php';
+    let miniMap = null, miniMark = null;
 
     // ── Filter kategori ─────────────────────────────────────
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', function () {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'btn-primary'));
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.add('btn-outline-secondary'));
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('active', 'btn-primary');
+                b.classList.add('btn-outline-secondary');
+            });
             this.classList.add('active', 'btn-primary');
             this.classList.remove('btn-outline-secondary');
-
             const cat = this.dataset.category;
             document.querySelectorAll('.poi-item').forEach(el => {
                 el.style.display = (!cat || el.dataset.category === cat) ? '' : 'none';
@@ -211,12 +200,12 @@ $pois       = $pdo->query("
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap'
             }).addTo(miniMap);
-            miniMap.invalidateSize();
         }
+        setTimeout(() => miniMap.invalidateSize(), 300);
     });
 
-    // ── Search Nominatim ────────────────────────────────────
-    document.getElementById('btnCariLokasi').addEventListener('click', async () => {
+    // ── Search Nominatim via proxy ───────────────────────────
+    async function cariLokasi() {
         const q = document.getElementById('searchNominatim').value.trim();
         if (!q) return;
 
@@ -225,21 +214,20 @@ $pois       = $pdo->query("
         btn.disabled  = true;
 
         try {
-            const res  = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=5&countrycodes=id`, {
-                headers: { 'Accept-Language': 'id', 'User-Agent': 'ayokebandung.id/1.0' }
+            const res  = await fetch(`${BASE}/api/map/api-nominatim.php?q=${encodeURIComponent(q)}`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
             });
-            const data = await res.json();
-
-            const box = document.getElementById('hasilNominatim');
-            box.innerHTML = '';
+            const json = await res.json();
+            const box  = document.getElementById('hasilNominatim');
+            box.innerHTML    = '';
             box.style.display = '';
 
-            if (!data.length) {
+            if (!json.success || !json.data.length) {
                 box.innerHTML = '<div class="list-group-item text-muted small">Tidak ditemukan</div>';
                 return;
             }
 
-            data.forEach(item => {
+            json.data.forEach(item => {
                 const el = document.createElement('button');
                 el.type      = 'button';
                 el.className = 'list-group-item list-group-item-action small';
@@ -249,16 +237,16 @@ $pois       = $pdo->query("
             });
 
         } catch (e) {
-            Swal.fire('Gagal', 'Tidak bisa menghubungi Nominatim', 'error');
+            Swal.fire('Gagal', 'Tidak bisa menghubungi server', 'error');
         } finally {
             btn.innerHTML = '<i class="fa-solid fa-search me-1"></i> Cari';
             btn.disabled  = false;
         }
-    });
+    }
 
-    // Enter key buat search
+    document.getElementById('btnCariLokasi').addEventListener('click', cariLokasi);
     document.getElementById('searchNominatim').addEventListener('keydown', e => {
-        if (e.key === 'Enter') document.getElementById('btnCariLokasi').click();
+        if (e.key === 'Enter') cariLokasi();
     });
 
     // ── Pilih hasil Nominatim ────────────────────────────────
@@ -266,20 +254,15 @@ $pois       = $pdo->query("
         const lat = parseFloat(item.lat);
         const lng = parseFloat(item.lon);
 
-        document.getElementById('poiLat').value  = lat.toFixed(7);
-        document.getElementById('poiLng').value  = lng.toFixed(7);
+        document.getElementById('poiLat').value = lat.toFixed(7);
+        document.getElementById('poiLng').value = lng.toFixed(7);
         document.getElementById('hasilNominatim').style.display = 'none';
 
-        // Isi nama & alamat kalau kosong
-        if (!document.getElementById('poiName').value) {
-            const shortName = item.display_name.split(',')[0].trim();
-            document.getElementById('poiName').value = shortName;
-        }
-        if (!document.getElementById('poiAddress').value) {
+        if (!document.getElementById('poiName').value)
+            document.getElementById('poiName').value = item.display_name.split(',')[0].trim();
+        if (!document.getElementById('poiAddress').value)
             document.getElementById('poiAddress').value = item.display_name;
-        }
 
-        // Update mini map
         document.getElementById('mapPreviewWrap').style.display = '';
         if (miniMap) {
             miniMap.setView([lat, lng], 15);
@@ -295,9 +278,6 @@ $pois       = $pdo->query("
         const category = document.getElementById('poiCategory').value;
         const lat      = document.getElementById('poiLat').value;
         const lng      = document.getElementById('poiLng').value;
-        const address  = document.getElementById('poiAddress').value.trim();
-        const desc     = document.getElementById('poiDesc').value.trim();
-        const active   = document.getElementById('poiActive').checked ? 1 : 0;
 
         if (!name || !category || !lat || !lng) {
             Swal.fire('Oops!', 'Nama, kategori, dan lokasi wajib diisi', 'warning');
@@ -308,22 +288,30 @@ $pois       = $pdo->query("
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Menyimpan...';
         btn.disabled  = true;
 
+        const fd = new FormData();
+        fd.append('action',      'add');
+        fd.append('csrf_token',  CSRF);
+        fd.append('name',        name);
+        fd.append('category_id', category);
+        fd.append('latitude',    lat);
+        fd.append('longitude',   lng);
+        fd.append('address',     document.getElementById('poiAddress').value.trim());
+        fd.append('description', document.getElementById('poiDesc').value.trim());
+        fd.append('is_active',   document.getElementById('poiActive').checked ? 1 : 0);
+
         try {
-            const res  = await fetch(`${BASE}/api/map/api-admin-poi.php`, {
+            const res  = await fetch(API, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({ csrf_token: CSRF, name, category_id: category, latitude: lat, longitude: lng, address, description: desc, is_active: active })
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                body: fd
             });
             const data = await res.json();
 
             if (data.success) {
-                await Swal.fire('Berhasil!', 'Lokasi berhasil ditambahkan', 'success');
+                await Swal.fire('Berhasil!', data.message, 'success');
                 location.reload();
             } else {
-                Swal.fire('Gagal', data.error ?? 'Terjadi kesalahan', 'error');
+                Swal.fire('Gagal', data.message, 'error');
             }
         } catch (e) {
             Swal.fire('Error', 'Tidak bisa menghubungi server', 'error');
@@ -331,6 +319,32 @@ $pois       = $pdo->query("
             btn.innerHTML = '<i class="fa-solid fa-save me-1"></i> Simpan Lokasi';
             btn.disabled  = false;
         }
+    });
+
+    // ── Toggle status ────────────────────────────────────────
+    document.querySelectorAll('.btn-toggle-poi').forEach(btn => {
+        btn.addEventListener('click', async function () {
+            const id   = this.dataset.id;
+            const name = this.dataset.name;
+            const fd   = new FormData();
+            fd.append('action',     'toggle');
+            fd.append('csrf_token', CSRF);
+            fd.append('poi_id',     id);
+
+            const res  = await fetch(API, {
+                method: 'POST',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                body: fd
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: `${name} — status diubah`, showConfirmButton: false, timer: 2000 });
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                Swal.fire('Gagal', data.message, 'error');
+            }
+        });
     });
 
     // ── Hapus POI ────────────────────────────────────────────
@@ -348,24 +362,25 @@ $pois       = $pdo->query("
                 confirmButtonText: 'Ya, Hapus!',
                 cancelButtonText: 'Batal'
             });
-
             if (!conf.isConfirmed) return;
 
-            const res  = await fetch(`${BASE}/api/map/api-admin-poi.php`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({ csrf_token: CSRF, poi_id: id })
+            const fd = new FormData();
+            fd.append('action',     'delete');
+            fd.append('csrf_token', CSRF);
+            fd.append('poi_id',     id);
+
+            const res  = await fetch(API, {
+                method: 'POST',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                body: fd
             });
             const data = await res.json();
 
             if (data.success) {
-                await Swal.fire('Dihapus!', 'Lokasi berhasil dihapus', 'success');
+                await Swal.fire('Dihapus!', data.message, 'success');
                 location.reload();
             } else {
-                Swal.fire('Gagal', data.error ?? 'Terjadi kesalahan', 'error');
+                Swal.fire('Gagal', data.message, 'error');
             }
         });
     });

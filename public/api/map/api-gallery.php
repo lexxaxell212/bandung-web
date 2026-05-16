@@ -62,7 +62,7 @@ if ($method === 'GET') {
 
 // ── POST — Upload foto (login required) ──────────────────────
 if ($method === 'POST') {
-    if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['user'])) {
         http_response_code(401);
         echo json_encode(['error' => 'Login diperlukan untuk upload foto']);
         exit;
@@ -78,7 +78,7 @@ if ($method === 'POST') {
 
     $poi_id  = (int)($_POST['poi_id'] ?? 0);
     $caption = trim($_POST['caption'] ?? '');
-    $user_id = (int)$_SESSION['user_id'];
+    $user_id = (int)$_SESSION['user'];
 
     if (!$poi_id) {
         http_response_code(400);
@@ -166,7 +166,7 @@ if ($method === 'POST') {
 
 // ── DELETE — Hapus foto milik sendiri ────────────────────────
 if ($method === 'DELETE') {
-    if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['user'])) {
         http_response_code(401);
         echo json_encode(['error' => 'Login diperlukan']);
         exit;

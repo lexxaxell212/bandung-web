@@ -17,7 +17,8 @@ if ($method === 'GET') {
     try {
         if (isset($_GET['id'])) {
             $stmt = $pdo->prepare("
-                SELECT t.*,
+                SELECT t.id, t.title, t.start_point_name, t.start_lat, t.start_lng,
+                       t.total_distance, t.duration, t.route_polyline, t.created_at,
                        ti.id AS item_id, ti.poi_id, ti.order_index, ti.distance_from_prev,
                        p.name AS poi_name, p.latitude, p.longitude, p.address,
                        tn.id AS note_id, tn.note
@@ -44,10 +45,11 @@ if ($method === 'GET') {
                 'start_lat'        => $rows[0]['start_lat'],
                 'start_lng'        => $rows[0]['start_lng'],
                 'total_distance'   => $rows[0]['total_distance'],
+                'duration'         => $rows[0]['duration'],
+                'route_polyline'   => $rows[0]['route_polyline'],
                 'created_at'       => $rows[0]['created_at'],
                 'items'            => [],
             ];
-
             foreach ($rows as $row) {
                 if (!$row['item_id']) continue;
                 $trip['items'][] = [

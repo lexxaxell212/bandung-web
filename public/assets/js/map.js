@@ -263,6 +263,8 @@
         `).join('');
       } catch(e) {}
     }
+    
+    loadSavedTrips();
 
     window.loadTrip = async function(id) {
       const res  = await fetch(`${API_TRIP}?id=${id}`, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });

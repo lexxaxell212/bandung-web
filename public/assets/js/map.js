@@ -303,6 +303,14 @@
         const points = [[startPoint.lat, startPoint.lng], ...routes.map(r => [r.lat, r.lng])];
         updateRouteOnMap(points);
       }
+      if (trip.route_polyline) {
+        const polyline = JSON.parse(trip.route_polyline);
+        updateRouteOnMap(polyline);
+      } else if (routes.length) {
+        // fallback garis lurus kalau belum ada polyline tersimpan
+        const points = [[startPoint.lat, startPoint.lng], ...routes.map(r => [r.lat, r.lng])];
+        updateRouteOnMap(points);
+      }
       Swal.fire({ toast:true, position:'top-end', icon:'success', title:`Trip "${trip.title}" dimuat!`, showConfirmButton:false, timer:2000 });
     };
 
@@ -322,6 +330,7 @@
       fd.append('start_point_name', startPoint.name);
       fd.append('start_lat',        startPoint.lat);
       fd.append('start_lng',        startPoint.lng);
+      fd.append('route_polyline', routeLine ? JSON.stringify(routeLine.getLatLngs()) : '');
       fd.append('items',            JSON.stringify(routes.map((r,i) => ({
         poi_id: r.poi_id, order_index: i+1, distance_from_prev: r.distance_from_prev || 0, note: r.note
       }))));

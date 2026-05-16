@@ -106,10 +106,11 @@ validate_csrf();
 $action = $_POST['action'] ?? '';
 
 if ($action === 'save') {
-    $title      = trim($_POST['title'] ?? 'Trip Bandungku');
+    $title      = trim($_POST['title'] ?? 'Isi Nama Trip...');
     $start_name = trim($_POST['start_point_name'] ?? '');
     $start_lat  = (float)($_POST['start_lat'] ?? 0);
     $start_lng  = (float)($_POST['start_lng'] ?? 0);
+    $route_polyline = $_POST['route_polyline'] ?? null;
     $items      = json_decode($_POST['items'] ?? '[]', true) ?: [];
 
     if (!$start_name || !$start_lat || !$start_lng) {
@@ -124,10 +125,12 @@ if ($action === 'save') {
         $total_dist = array_sum(array_column($items, 'distance_from_prev'));
 
         $stmt = $pdo->prepare("
-            INSERT INTO trips (user_id, title, start_point_name, start_lat, start_lng, total_distance)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO trips (user_id, title, start_point_name, start_lat,
+            start_lng, total_distance, route_polyline)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         ");
-        $stmt->execute([$user_id, $title, $start_name, $start_lat, $start_lng, $total_dist ?: null]);
+        $stmt->execute([$user_id, $title, $start_name, $start_lat, $start_lng,
+        $total_dist ?: null], $route_polyline ?: null);
         $trip_id = $pdo->lastInsertId();
 
         if (!empty($items)) {

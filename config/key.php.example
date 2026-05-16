@@ -21,6 +21,9 @@ define('GROQ_API', '');
 // Openweather api
 define('WEATHER_API_KEY', '');
 
+// Open Route Service ( ORS )
+define('ORS_API_KEY', '');
+
 // Consent
 define('G_TAG_ID', '');
 define('FB_PIXEL_ID', '');

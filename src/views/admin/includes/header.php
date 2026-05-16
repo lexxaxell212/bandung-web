@@ -42,6 +42,12 @@ $current = preg_replace('#^admin/?#', '', $request_path);
 
   <script src="<?= JS_URL ?>bs533.bundle.min.js" defer></script>
   <script src="<?= JS_URL ?>navbar.js" defer></script>
+  <script>
+    const CONFIG = {
+        baseUrl: '<?= BASE_URL ?>',
+        csrfToken: '<?= generate_csrf_token() ?>',
+    };
+  </script>
 </head>
 <body>
 <nav class="navbar">

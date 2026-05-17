@@ -122,8 +122,9 @@ h6 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.6rem;
+  padding: 0.8rem 1.2rem;
   border-radius: var(--radius) !important;
+  border: none !important;
   font-size: 0.9rem;
   font-weight: 700;
   line-height: 1.2;

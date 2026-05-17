@@ -117,13 +117,6 @@ h6 {
   color: #fff;
   transform:translateY(-2px)
 }
-@media (max-width: 576px) {
-  .btn {
-    padding: var(--space-1) var(--space-2) !important;
-    font-size: 0.9rem !important;
-    min-height: 40px !important;
-  }
-}
 .btn {
   display: inline-flex;
   align-items: center;
@@ -179,7 +172,7 @@ h6 {
   box-shadow: var(--glass-shadow);
   border: var(--glass-border);
 }
-.btn-primary:hover {
+.btn-primary:hover, .btn-primary:active {
   background: #7E3AF2;
   color: #fff;
   transform: translateY(-2px);
@@ -190,7 +183,7 @@ h6 {
   box-shadow: var(--glass-shadow);
   color: #fff;
 }
-.btn-accent:hover {
+.btn-accent:hover, .btn-accent:active {
   background: #f97316;
   color: #fff;
   transform: translateY(-2px);

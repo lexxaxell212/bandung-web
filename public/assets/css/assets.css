@@ -20,14 +20,14 @@
   --glass-bg-active: rgba(255,255,255,0.65);
   --glass-backdrop: rgba(255, 255, 255, 0.15);
   --glass-blur: blur(20px);
-  --glass-border: 1px solid rgba(255,255,255,0.65);
-  --glass-shadow: 0 8px 32px rgba(31,60,120,0.10);
+  --glass-border: 1px solid rgba(127,127,127,0.1);
+  --glass-shadow: 0 8px 32px rgba(120,60,120,0.10);
   
   /* body bg */
   --bg-html: #fff;
   --misty-soft: 
-  radial-gradient(circle at 20% 80%, rgba(230, 246, 255, 0.4) 0%, transparent 50%),
-  radial-gradient(circle at 80% 20%, rgba(236, 254, 255, 0.3) 0%, transparent 50%),
+  radial-gradient(circle at 20% 80%, rgba(230, 220, 255, 0.4) 0%, transparent 50%),
+  radial-gradient(circle at 80% 20%, rgba(236, 220, 255, 0.3) 0%, transparent 50%),
   linear-gradient(135deg, #fafafa 0%, #F6F5FF 50%, #fbfbfb 100%);
 
   /* background block / element */
@@ -99,7 +99,7 @@
   --glass-bg-active: #1F2937;
   --glass-backdrop: none !important;
   --glass-blur: none !important;
-  --glass-border: 1px solid rgba(50,50,50,0.75);
+  --glass-border: 1px solid rgba(0,0,0,0.1);
   --glass-shadow: none !important;
   
   /* body bg */

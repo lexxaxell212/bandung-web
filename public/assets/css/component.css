@@ -122,12 +122,11 @@ h6 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.2rem;
+  padding: 0.75rem 1.5rem !important;
   border-radius: var(--radius) !important;
   border: none !important;
   font-size: 0.9rem;
   font-weight: 700;
-  line-height: 1.2;
   text-decoration: none;
   text-align: center;
   cursor: pointer;
@@ -170,8 +169,9 @@ h6 {
   color: #fff;
   font-weight: 700;
   text-transform: uppercase;
-  box-shadow: var(--glass-shadow);
-  border: var(--glass-border);
+  border: none !important;
+  border-radius: var(--radius);
+  transition: 0.3s;
 }
 .btn-primary:hover, .btn-primary:active {
   background: #7E3AF2;
@@ -180,9 +180,12 @@ h6 {
 }
 .btn-accent {
   background: #ea580c;
-  border-color: var(--glass-border);
-  box-shadow: var(--glass-shadow);
   color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: none !important;
+  border-radius: var(--radius);
+  transition: 0.3s;
 }
 .btn-accent:hover, .btn-accent:active {
   background: #f97316;

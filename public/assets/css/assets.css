@@ -240,6 +240,7 @@ body::before {
 .btn-gradient-blue:hover {
     transform: translateY(-2px);
     box-shadow: var(--glass-shadow);
+    color: #fff;
 }
 [data-dark] .hero-overlay {
     background: linear-gradient(90deg, rgba(15, 23, 42, 0.7) 0%, rgba(15, 23, 42, 0.3) 100%);

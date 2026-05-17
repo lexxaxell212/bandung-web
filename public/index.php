@@ -15,6 +15,12 @@ record_pageview($pdo);
 require_once ROOT_PATH . "maintenance.php";
 // Router
 require_once PUBLIC_PATH . "router.php";
+// Session expired check untuk protected routes
+$protected_routes = ['pages/profile'];
+if (in_array($uri, $protected_routes) && !isset($_SESSION['user'])) {
+    header('Location: /api/auth/google.php');
+    exit;
+}
 ////// =============================== //////
 $page_title = $page_title ?? SITE_NAME;
 if (isset($view_content) && file_exists ($view_content)) {

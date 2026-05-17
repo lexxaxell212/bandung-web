@@ -17,7 +17,7 @@
 .nav-desktop-link,
 .nav-dd-panel,
 .dropdown-menu {
-  transition: background-color 0.3s ease, 
+  transition: background 0.3s ease, 
               color 0.3s ease, 
               border-color 0.3s ease;
 }
@@ -66,7 +66,7 @@ h6 {
   background: linear-gradient(
     155deg,
     #1d4ed8 0%,
-    #5521B5 100%,
+    #5521B5 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -130,7 +130,6 @@ h6 {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.8rem 1.6rem;
-  border: var(--glass-border);
   border-radius: var(--radius) !important;
   font-size: 0.9rem;
   font-weight: 700;
@@ -263,7 +262,7 @@ h6 {
   border-color: var(--glass-border) !important;
 }
 .card-body {
-  padding: 12px 8px !important;
+  padding: 12px!important;
 }
 .card-body h4 {
   margin-top: 12px !important;
